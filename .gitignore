@@ -1,0 +1,8 @@
+# dont commit dependencies
+node_modules/
+
+# dont commit private files
+cbotconfig.json
+
+# dont commit testing files
+test.*
