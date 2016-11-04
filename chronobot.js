@@ -3,6 +3,7 @@ var idolgame = require("./idolbot.js");
 var request = require('request');
 var jsonfile = require('jsonfile');
 var configfile = './cbotconfig.json';
+var idlemaster = require("./idlemas.js");
 
 var configs = jsonfile.readFileSync(configfile);
 
@@ -13,11 +14,12 @@ var timeouts = {};
 var bot = new Discord.Client();
 
 bot.on("message", msg => {
-    if(msg.author == bot.user){
+    if(msg.author.bot){
         return;
     }
     let prefix = "!";
     // if(msg.content != "!thisisatest") return;
+    idlemaster.addUser(msg.author);
     if (!msg.content.startsWith(prefix)) return;
     var command = msg.content.substr(1);
     if (command.startsWith("idolhell")) {
@@ -30,6 +32,9 @@ bot.on("message", msg => {
         idolgame.idolhell(msg);
         timeouts.idolhell = Date.now();
     }
+    if (command.startsWith("score")) {
+        idlemaster.getScore(msg);
+    }
 });
 
 bot.on('ready', () => {
@@ -37,3 +42,5 @@ bot.on('ready', () => {
 });
 
 bot.login(configs.discordkey);
+
+setInterval(idlemaster.updateIdle, idlemaster.CHECKINTERVAL);
