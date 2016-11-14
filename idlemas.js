@@ -1,4 +1,5 @@
 var exports = module.exports = {};
+var request = require('request');
 
 // map of (users, timeleft)
 var idlemap = new Map();
