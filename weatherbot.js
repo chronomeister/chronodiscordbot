@@ -1,72 +1,104 @@
 var exports = module.exports = {};
 var request = require('request');
 var sq3 = require('sqlite3');
+var jsonfile = require('jsonfile');
+var configfile = './cbotconfig.json';
 var db = new sq3.Database('./chronodb');
 
-db.run("CREATE TABLE IF NOT EXISTS weatherusers(disid INT, location TEXT, usemetric BOOLEAN DEFAULT TRUE, disploc BOOLEAN DEFAULT TRUE)");
+var switchcmds = ["useMetric"];
+
+db.run("CREATE TABLE IF NOT EXISTS weatherusers(disid INT PRIMARY KEY, loc_coord TEXT, usemetric BOOLEAN);");
 db.run("CREATE TABLE IF NOT EXISTS weathertxttoemoji(wutxt TEXT, disemoji TEXT);");
+
+// db.run("DELETE FROM weatherusers");
+
+
+var configs = jsonfile.readFileSync(configfile);
 
 exports.getWeather = function(msg, params) {
     var cmd = params.shift();
-    var useImp = (cmd === "I");
-    cmd = useImp ? params.shift() : cmd;
-    var disid;
-    console.dir(msg.author);
-    db.get("SELECT disid FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row){disid = row ? row.disid : undefined;});
-    if (cmd && disid) { // parameters and user present
-        switch (cmd) {
-            case "register":
-                // if not add/update
-                db.run("INSERT OR REPLACE INTO weatherusers(disid, location) VALUES (?,?)", [disid, params.join(" ")]);
-                msg.channel.sendMessage("Your location is now registered to " + params.join(" "));
-                // check if valid location??
-                break;
-            case "useMetric":
-                if (disid) {
-                    db.run("UPDATE weatherusers SET usemetric = !usemetric WHERE disid =?", [disid]);
-                    db.get("SELECT usemetric FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
-                        msg.channel.sendMessage("You are now using " + (row.useMetric ? "Metric" : "Imperial"));
-                    });
-                }
-                // change metric
-                break;
-            case "dispLoc":
-                if (disid) {
-                    db.run("UPDATE weatherusers SET disploc = !disploc WHERE disid =?", [disid]);
-                    db.get("SELECT disploc FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
-                        msg.channel.sendMessage("I will now " + (row.disploc ? "start" : "stop") + " showing your location on weather requests.");
-                    });
-                }
-                // change metric
-                break;
-            default:
-                msg.channel.sendMessage("Could not find user/command. Please either check the command or register");
-                // get weather
-        }
-    } else if (disid) { // bare word. check if user present, if not return.
-        var loc, disp;
-        db.get("SELECT location, disploc FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row){
-            loc = row ? row.location : undefined;
-            disp = row ? row.disploc : undefined;
-        });
-        msg.channel.sendMessage("Getting weather for: you");
-        var wuurl = "http://api.wunderground.com/api/6a53a8043eb7b05b/geolookup/conditions/forecast/q/61081.json"
-
-        request(wuurl, function (error, response, html) {
-            if (!error && response.statusCode == 200) {
-                var curweath = JSON.parse(response.body);
-                printWeather(msg, curweath);
-                console.dir(curweath);
-                // msg.channel.sendMessage(dbhost + idol.file_url);
+    // console.dir(msg.author.id);
+    db.get("SELECT disid FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row){
+        var disid = row ? row.disid : undefined;
+        // console.dir(disid);
+        if (cmd && (cmd === "register" || (disid && switchcmds.includes(cmd)) )) { // parameters and user present. Only do if parameter is not a city
+            switch (cmd) {
+                case "register":
+                    // if not add/update
+                    if (params[0]) {
+                        var wuurl = "http://api.wunderground.com/api/" + configs.wukey + "/geolookup/q/" + params.join("_") + ".json";
+                        request(wuurl, function (error, response, html) {
+                            if (!error && response.statusCode == 200) {
+                                var wuloc = JSON.parse(response.body);
+                                if (wuloc.response.error) {msg.channel.sendMessage(wuloc.response.error.type === 'querynotfound' ? "Error: couldn't find city location. Please type a valid location." : "Error locking in your location; try again in one minute"); console.dir(wuloc);return;}
+                                db.run("INSERT OR REPLACE INTO weatherusers(disid, loc_coord, usemetric) VALUES (?,?,?)", [msg.author.id, wuloc.location.lat + "," + wuloc.location.lon, (wuloc.location.country === "US" ? 0 : 1)]);
+                                msg.channel.sendMessage("Your location is now registered to " + params.join(" "));
+                            }
+                        });
+                    } else {
+                        msg.channel.sendMessage("Please specify a location");
+                    }
+                    // check if valid location??
+                    break;
+                case "useMetric":
+                    if (disid) {
+                        db.run("UPDATE weatherusers SET usemetric = NOT usemetric WHERE disid = ?", [disid]);
+                        db.get("SELECT usemetric FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
+                            msg.channel.sendMessage("You are now using " + (row.useMetric == 1 ? "Metric" : "Imperial"));
+                        });
+                    }
+                    // change metric
+                    break;
+                case "dispLoc":
+                    if (disid) {
+                        db.run("UPDATE weatherusers SET disploc = NOT disploc WHERE disid = ?", [disid]);
+                        db.get("SELECT disploc FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
+                            // console.dir(row.disploc);
+                            msg.channel.sendMessage("I will now " + (row.disploc ? "start" : "stop") + " showing your location on weather requests.");
+                        });
+                    }
+                    else {
+                        params.unshift(cmd);
+                        msg.channel.sendMessage("Your location is now registered to " + params.join(" "));
+                    }
+                    break;
+                default:
             }
-        });
-    } else { // tell he is not present
-        var loc;
-        db.get("SELECT location FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row){disid = row.disid;});
-    }
+        } else if (cmd && !switchcmds.includes(cmd)) { // city present
+            var wobj = {};
+            params.unshift(cmd);
+            wobj.location = params.join("_");
+            // if wobj.metric is undef, base it off country.
+            callWeather(msg, wobj);
+        } else if (disid) { // bare word. check if user present, if not return.
+            db.get("SELECT loc_coord, usemetric FROM weatherusers WHERE disid = ?", [disid], function(err, row){
+                var wobj = {};
+                wobj.location = row.loc_coord;
+                wobj.metric = row.usemetric;
+                callWeather(msg, wobj);
+            });
+        } else { // tell he is not present
+            msg.channel.sendMessage("Could not find your location. Please register your location or input a location.");
+        }
+    });
 }
 
-function printWeather(msg, weaobj) {
-
-    msg.channel.sendMessage("The weather for " + curweath.current_observation.display_location.full + " is:");
+function callWeather(msg, wobj) {
+    var wuurl = "http://api.wunderground.com/api/" + configs.wukey + "/conditions/forecast/q/" + wobj.location + ".json";
+    // console.log(wuurl);
+    request(wuurl, function (error, response, html) {
+        if (!error && response.statusCode == 200) {
+            var curweath = JSON.parse(response.body);
+            // console.dir(wobj);
+            if (curweath.response.error) {msg.channel.sendMessage("Error getting weather; try again in one minute"); console.dir(curweath);return;}
+            var isUS = (typeof wobj.metric !== "undefined") ? !wobj.metric : ((curweath.current_observation.display_location.country === "US") ? true : false);
+            // console.dir(isUS ? "IMP" : "METRIC");
+            var temp = isUS ? curweath.current_observation.temp_f + "F (" + curweath.current_observation.temp_c + "C)" : curweath.current_observation.temp_c + "C (" + curweath.current_observation.temp_f + "F)";
+            var wind = isUS ? curweath.current_observation.wind_mph + "mph (" + curweath.current_observation.wind_kph + "kph": curweath.current_observation.wind_kph + "kph (" + curweath.current_observation.wind_mph + "mph";
+            var location = (typeof wobj.metric === "undefined") ? curweath.current_observation.display_location.full : msg.author; //just checking if user exists or not
+            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + ")");
+            msg.channel.sendMessage(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric));
+            // msg.channel.sendMessage(dbhost + idol.file_url);
+        }
+    });
 }
