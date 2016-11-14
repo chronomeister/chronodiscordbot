@@ -3,6 +3,12 @@ This is chrono's bot. There are many like it but this one is chrono's.
 
 whatev's just throwing it here.
 
-TODO:  
+#Dep:
+npm install discord.js
+npm install jsonfile
+npm install sqlite3
+npm install request
+
+#TODO:  
 timeout.  
 search... where?
