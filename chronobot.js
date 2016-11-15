@@ -5,6 +5,7 @@ var configfile = './cbotconfig.json';
 // var idlemaster = require("./idlemas.js");
 var weather = require("./weatherbot.js");
 var br = require("./br.js");
+var cx = require("./cx.js");
 
 var bot = new Discord.Client();
 
@@ -18,8 +19,9 @@ var prefix = "!";
 var commands = new Map([
     ["help", "Yo, I heard you like help so I got you a help in your help so I can help you help."],
     ["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
-    ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
-    ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"]
+    ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\n\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. Be aware your location will be stored in a local database the maintainer can read. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\n\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
+    ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
+    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency."]
 ]);
 
 bot.on("message", msg => {
@@ -68,6 +70,11 @@ bot.on("message", msg => {
     }
     else if (command === "bobross") {
         br.bobross(msg);
+    }
+    else if (command === "cx") {
+        var cxparams = params.join("").replace(/(\/|\\|=[Xx])/g,"");
+        if (cxparams.length != 6){msg.channel.sendMessage("Invalid format. Please express conversion as six character format. eg: USDJPY"); return;}
+        cx.currencyexchange(msg, cxparams);
     }
 });
 
