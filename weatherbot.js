@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 var request = require('request');
 var sq3 = require('sqlite3');
-var jsonfile = require('jsonfile');
+// var jsonfile = require('jsonfile');
 var configs = require('./cbotconfig.json');
 // var configs = jsonfile.readFileSync(configfile);
 var db = new sq3.Database('./chronodb');

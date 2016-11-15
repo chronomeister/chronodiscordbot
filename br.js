@@ -1,5 +1,5 @@
 var exports = module.exports = {};
-var jsonfile = require('jsonfile');
+// var jsonfile = require('jsonfile');
 var quotes = require('./br.json');
 
 // var quotes = jsonfile.readFileSync(quotefile);

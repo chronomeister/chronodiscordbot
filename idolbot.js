@@ -1,5 +1,5 @@
 var exports = module.exports = {};
-var jsonfile = require('jsonfile');
+// var jsonfile = require('jsonfile');
 var configs = require('./cbotconfig.json');
 // var configs = jsonfile.readFileSync(configfile);
 var request = require('request');
