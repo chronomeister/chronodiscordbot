@@ -4,6 +4,7 @@ var jsonfile = require('jsonfile');
 var configfile = './cbotconfig.json';
 // var idlemaster = require("./idlemas.js");
 var weather = require("./weatherbot.js");
+var br = require("./br.js");
 
 var bot = new Discord.Client();
 
@@ -15,9 +16,10 @@ var timeouts = {};
 
 var prefix = "!";
 var commands = new Map([
-    ["help", "Displays help for a command. eg \"!help command\""],
+    ["help", "Yo, I heard you like help so I got you a help in your help so I can help you help."],
     ["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
-    ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"] //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
+    ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
+    ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"]
 ]);
 
 bot.on("message", msg => {
@@ -38,7 +40,8 @@ bot.on("message", msg => {
                 // var iter = commands.keys();
                 for(let key of commands.keys()) {cmds.push(prefix + key)};
                 // console.dir(cmds);
-                msg.channel.sendMessage("Current commands are: " + cmds.join(", "));
+                msg.channel.sendMessage("Current commands are: \n" + cmds.join("\n") + "\n");
+                msg.channel.sendMessage("For more help on a specific command type: '" + prefix + "help *command*'");
             } else {
                 msg.channel.sendMessage("Command not found.");
             }
@@ -62,6 +65,9 @@ bot.on("message", msg => {
     // }
     else if (command === "weather") {
         weather.getWeather(msg, params);
+    }
+    else if (command === "bobross") {
+        br.bobross(msg);
     }
 });
 
