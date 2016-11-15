@@ -13,4 +13,6 @@ npm install request
 timeout.  
 search... where?
 Slap
-Event image spam
+Event image spam  
+
+Look into package.json and pm2
