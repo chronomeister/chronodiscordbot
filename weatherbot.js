@@ -2,7 +2,8 @@ var exports = module.exports = {};
 var request = require('request');
 var sq3 = require('sqlite3');
 var jsonfile = require('jsonfile');
-var configfile = './cbotconfig.json';
+var configs = require('./cbotconfig.json');
+// var configs = jsonfile.readFileSync(configfile);
 var db = new sq3.Database('./chronodb');
 
 var switchcmds = ["useMetric"];
@@ -13,7 +14,6 @@ db.run("CREATE TABLE IF NOT EXISTS weathertxttoemoji(wutxt TEXT, disemoji TEXT);
 // db.run("DELETE FROM weatherusers");
 
 
-var configs = jsonfile.readFileSync(configfile);
 
 exports.getWeather = function(msg, params) {
     var cmd = params.shift();
