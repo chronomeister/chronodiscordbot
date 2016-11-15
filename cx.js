@@ -16,7 +16,7 @@ exports.currencyexchange = function(msg, cx) {
                 msg.channel.sendMessage("Current " + from + " to " + to + " rate is: " + cxrate.rate);
             }
         } else if (!error && response.statusCode == 500) {
-            msg.channel.sendMessage("Invalid country code(s)");
+            msg.channel.sendMessage("Internal server error. Try again later.");
         }
     });
 }
