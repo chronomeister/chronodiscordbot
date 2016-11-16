@@ -1,12 +1,12 @@
 var exports = module.exports = {};
-var jsonfile = require('jsonfile');
-var configfile = './cbotconfig.json';
+// var jsonfile = require('jsonfile');
+var configs = require('./cbotconfig.json');
+// var configs = jsonfile.readFileSync(configfile);
 var request = require('request');
+var idolarys = require('./idols.json');
 
-var configs = jsonfile.readFileSync(configfile);
 
 exports.idolhell = function(msg) {
-    var idolarys = jsonfile.readFileSync('./idols.json');
     var hansolo = 0;
     idolarys.forEach(function(ary){
        hansolo = hansolo + Math.log(ary.length);

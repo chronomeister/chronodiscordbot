@@ -1,7 +1,8 @@
 var Discord = require("discord.js");
 var idolgame = require("./idolbot.js");
-var jsonfile = require('jsonfile');
-var configfile = './cbotconfig.json';
+// var jsonfile = require('jsonfile');
+// var configfile = './cbotconfig.json';
+var configs = require('./cbotconfig.json');
 // var idlemaster = require("./idlemas.js");
 var weather = require("./weatherbot.js");
 var br = require("./br.js");
@@ -9,7 +10,7 @@ var cx = require("./cx.js");
 
 var bot = new Discord.Client();
 
-var configs = jsonfile.readFileSync(configfile);
+// var configs = jsonfile.readFileSync(configfile);
 
 const TIMEOUT = 2 * 1000;
 
