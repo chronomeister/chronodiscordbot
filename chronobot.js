@@ -29,7 +29,8 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    // console.dir(msg);
+    console.dir(msg);
+    msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     if (!msg.content.startsWith(prefix)) return;
     var params = msg.content.substr(1).split(' ');

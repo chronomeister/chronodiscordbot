@@ -11,10 +11,11 @@ npm install request
 
 # TODO:  
 timeout.  
-search... where?  
 Slap  
+8ball  
 Event image spam  
-redo functions to have their own file and just a callback to execute.
+search... where?  
+redo functions to have their own file and just a callback to execute.  
 
 
 Look into package.json and pm2
