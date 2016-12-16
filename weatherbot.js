@@ -9,7 +9,7 @@ var db = new sq3.Database('./chronodb');
 var switchcmds = ["useMetric"];
 
 db.run("CREATE TABLE IF NOT EXISTS weatherusers(disid INT PRIMARY KEY, loc_coord TEXT, usemetric BOOLEAN);");
-db.run("CREATE TABLE IF NOT EXISTS weathertxttoemoji(wutxt TEXT, disemoji TEXT);");
+// db.run("CREATE TABLE IF NOT EXISTS weathertxttoemoji(wutxt TEXT, disemoji TEXT);");
 
 // db.run("DELETE FROM weatherusers");
 
@@ -96,8 +96,8 @@ function callWeather(msg, wobj) {
             var temp = isUS ? curweath.current_observation.temp_f + "F (" + curweath.current_observation.temp_c + "C)" : curweath.current_observation.temp_c + "C (" + curweath.current_observation.temp_f + "F)";
             var wind = isUS ? curweath.current_observation.wind_mph + "mph (" + curweath.current_observation.wind_kph + "kph": curweath.current_observation.wind_kph + "kph (" + curweath.current_observation.wind_mph + "mph";
             var location = (typeof wobj.metric === "undefined") ? curweath.current_observation.display_location.full : msg.author; //just checking if user exists or not
-            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + ")");
-            msg.channel.sendMessage(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric));
+            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + ").");
+            msg.channel.sendMessage(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric) + " " + curweath.forecast.txt_forecast.forecastday[0].pop + "% chance of precipitation.");
             // msg.channel.sendMessage(dbhost + idol.file_url);
         }
     });

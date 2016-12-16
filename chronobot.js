@@ -7,6 +7,7 @@ var configs = require('./cbotconfig.json');
 var weather = require("./weatherbot.js");
 var br = require("./br.js");
 var cx = require("./cx.js");
+var yt = require("./youtube.js");
 
 var bot = new Discord.Client();
 
@@ -22,7 +23,8 @@ var commands = new Map([
     ["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
     ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\n\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. Be aware your location will be stored in a local database the maintainer can read. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\n\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
     ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
-    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency."]
+    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency."],
+    ["yt","Simple search of youtube. Returns top result."]
 ]);
 
 bot.on("message", msg => {
@@ -30,6 +32,7 @@ bot.on("message", msg => {
         return;
     }
     // console.dir(msg);
+    // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     if (!msg.content.startsWith(prefix)) return;
     var params = msg.content.substr(1).split(' ');
@@ -54,14 +57,10 @@ bot.on("message", msg => {
     }
     else if (command === "idolhell") {
 
-        var lastrun = timeouts.idolhell || 0;
-        if (Date.now() - TIMEOUT < lastrun) {return;}
-        // command.substr(9);
         if (command.trim().length > 9) {
             msg.channel.sendMessage(msg.author + ", your " + params.join(" ") + " idol is:");
         }
         idolgame.idolhell(msg);
-        timeouts.idolhell = Date.now();
     }
     // else if (command.startsWith("score")) {
     //     idlemaster.getScore(msg);
@@ -77,6 +76,10 @@ bot.on("message", msg => {
         if (cxparams.length != 6){msg.channel.sendMessage("Invalid format. Please express conversion as six character format. eg: USDJPY"); return;}
         cx.currencyexchange(msg, cxparams);
     }
+    else if (command === "youtube") {
+        yt.youtube(msg, params);
+    }
+
 });
 
 bot.on('ready', () => {
