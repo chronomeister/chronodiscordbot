@@ -12,6 +12,7 @@ exports.youtube = function(msg, qary) {
     // qary.push('諸星きらり');
     parammap.set('q', qary.join('+'));
     parammap.set('regionCode', 'jp');
+    parammap.set('type', 'video');
 
     var params = "";
     var first = true;
@@ -26,9 +27,10 @@ exports.youtube = function(msg, qary) {
     yturl = ythost + ytendpoint + "?" + params;
 
     request(yturl, function (error, response, html) {
-        // console.dir(response.body);
+
         if (!error && response.statusCode == 200) {
             var ytsearch = JSON.parse(response.body);
+            // console.dir(ytsearch.items[0]);
             msg.channel.sendMessage('https://youtu.be/' + ytsearch.items[0].id.videoId);
         }
     });
