@@ -1,3 +1,21 @@
+const inclist = require('./testinc.json');
+const loader = require('fs');
+var jsonfile = require('jsonfile');
+
+var objlist = {  "test" : "test"};
+
+inclist.forEach(function(el) {
+    var a = jsonfile.readFileSync(`./${el}`);
+    console.log(JSON.parse(a));
+    // objlist[b.name] = b;
+})
+
+// console.dir(objlist["idols"].desc);
+
+// objlist["idols"].process();
+
+///////////////////////////////////
+
 const name = "idols";
 const desc = "idolhell game";
 
