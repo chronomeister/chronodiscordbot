@@ -2,7 +2,7 @@ var exports = module.exports = {};
 function discordFunction() {
     this.name = "<noname>";
     this.desc = "<nodesc>";
-}
+};
 
 discordFunction.prototype.process = function () {
     console.log("Hello World!");
