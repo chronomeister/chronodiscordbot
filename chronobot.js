@@ -58,8 +58,7 @@ bot.on("message", msg => {
         }
     }
     else if (command === "idolhell") {
-
-        if (command.trim().length > 9) {
+        if (params.length > 0) {
             msg.channel.sendMessage(msg.author + ", your " + params.join(" ") + " idol is:");
         }
         idolgame.idolhell(msg);
