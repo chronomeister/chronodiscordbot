@@ -85,7 +85,7 @@ bot.on("message", msg => {
         eight.eightball(msg);
     }
     else if (command == "isp") {
-        msg.channel.sendMessage("https://s3.amazonaws.com/chrdatadmp/13+blame+your+isp.mp3");
+        msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
     }
 });
 
