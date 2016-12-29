@@ -26,7 +26,8 @@ var commands = new Map([
     ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
     ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency."],
     ["youtube","Simple search of youtube. Returns top result."],
-    ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."]
+    ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
+    ["isp", "Need someone to blame? Blame your ISP."]
 ]);
 
 bot.on("message", msg => {
