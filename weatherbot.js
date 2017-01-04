@@ -89,14 +89,15 @@ function callWeather(msg, wobj) {
     request(wuurl, function (error, response, html) {
         if (!error && response.statusCode == 200) {
             var curweath = JSON.parse(response.body);
-            // console.dir(wobj);
+            // console.dir(curweath.forecast);
             if (curweath.response.error) {msg.channel.sendMessage("Error getting weather; try again in one minute"); console.dir(curweath);return;}
             var isUS = (typeof wobj.metric !== "undefined") ? !wobj.metric : ((curweath.current_observation.display_location.country === "US") ? true : false);
             // console.dir(isUS ? "IMP" : "METRIC");
             var temp = isUS ? curweath.current_observation.temp_f + "F (" + curweath.current_observation.temp_c + "C)" : curweath.current_observation.temp_c + "C (" + curweath.current_observation.temp_f + "F)";
             var wind = isUS ? curweath.current_observation.wind_mph + "mph (" + curweath.current_observation.wind_kph + "kph": curweath.current_observation.wind_kph + "kph (" + curweath.current_observation.wind_mph + "mph";
+            var feels = isUS ? curweath.current_observation.feelslike_f + "F (" + curweath.current_observation.feelslike_c + "C)": curweath.current_observation.feelslike_c + "C (" + curweath.current_observation.feelslike_f + "F)";
             var location = (typeof wobj.metric === "undefined") ? curweath.current_observation.display_location.full : msg.author; //just checking if user exists or not
-            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + ").");
+            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + "). Feels like " + feels);
             msg.channel.sendMessage(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric) + " " + curweath.forecast.txt_forecast.forecastday[0].pop + "% chance of precipitation.");
             // msg.channel.sendMessage(dbhost + idol.file_url);
         }
