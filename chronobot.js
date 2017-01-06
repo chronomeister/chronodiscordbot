@@ -24,7 +24,7 @@ var commands = new Map([
     ["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
     ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\n\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. Be aware your location will be stored in a local database the maintainer can read. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\n\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
     ["bobross","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
-    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency."],
+    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency. You may give a number of the first currency to get the value of the second currency."],
     ["youtube OR yt","Simple search of youtube. Returns top result."],
     ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
     ["isp", "Need someone to blame? Blame your ISP."]
@@ -74,9 +74,7 @@ bot.on("message", msg => {
         br.bobross(msg);
     }
     else if (command === "cx") {
-        var cxparams = params.join("").replace(/(\/|\\|=[Xx])/g,"");
-        if (cxparams.length != 6){msg.channel.sendMessage("Invalid format. Please express conversion as six character format. eg: USDJPY"); return;}
-        cx.currencyexchange(msg, cxparams);
+        cx.currencyexchange(msg, params);
     }
     else if (command === "youtube" || command === "yt") {
         yt.youtube(msg, params);
