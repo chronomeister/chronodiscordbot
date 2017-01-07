@@ -9,6 +9,7 @@ var br = require("./br.js");
 var cx = require("./cx.js");
 var yt = require("./youtube.js");
 var eight = require("./8ball.js");
+var choose = require("./choose.js");
 
 var bot = new Discord.Client();
 
@@ -27,6 +28,7 @@ var commands = new Map([
     ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency. You may give a number of the first currency to get the value of the second currency."],
     ["youtube OR yt","Simple search of youtube. Returns top result."],
     ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
+    ["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
     ["isp", "Need someone to blame? Blame your ISP."]
 ]);
 
@@ -81,6 +83,9 @@ bot.on("message", msg => {
     }
     else if (command === "8ball") {
         eight.eightball(msg);
+    }
+    else if (command === "choose") {
+        choose.choice(msg, params);
     }
     else if (command == "isp") {
         msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
