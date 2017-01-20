@@ -91,7 +91,7 @@ bot.on("message", msg => {
     else if (command == "isp") {
         msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
     }
-    else if (command == "rank") {
+    else if (command == "tier") {
         irankpic.pic(msg);
     }
 });
