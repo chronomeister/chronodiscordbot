@@ -10,6 +10,7 @@ var cx = require("./cx.js");
 var yt = require("./youtube.js");
 var eight = require("./8ball.js");
 var choose = require("./choose.js");
+var irankpic =  require("./irankpic.js");
 
 var bot = new Discord.Client();
 
@@ -89,6 +90,9 @@ bot.on("message", msg => {
     }
     else if (command == "isp") {
         msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
+    }
+    else if (command == "rank") {
+        irankpic.pic(msg);
     }
 });
 
