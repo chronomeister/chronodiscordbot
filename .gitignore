@@ -7,7 +7,6 @@ cbotconfig.json
 # dont commit testing files
 test.*
 chronodb
-*.png
 test2.js
 testinc.js
 testinc.json
