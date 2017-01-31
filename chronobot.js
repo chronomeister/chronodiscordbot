@@ -11,7 +11,7 @@ var yt = require("./youtube.js");
 var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
-
+var embed = require("./embed.js");
 var bot = new Discord.Client();
 
 // var configs = jsonfile.readFileSync(configfile);
@@ -93,6 +93,9 @@ bot.on("message", msg => {
     }
     else if (command == "tier") {
         irankpic.pic(msg);
+    }
+    else if (command == "test") {
+        embed.test(msg);
     }
 });
 
