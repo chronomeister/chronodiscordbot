@@ -11,7 +11,7 @@ var yt = require("./youtube.js");
 var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
-var embed = require("./embed.js");
+// var embed = require("./embed.js");
 var bot = new Discord.Client();
 
 // https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-01-31&endDate=2017-01-31&expand=schedule.teams,schedule.linescore,schedule.broadcasts.all,schedule.ticket,schedule.game.content.media.epg,schedule.radioBroadcasts,schedule.decisions,schedule.scoringplays,schedule.game.content.highlights.scoreboard,team.leaders,schedule.game.seriesSummary,seriesSummary.series&leaderCategories=points,goals,assists&leaderGameTypes=R&site=en_nhl&teamId=&gameType=&timecode=
@@ -94,9 +94,9 @@ bot.on("message", msg => {
     else if (command == "tier") {
         irankpic.pic(msg);
     }
-    else if (command == "test") {
-        embed.test(msg);
-    }
+    // else if (command == "test") {
+    //     embed.test(msg);
+    // }
 });
 
 bot.on('ready', () => {
