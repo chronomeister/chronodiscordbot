@@ -30,7 +30,7 @@ exports.idolhell = function(msg) {
     idolarys.some(function(ary){
         var odds = Math.log(ary.length);
         var a = running + odds;
-        console.log(pull + " : " + a + " : " + Math.log(ary.length) + " : " + hansolo);
+        // console.log(pull + " : " + a + " : " + Math.log(ary.length) + " : " + hansolo);
         if (pull < running + odds){
             list = ary;
             return true;
