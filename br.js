@@ -5,6 +5,6 @@ var quotes = require('./br.json');
 // var quotes = jsonfile.readFileSync(quotefile);
 
 exports.bobross = function(msg) {
-    var bre = msg.guild.emojis.find(function(emoji){return emoji.name === 'bobRoss';});
+    var bre = msg.guild.emojis.find(function(emoji){return emoji.name === 'bobross';});
     msg.channel.sendMessage(quotes[Math.floor(Math.random()*quotes.length)] + (bre ?` ${bre} `: ""));
 }
