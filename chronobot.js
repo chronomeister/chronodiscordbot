@@ -94,6 +94,9 @@ bot.on("message", msg => {
     else if (command == "tier") {
         irankpic.pic(msg);
     }
+    else if (command == "zukin") {
+        msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+    }
     // else if (command == "test") {
     //     embed.test(msg);
     // }
