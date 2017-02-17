@@ -11,6 +11,7 @@ var yt = require("./youtube.js");
 var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
+var zukin =  require("./zukin.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 
@@ -93,6 +94,9 @@ bot.on("message", msg => {
     }
     else if (command == "tier") {
         irankpic.pic(msg);
+    }
+    else if (command == "zukin") {
+        msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
     }
     // else if (command == "test") {
     //     embed.test(msg);
