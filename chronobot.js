@@ -37,7 +37,7 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    // console.dir(msg);
+    // console.dir(msg.author);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     if (!msg.content.startsWith(prefix)) return;
@@ -88,14 +88,16 @@ bot.on("message", msg => {
     else if (command === "choose") {
         choose.choice(msg, params);
     }
-    else if (command == "isp") {
-        msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
-    }
     else if (command == "tier") {
         irankpic.pic(msg);
     }
-    else if (command == "zukin") {
-        msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+    else if (msg.author.id == 93389633261416448) {
+        if (command == "isp") {
+            msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
+        }
+        else if (command == "zukin") {
+            msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+        }
     }
     // else if (command == "test") {
     //     embed.test(msg);
