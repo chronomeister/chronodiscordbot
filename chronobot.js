@@ -42,7 +42,7 @@ bot.on("message", msg => {
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
-    if (dad.test(msg.content)) {fs.appendFile('./dad.txt', 'Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
+    if (dad.test(msg.content)) {fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
     if (!msg.content.startsWith(prefix)) return;
     var params = msg.content.substr(1).split(' ');
     var command = params.shift();
@@ -94,6 +94,9 @@ bot.on("message", msg => {
     else if (command == "tier") {
         irankpic.pic(msg);
     }
+    // else if (command == "test") {
+    //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
+    // }
     else if (msg.author.id == 93389633261416448) {
         if (command == "isp") {
             msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
@@ -102,9 +105,6 @@ bot.on("message", msg => {
             msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
         }
     }
-    // else if (command == "test") {
-    //     embed.test(msg);
-    // }
 });
 
 bot.on('ready', () => {
