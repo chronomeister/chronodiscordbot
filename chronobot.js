@@ -13,6 +13,7 @@ var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
+const fs = require('fs');
 
 // https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-01-31&endDate=2017-01-31&expand=schedule.teams,schedule.linescore,schedule.broadcasts.all,schedule.ticket,schedule.game.content.media.epg,schedule.radioBroadcasts,schedule.decisions,schedule.scoringplays,schedule.game.content.highlights.scoreboard,team.leaders,schedule.game.seriesSummary,seriesSummary.series&leaderCategories=points,goals,assists&leaderGameTypes=R&site=en_nhl&teamId=&gameType=&timecode=
 
@@ -40,6 +41,8 @@ bot.on("message", msg => {
     // console.dir(msg.author);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
+    var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
+    if (dad.test(msg.content)) {fs.appendFile('./dad.txt', 'Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
     if (!msg.content.startsWith(prefix)) return;
     var params = msg.content.substr(1).split(' ');
     var command = params.shift();
