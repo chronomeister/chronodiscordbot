@@ -40,6 +40,7 @@ bot.on("message", msg => {
     // console.dir(msg);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
+    if (/^i'?m ([^ ]+)?[^ ]+$/.test(msg.content)) {console.log(msg.content)}
     if (!msg.content.startsWith(prefix)) return;
     var params = msg.content.substr(1).split(' ');
     var command = params.shift();
