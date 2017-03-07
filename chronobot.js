@@ -11,6 +11,7 @@ var yt = require("./youtube.js");
 var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
+var friends =  require("./friends.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -31,6 +32,7 @@ var commands = new Map([
     ["youtube OR yt","Simple search of youtube. Returns top result."],
     ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
     ["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
+    ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
     ["isp", "Need someone to blame? Blame your ISP."]
 ]);
 
@@ -93,6 +95,9 @@ bot.on("message", msg => {
     }
     else if (command == "tier") {
         irankpic.pic(msg);
+    }
+    else if (command == "friends") {
+        friends.time(msg);
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
