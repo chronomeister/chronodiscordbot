@@ -12,6 +12,7 @@ var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
 var friends =  require("./friends.js");
+var cgtheatre =  require("./cgtheatre.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -98,6 +99,9 @@ bot.on("message", msg => {
     }
     else if (command == "friends") {
         friends.time(msg);
+    }
+    else if (command == "cgtheatre") {
+        cgtheatre.time(msg);
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
