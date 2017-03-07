@@ -32,7 +32,7 @@ var commands = new Map([
     ["youtube OR yt","Simple search of youtube. Returns top result."],
     ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
     ["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
-    ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."]
+    ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
     ["isp", "Need someone to blame? Blame your ISP."]
 ]);
 
