@@ -12,6 +12,7 @@ var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
 var friends =  require("./friends.js");
+var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
@@ -23,6 +24,8 @@ const TIMEOUT = 2 * 1000;
 
 var timeouts = {};
 
+var started = false;
+var cdid;
 var prefix = "!";
 var commands = new Map([
     ["help", "Yo, I heard you like help so I got you a help in your help so I can help you help."],
@@ -41,6 +44,7 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
+    var cdchannelid = '242663092171964417'; '239224576393871361';
     // console.dir(msg.author);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
@@ -98,7 +102,14 @@ bot.on("message", msg => {
         irankpic.pic(msg);
     }
     else if (command == "friends") {
-        friends.time(msg);
+        friends.time(msg).then( id => {
+            if (!started && msg.channel.id === cdchannelid) {
+                msg.delete();
+                bot.setInterval(friendcd.updatemsg,3257,id);
+                started = true;
+            }
+        });
+        //
     }
     else if (command == "eurobeat") {
         eurobeat.drift(msg);
@@ -121,5 +132,6 @@ bot.on('ready', () => {
 });
 
 bot.login(configs.discordkey);
+
 
 // setInterval(idlemaster.updateIdle, idlemaster.CHECKINTERVAL);
