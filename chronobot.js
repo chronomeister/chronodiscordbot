@@ -44,7 +44,7 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    var cdchannelid = '242663092171964417'; '239224576393871361';
+    var cdchannelid = '239224576393871361'; '242663092171964417';
     // console.dir(msg.author);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
