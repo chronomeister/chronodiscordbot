@@ -102,14 +102,13 @@ bot.on("message", msg => {
         irankpic.pic(msg);
     }
     else if (command == "friends") {
-        friends.time(msg).then( id => {
-            if (!started && msg.channel.id === cdchannelid) {
-                msg.delete();
-                bot.setInterval(friendcd.updatemsg,3257,id);
-                started = true;
-            }
-        });
-        //
+        friends.time(msg);//.then( id => {
+            //if (!started && msg.channel.id === cdchannelid) {
+            //    msg.delete();
+            //    bot.setInterval(friendcd.updatemsg,3257,id);
+            //    started = true;
+            //}
+        //});
     }
     else if (command == "eurobeat") {
         eurobeat.drift(msg);
