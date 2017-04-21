@@ -8,6 +8,7 @@ npm install discord.js
 npm install jsonfile  
 npm install sqlite3  
 npm install request  
+npm install twitter
 
 # TODO:  
 timeout.  
