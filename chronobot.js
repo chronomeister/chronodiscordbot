@@ -12,6 +12,7 @@ var eight = require("./8ball.js");
 var choose = require("./choose.js");
 var irankpic =  require("./irankpic.js");
 var friends =  require("./friends.js");
+var cg =  require("./cg.js");
 var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
 // var embed = require("./embed.js");
@@ -109,6 +110,9 @@ bot.on("message", msg => {
             //    started = true;
             //}
         //});
+    }
+    else if (command == "cg") {
+        cg.time(msg);
     }
     else if (command == "eurobeat") {
         eurobeat.drift(msg);
