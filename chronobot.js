@@ -15,6 +15,7 @@ var friends =  require("./friends.js");
 var cg =  require("./cg.js");
 var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
+var blue =  require("./blue.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -126,6 +127,9 @@ bot.on("message", msg => {
         }
         else if (command == "zukin") {
             msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+        }
+        else if (command == "regional") {
+            blue.region(msg, params);
         }
     }
 });
