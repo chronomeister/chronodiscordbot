@@ -39,7 +39,9 @@ var commands = new Map([
     ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
     ["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
     ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
-    ["isp", "Need someone to blame? Blame your ISP."]
+    ["cg", "Like friends, but for Cinderella Girls Theater."],
+    ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
+    ["stand", "IS THAT A JOJO REFERENCE?!."]
 ]);
 
 bot.on("message", msg => {
