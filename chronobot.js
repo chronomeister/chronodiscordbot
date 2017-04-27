@@ -118,6 +118,9 @@ bot.on("message", msg => {
     else if (command == "eurobeat") {
         eurobeat.drift(msg);
     }
+    else if (command == "stand") {
+        msg.channel.sendMessage("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+    }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
     // }
