@@ -50,7 +50,7 @@ function getStatus(first) {
 }
 getStatus(1);
 // setTimeout(getStatus, 1000);
-setInterval(getStatus, 7000);
+setInterval(getStatus, 5000);
 
 // client.stream('site', {follow: '448311788'}, function(stream) {
 //   stream.on('data', function(event) {
