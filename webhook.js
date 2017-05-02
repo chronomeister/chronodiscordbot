@@ -3,7 +3,7 @@
 var auth = require('./cbotconfig.json');
 // const fs = require('fs');
 var Twitter = require('twitter');
-
+var request = require('request');
 var client = new Twitter({
   consumer_key: auth.twitterkey,
   consumer_secret: auth.twittersecret,
@@ -25,28 +25,32 @@ function getStatus(first) {
             return status.id_str;
         });
         // fs.writeFile('./twitter.txt', response.body, function(){});
-        console.dir(ids);  // Raw response object.
-        if (first) {ids.forEach(function(id_str){seenidstr.push(id_str)}); return;}
+        // console.log("new");
+        if (first) {seenidstr = ids; return;}
+        // console.dir(ids);  // Raw response object.
+        // console.dir(seenidstr);
         var newids = [];
-        for (var i = 0; i < ids.lenth; i++) {
+        for (var i = 0; i < ids.length; i++) {
             if (!seenidstr.includes(ids[i])) {
                 newids.push(ids[i]);
+                // console.log(ids[i]);
             }
         }
         while (newids.length > 0) {
             var newtweetid = newids.pop();
             request.post({url:'https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA',
                 form: {
-                    content:'http://twitter.com/KanColle_STAFF/status/' + newtweetid
+                    content:`http://twitter.com/${username}/status/${newtweetid}`
                 }},
-                function(err, rsp, body){console.dir(rsp);console.dir(err);console.dir(body);}
+                function(err, rsp, body){}
             );
         }
+        seenidstr = ids;
     });
 }
 getStatus(1);
 // setTimeout(getStatus, 1000);
-setInterval(getStatus, 5000);
+setInterval(getStatus, 7000);
 
 // client.stream('site', {follow: '448311788'}, function(stream) {
 //   stream.on('data', function(event) {
