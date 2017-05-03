@@ -1,0 +1,23 @@
+[
+    {
+        "screen_name" : "KanColle_STAFF",
+        "webhooks" : [
+            "https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA"
+        ]
+    },{
+        "screen_name" : "KCIconWatcher",
+        "webhooks" : [
+            "https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA"
+        ]
+    },{
+        "screen_name" : "kancolle_1draw",
+        "webhooks" : [
+            "https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA"
+        ]
+    },{
+        "screen_name" : "ShitpostBot5000",
+        "webhooks" : [
+            "https://discordapp.com/api/webhooks/308911783232405505/xwZCqs_iElBHbFSywBH-CD0yFBpNLVJ4zj_oCrS2oYycjzBOFR3HrMqTm90z2WKQZK8e"
+        ]
+    }
+]
