@@ -31,14 +31,14 @@ function getStatus(first) {
                 // console.dir(user);
             });
         } else {
-            client.get('statuses/user_timeline', {screen_name : user.screen_name, count: 1}, function(error, tweets, response) {
+            client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid}, function(error, tweets, response) {
                 // fs.writeFile('./twitter.txt', response.body, function(){}); return;
                 var tweets = JSON.parse(response.body);
                 var ids = tweets.map(function(status){
                     return status.id_str;
                 });
                 // console.log(user.screen_name + " : " + user.lastseenid);
-                user.lastseenid = tweets[0].id_str ? tweets[0].id_str : user.lastseenid;
+                user.lastseenid = tweets[0] ? tweets[0].id_str : user.lastseenid;
                 while (tweets.length > 0) {
                     var newtweet = tweets.pop();
                     var newtweetid = newtweet.id_str;
