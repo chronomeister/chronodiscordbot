@@ -60,7 +60,7 @@ function getStatus(first) {
                                         if (namemap[name]) enlist.push(namemap[name]);
                                     });
                                     if (enlist[2]) enlist[2] = "and " + enlist[2];
-                                    var tl = "Looks like today's 1HD is " + enlist.join(", ") + (enlist.length == 3 ? "" : " and " + 3 - enlist.length + " ship" + (enlist.length == 2 ? "" : "s") + " I can't identify");
+                                    var tl = "Looks like today's 1HD is " + enlist.join(", ") + (enlist.length == 3 ? "" : (enlist.length == 0 ? "" : ", and ") + 3 - enlist.length + " ship" + (enlist.length == 2 ? "" : "s") + " I can't identify");
                                     request.post({url:url,
                                         form: {
                                             content:tl
