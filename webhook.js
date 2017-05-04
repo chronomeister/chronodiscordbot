@@ -9,7 +9,7 @@ var client = new Twitter({
   consumer_secret: auth.twittersecret,
   bearer_token: auth.twitterbtoken
 });
-
+var namemap = require('./1HDnames.json');
 var whconfig = require('./webhookconfig.json');
 
 var lastseenid = {};
@@ -37,17 +37,37 @@ function getStatus(first) {
                 var ids = tweets.map(function(status){
                     return status.id_str;
                 });
-                // console.log(user);
-                user.lastseenid = ids[0] ? ids[0] : user.lastseenid;
-                while (ids.length > 0) {
-                    var newtweetid = ids.pop();
+                // console.log(user.screen_name + " : " + user.lastseenid);
+                user.lastseenid = tweets[0] ? tweets[0].id_str : user.lastseenid;
+                while (tweets.length > 0) {
+                    var newtweet = tweets.pop();
+                    var newtweetid = newtweet.id_str;
+                    // console.log(newtweetid);
                     // request.post({url:'https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA',
                     user.webhooks.forEach(function(url){
                         request.post({url:url,
                             form: {
                                 content:`https://twitter.com/${user.screen_name}/status/${newtweetid}`
                             }},
-                            function(err, rsp, body){}
+                            function(err, rsp, body){
+                                if (user.screen_name == "kancolle_1draw") {
+                                    var match = (newtweet.text.match(/お題は ([^\r\n]+) .なります/));
+                                    if (!match) return;
+                                    var names = match[1].trim().split(/ /)
+                                    // console.dir(names);
+                                    var enlist = [];
+                                    names.forEach(function(name){
+                                        if (namemap[name]) enlist.push(namemap[name]);
+                                    });
+                                    if (enlist[2]) enlist[2] = "and " + enlist[2];
+                                    var tl = "Looks like today's 1HD is " + enlist.join(", ") + (enlist.length == 3 ? "" : (enlist.length == 0 ? "" : ", and ") + 3 - enlist.length + " ship" + (enlist.length == 2 ? "" : "s") + " I can't identify");
+                                    request.post({url:url,
+                                        form: {
+                                            content:tl
+                                        }},
+                                        function(err, rsp, body){});
+                                }
+                            }
                         );
                     });
                 }
