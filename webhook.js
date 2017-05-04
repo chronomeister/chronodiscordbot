@@ -9,7 +9,6 @@ var client = new Twitter({
   consumer_secret: auth.twittersecret,
   bearer_token: auth.twitterbtoken
 });
-var namemap = require('./1HDnames.json');
 var whconfig = require('./webhookconfig.json');
 
 var lastseenid = {};
@@ -51,6 +50,7 @@ function getStatus(first) {
                             }},
                             function(err, rsp, body){
                                 if (user.screen_name == "kancolle_1draw") {
+                                    var namemap = require('./1HDnames.json');
                                     var match = (newtweet.text.match(/お題は ([^\r\n]+) .なります/));
                                     if (!match) return;
                                     var names = match[1].trim().split(/ /)
