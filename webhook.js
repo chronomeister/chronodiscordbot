@@ -30,8 +30,8 @@ function getStatus(first) {
                 // console.dir(user);
             });
         } else {
-            // client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid}, function(error, tweets, response) {
-            client.get('statuses/user_timeline', {screen_name : user.screen_name, count : 1}, function(error, tweets, response) {
+            client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid}, function(error, tweets, response) {
+            // client.get('statuses/user_timeline', {screen_name : user.screen_name, count : 1}, function(error, tweets, response) {
                 // fs.writeFile('./twitter.txt', response.body, function(){}); return;
                 var tweets = JSON.parse(response.body);
                 var ids = tweets.map(function(status){
