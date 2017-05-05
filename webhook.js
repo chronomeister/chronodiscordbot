@@ -30,7 +30,8 @@ function getStatus(first) {
                 // console.dir(user);
             });
         } else {
-            client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid}, function(error, tweets, response) {
+            // client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid}, function(error, tweets, response) {
+            client.get('statuses/user_timeline', {screen_name : user.screen_name, count : 1}, function(error, tweets, response) {
                 // fs.writeFile('./twitter.txt', response.body, function(){}); return;
                 var tweets = JSON.parse(response.body);
                 var ids = tweets.map(function(status){
@@ -59,8 +60,26 @@ function getStatus(first) {
                                     names.forEach(function(name){
                                         if (namemap[name]) enlist.push(namemap[name]);
                                     });
-                                    if (enlist[2]) enlist[2] = "and " + enlist[2];
-                                    var tl = "Looks like today's 1HD is " + enlist.join(", ") + (enlist.length == 3 ? "" : (enlist.length == 0 ? "" : ", and ") + 3 - enlist.length + " ship" + (enlist.length == 2 ? "" : "s") + " I can't identify");
+                                    var tl = "";
+                                    // console.log(enlist.length);
+                                    switch (enlist.length){
+                                        case 0:
+                                        tl = "I can't identify any ships today. I blame chrono.";
+                                        break;
+                                        case 1:
+                                        tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
+                                        break;
+                                        case 2:
+                                        tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
+                                        break;
+                                        case 3:
+                                        enlist[2] = "and " + enlist[2];
+                                        tl = "Looks like today's 1HD is " + enlist.join(", ");
+                                        break;
+                                        default:
+                                        tl = "Something is a bit off and I shouldn't even be saying this meesage. I blame chrono";
+                                        break;
+                                    }
                                     request.post({url:url,
                                         form: {
                                             content:tl
