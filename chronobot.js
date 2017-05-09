@@ -41,7 +41,8 @@ var commands = new Map([
     ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
     ["cg", "Like friends, but for Cinderella Girls Theater."],
     ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
-    ["stand", "IS THAT A JOJO REFERENCE?!."]
+    ["stand", "IS THAT A JOJO REFERENCE?!."],
+    ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
 bot.on("message", msg => {
@@ -126,15 +127,15 @@ bot.on("message", msg => {
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
     // }
+    else if (command == "regional") {
+        blue.region(msg, params);
+    }
     else if (msg.author.id == 93389633261416448) {
         if (command == "isp") {
             msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
         }
         else if (command == "zukin") {
             msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
-        }
-        else if (command == "regional") {
-            blue.region(msg, params);
         }
     }
 });
