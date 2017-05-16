@@ -42,6 +42,8 @@ var commands = new Map([
     ["cg", "Like friends, but for Cinderella Girls Theater."],
     ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
     ["stand", "IS THAT A JOJO REFERENCE?!."],
+    ["jojo", "IT IS A JOJO REFERENCE!."],
+    ["gitgud", "Is someone sucking? Tell 'em what to do."],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
@@ -123,6 +125,12 @@ bot.on("message", msg => {
     }
     else if (command == "stand") {
         msg.channel.sendMessage("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+    }
+    else if (command == "jojo") {
+        msg.channel.sendMessage("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+    }
+    else if (command == "gitgud") {
+        msg.channel.sendFile("./gitgud.jpg");
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
