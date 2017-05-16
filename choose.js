@@ -11,6 +11,6 @@ exports.choice = function(msg, params) {
     );
     else
     msg.reply(
-        "looks like there was only one choice. That's fine if that's what you wanted, but otherwise my separator is '" + sep + "'"
+        "looks like there was only one choice. That's fine if that's what you wanted, but otherwise my separator between choices is '" + sep + "'"
     );
 }
