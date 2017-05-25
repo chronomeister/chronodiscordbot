@@ -31,7 +31,7 @@ exports.youtube = function(msg, qary) {
         if (!error && response.statusCode == 200) {
             var ytsearch = JSON.parse(response.body);
             // console.dir(ytsearch.items[0]);
-            msg.channel.sendMessage('https://youtu.be/' + ytsearch.items[0].id.videoId);
+            msg.channel.send('https://youtu.be/' + ytsearch.items[0].id.videoId);
         }
     });
 }

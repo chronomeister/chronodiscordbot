@@ -69,12 +69,12 @@ exports.idolhell = function(msg) {
         request(dburl, function (error, response, html) {
             if (!error && response.statusCode == 200) {
                 var idol = JSON.parse(response.body)[0];
-                msg.channel.sendMessage(nameformat);
-                msg.channel.sendMessage(dbhost + idol.file_url);
+                msg.channel.send(nameformat);
+                msg.channel.send(dbhost + idol.file_url);
             }
         });
     } else {
-        msg.channel.sendMessage("Robbie Rotten");
-        msg.channel.sendMessage(dank[Math.floor(Math.random() * dank.length)]);
+        msg.channel.send("Robbie Rotten");
+        msg.channel.send(dank[Math.floor(Math.random() * dank.length)]);
     }
 }

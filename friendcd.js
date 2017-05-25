@@ -13,7 +13,7 @@ exports.updatemsg = function(msg) {
     var hours = Math.floor(Math.floor(Math.floor(time / 1000) / 60) / 60) % 24;
     var minutes = Math.floor(Math.floor(time / 1000) / 60) % 60;
     var seconds = Math.floor(time / 1000) % 60;
-    if (days == 6) {msg.channel.sendMessage((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
+    if (days == 6) {msg.channel.send((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
     var message = (serval ?`${serval} `: "") + "Episode " + nextepnum + " of Kemono Friends airs in " +
         ((days > 0) ? days + " day" + (days == 1 ? "" : "s") + " " : "") +
         ((hours > 0) ? hours + " hour" + (hours == 1 ? "" : "s") + " " : "") +

@@ -28,6 +28,6 @@ exports.addUser = function(author) {
 }
 
 exports.getScore = function(msg) {
-    msg.channel.sendMessage(msg.author + " has " + idlemap.get(msg.author) + " points");
+    msg.channel.send(msg.author + " has " + idlemap.get(msg.author) + " points");
     // console.dir(author);
 }

@@ -10,5 +10,5 @@ exports.drift = function(msg) {
         list = lists[1];
     }
     var pick = list[Math.floor(Math.random() * list.length)];
-    msg.channel.sendMessage(pick.url);
+    msg.channel.send(pick.url);
 }

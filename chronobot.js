@@ -16,6 +16,8 @@ var cg =  require("./cg.js");
 var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
 var blue =  require("./blue.js");
+var elog =  require("./emojirec.js");
+
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -41,19 +43,44 @@ var commands = new Map([
     ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
     ["cg", "Like friends, but for Cinderella Girls Theater."],
     ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
-    ["stand", "IS THAT A JOJO REFERENCE?!."],
-    ["jojo", "IT IS A JOJO REFERENCE!."],
+    ["stand", "IS THAT A JOJO REFERENCE?!"],
+    ["jojo", "IT IS A JOJO REFERENCE!"],
     ["gitgud", "Is someone sucking? Tell 'em what to do."],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
+
+var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
+var emojiservers = new Discord.Collection();
+
+bot.on("messageReactionAdd", (reaction, user) => {
+    elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
+});
+
+bot.on("messageUpdate", msg => {
+    while ((ematch = emjregex.exec(msg.content)) !== null) {
+        if (emojiservers.get(ematch[1])) {
+            //msgid, userid, guildid, emojiid, ts
+            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+        }
+    }
+});
 
 bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    var cdchannelid = '239224576393871361'; '242663092171964417';
-    // console.dir(msg.author);
-    // msg.channel.sendMessage('<@242659286830940160>');
+    // var cdchannelid = '239224576393871361'; '242663092171964417';
+
+    var ematch;
+    while ((ematch = emjregex.exec(msg.content)) !== null) {
+        if (emojiservers.get(ematch[1])) {
+            //msgid, userid, guildid, emojiid, ts
+            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+            // console.dir([msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp]);
+        }
+    }
+    // console.dir([msg, msg.channel.id]);
+    // msg.channel.send('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     // var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
     // if (dad.test(msg.content)) {fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
@@ -69,18 +96,18 @@ bot.on("message", msg => {
                 // var iter = commands.keys();
                 for(let key of commands.keys()) {cmds.push(prefix + key)};
                 // console.dir(cmds);
-                msg.channel.sendMessage("Current commands are: \n" + cmds.join("\n") + "\n");
-                msg.channel.sendMessage("For more help on a specific command type: '" + prefix + "help *command*'");
+                msg.channel.send("Current commands are: \n" + cmds.join("\n") + "\n");
+                msg.channel.send("For more help on a specific command type: '" + prefix + "help *command*'");
             } else {
-                msg.channel.sendMessage("Command not found.");
+                msg.channel.send("Command not found.");
             }
         } else {
-            msg.author.sendMessage(commands.get(cmd));
+            msg.author.send(commands.get(cmd));
         }
     }
     else if (command === "idolhell") {
         if (params.length > 0) {
-            msg.channel.sendMessage(msg.author + ", your " + params.join(" ") + " idol is:");
+            msg.channel.send(msg.author + ", your " + params.join(" ") + " idol is:");
         }
         idolgame.idolhell(msg);
     }
@@ -124,10 +151,10 @@ bot.on("message", msg => {
         eurobeat.drift(msg);
     }
     else if (command == "stand") {
-        msg.channel.sendMessage("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+        msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
     }
     else if (command == "jojo") {
-        msg.channel.sendMessage("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+        msg.channel.send("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
     }
     else if (command == "gitgud") {
         msg.channel.sendFile("./gitgud.jpg");
@@ -140,16 +167,23 @@ bot.on("message", msg => {
     }
     else if (msg.author.id == 93389633261416448) {
         if (command == "isp") {
-            msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
+            msg.channel.send("https://my.mixtape.moe/gerost.mp3");
         }
         else if (command == "zukin") {
-            msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+            msg.channel.send('https://i.imgur.com/Tv1EoL6.png');
         }
     }
 });
 
 bot.on('ready', () => {
   console.log('I am ready!');
+  bot.guilds.forEach(function(val, key, glds){
+      val.emojis.forEach(function(ev, ek, emjs){
+          emojiservers.set(ek,key);
+      });
+    //   console.dir(val);
+  });
+  //console.dir(emojiservers);
 });
 
 bot.login(configs.discordkey);

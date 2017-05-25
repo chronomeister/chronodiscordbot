@@ -17,7 +17,7 @@ exports.pic = function(msg) {
             ((minutes > 0) ? minutes + " minute" + (minutes == 1 ? "" : "s") + " " : "") +
             ((seconds > 0) ? seconds + " second" + (seconds == 1 ? "" : "s") + " " : "") +
             "left to protect " + eventparams.protect;
-        msg.channel.sendMessage(message);
+        msg.channel.send(message);
         msg.channel.sendFile('./TIME2RANK.png');
     }
 }

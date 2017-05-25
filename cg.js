@@ -11,13 +11,13 @@ exports.time = function(msg, qary) {
     var hours = Math.floor(Math.floor(Math.floor(time / 1000) / 60) / 60) % 24;
     var minutes = Math.floor(Math.floor(time / 1000) / 60) % 60;
     var seconds = Math.floor(time / 1000) % 60;
-    if (days == 6) {msg.channel.sendMessage((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
+    if (days == 6) {msg.channel.send((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
     var message = (serval ?`${serval} `: "") + "Episode " + nextepnum + " of Cinderella Girls Gekijou airs in " +
        ((days > 0) ? days + " day" + (days == 1 ? "" : "s") + " " : "") +
        ((hours > 0) ? hours + " hour" + (hours == 1 ? "" : "s") + " " : "") +
        ((minutes > 0) ? minutes + " minute" + (minutes == 1 ? "" : "s") + " " : "") +
        ((seconds > 0) ? seconds + " second" + (seconds == 1 ? "" : "s") + " " : "") +
        (serval ?`${serval}`: "");
-    return msg.channel.sendMessage(message);
-    // msg.channel.sendMessage((serval ?`${serval} `: "") + "EPISODE 12 IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));
+    return msg.channel.send(message);
+    // msg.channel.send((serval ?`${serval} `: "") + "EPISODE 12 IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));
 }

@@ -30,13 +30,13 @@ exports.getWeather = function(msg, params) {
                         request(wuurl, function (error, response, html) {
                             if (!error && response.statusCode == 200) {
                                 var wuloc = JSON.parse(response.body);
-                                if (wuloc.response.error) {msg.channel.sendMessage(wuloc.response.error.type === 'querynotfound' ? "Error: couldn't find city location. Please type a valid location." : "Error locking in your location; try again in one minute"); console.dir(wuloc);return;}
+                                if (wuloc.response.error) {msg.channel.send(wuloc.response.error.type === 'querynotfound' ? "Error: couldn't find city location. Please type a valid location." : "Error locking in your location; try again in one minute"); console.dir(wuloc);return;}
                                 db.run("INSERT OR REPLACE INTO weatherusers(disid, loc_coord, usemetric) VALUES (?,?,?)", [msg.author.id, wuloc.location.lat + "," + wuloc.location.lon, (wuloc.location.country === "US" ? 0 : 1)]);
-                                msg.channel.sendMessage("Your location is now registered to " + params.join(" "));
+                                msg.channel.send("Your location is now registered to " + params.join(" "));
                             }
                         });
                     } else {
-                        msg.channel.sendMessage("Please specify a location");
+                        msg.channel.send("Please specify a location");
                     }
                     // check if valid location??
                     break;
@@ -44,7 +44,7 @@ exports.getWeather = function(msg, params) {
                     if (disid) {
                         db.run("UPDATE weatherusers SET usemetric = NOT usemetric WHERE disid = ?", [disid]);
                         db.get("SELECT usemetric FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
-                            msg.channel.sendMessage("You are now using " + (row.useMetric == 1 ? "Metric" : "Imperial"));
+                            msg.channel.send("You are now using " + (row.useMetric == 1 ? "Metric" : "Imperial"));
                         });
                     }
                     // change metric
@@ -54,12 +54,12 @@ exports.getWeather = function(msg, params) {
                         db.run("UPDATE weatherusers SET disploc = NOT disploc WHERE disid = ?", [disid]);
                         db.get("SELECT disploc FROM weatherusers WHERE disid = ?", [msg.author.id], function(err, row) {
                             // console.dir(row.disploc);
-                            msg.channel.sendMessage("I will now " + (row.disploc ? "start" : "stop") + " showing your location on weather requests.");
+                            msg.channel.send("I will now " + (row.disploc ? "start" : "stop") + " showing your location on weather requests.");
                         });
                     }
                     else {
                         params.unshift(cmd);
-                        msg.channel.sendMessage("Your location is now registered to " + params.join(" "));
+                        msg.channel.send("Your location is now registered to " + params.join(" "));
                     }
                     break;
                 default:
@@ -78,7 +78,7 @@ exports.getWeather = function(msg, params) {
                 callWeather(msg, wobj);
             });
         } else { // tell he is not present
-            msg.channel.sendMessage("Could not find your location. Please register your location or input a location.");
+            msg.channel.send("Could not find your location. Please register your location or input a location.");
         }
     });
 }
@@ -90,16 +90,16 @@ function callWeather(msg, wobj) {
         if (!error && response.statusCode == 200) {
             var curweath = JSON.parse(response.body);
             // console.dir(curweath.forecast);
-            if (curweath.response.error) {msg.channel.sendMessage("Error getting weather; try again in one minute"); console.dir(curweath);return;}
+            if (curweath.response.error) {msg.channel.send("Error getting weather; try again in one minute"); console.dir(curweath);return;}
             var isUS = (typeof wobj.metric !== "undefined") ? !wobj.metric : ((curweath.current_observation.display_location.country === "US") ? true : false);
             // console.dir(isUS ? "IMP" : "METRIC");
             var temp = isUS ? curweath.current_observation.temp_f + "F (" + curweath.current_observation.temp_c + "C)" : curweath.current_observation.temp_c + "C (" + curweath.current_observation.temp_f + "F)";
             var wind = isUS ? curweath.current_observation.wind_mph + "mph (" + curweath.current_observation.wind_kph + "kph": curweath.current_observation.wind_kph + "kph (" + curweath.current_observation.wind_mph + "mph";
             var feels = isUS ? curweath.current_observation.feelslike_f + "F (" + curweath.current_observation.feelslike_c + "C)": curweath.current_observation.feelslike_c + "C (" + curweath.current_observation.feelslike_f + "F)";
             var location = (typeof wobj.metric === "undefined") ? curweath.current_observation.display_location.full : msg.author; //just checking if user exists or not
-            msg.channel.sendMessage("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + "). Feels like " + feels);
-            msg.channel.sendMessage(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric) + " " + curweath.forecast.txt_forecast.forecastday[0].pop + "% chance of precipitation.");
-            // msg.channel.sendMessage(dbhost + idol.file_url);
+            msg.channel.send("Current conditions for " + location + ":\n" + curweath.current_observation.weather + " with a temp of " + temp + " and winds out of the " + curweath.current_observation.wind_dir + " at " + wind + "). Feels like " + feels);
+            msg.channel.send(curweath.forecast.txt_forecast.forecastday[0].title  + "'s forcast for " + location + ":\n" + (isUS ? curweath.forecast.txt_forecast.forecastday[0].fcttext : curweath.forecast.txt_forecast.forecastday[0].fcttext_metric) + " " + curweath.forecast.txt_forecast.forecastday[0].pop + "% chance of precipitation.");
+            // msg.channel.send(dbhost + idol.file_url);
         }
     });
 }
