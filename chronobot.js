@@ -16,6 +16,8 @@ var cg =  require("./cg.js");
 var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
 var blue =  require("./blue.js");
+var elog =  require("./emojirec.js");
+
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -41,18 +43,43 @@ var commands = new Map([
     ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
     ["cg", "Like friends, but for Cinderella Girls Theater."],
     ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
-    ["stand", "IS THAT A JOJO REFERENCE?!."],
-    ["jojo", "IT IS A JOJO REFERENCE!."],
+    ["stand", "IS THAT A JOJO REFERENCE?!"],
+    ["jojo", "IT IS A JOJO REFERENCE!"],
     ["gitgud", "Is someone sucking? Tell 'em what to do."],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
+
+var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
+var emojiservers = new Discord.Collection();
+
+bot.on("messageReactionAdd", (reaction, user) => {
+    elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
+});
+
+bot.on("messageUpdate", msg => {
+    while ((ematch = emjregex.exec(msg.content)) !== null) {
+        if (emojiservers.get(ematch[1])) {
+            //msgid, userid, guildid, emojiid, ts
+            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+        }
+    }
+});
 
 bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    var cdchannelid = '239224576393871361'; '242663092171964417';
-    // console.dir(msg.author);
+    // var cdchannelid = '239224576393871361'; '242663092171964417';
+
+    var ematch;
+    while ((ematch = emjregex.exec(msg.content)) !== null) {
+        if (emojiservers.get(ematch[1])) {
+            //msgid, userid, guildid, emojiid, ts
+            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+            // console.dir([msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp]);
+        }
+    }
+    // console.dir([msg, msg.channel.id]);
     // msg.channel.sendMessage('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     // var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
@@ -150,6 +177,13 @@ bot.on("message", msg => {
 
 bot.on('ready', () => {
   console.log('I am ready!');
+  bot.guilds.forEach(function(val, key, glds){
+      val.emojis.forEach(function(ev, ek, emjs){
+          emojiservers.set(ek,key);
+      });
+    //   console.dir(val);
+  });
+  //console.dir(emojiservers);
 });
 
 bot.login(configs.discordkey);
