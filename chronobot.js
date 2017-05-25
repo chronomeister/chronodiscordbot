@@ -80,7 +80,7 @@ bot.on("message", msg => {
         }
     }
     // console.dir([msg, msg.channel.id]);
-    // msg.channel.sendMessage('<@242659286830940160>');
+    // msg.channel.send('<@242659286830940160>');
     // idlemaster.addUser(msg.author);
     // var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
     // if (dad.test(msg.content)) {fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
@@ -96,18 +96,18 @@ bot.on("message", msg => {
                 // var iter = commands.keys();
                 for(let key of commands.keys()) {cmds.push(prefix + key)};
                 // console.dir(cmds);
-                msg.channel.sendMessage("Current commands are: \n" + cmds.join("\n") + "\n");
-                msg.channel.sendMessage("For more help on a specific command type: '" + prefix + "help *command*'");
+                msg.channel.send("Current commands are: \n" + cmds.join("\n") + "\n");
+                msg.channel.send("For more help on a specific command type: '" + prefix + "help *command*'");
             } else {
-                msg.channel.sendMessage("Command not found.");
+                msg.channel.send("Command not found.");
             }
         } else {
-            msg.author.sendMessage(commands.get(cmd));
+            msg.author.send(commands.get(cmd));
         }
     }
     else if (command === "idolhell") {
         if (params.length > 0) {
-            msg.channel.sendMessage(msg.author + ", your " + params.join(" ") + " idol is:");
+            msg.channel.send(msg.author + ", your " + params.join(" ") + " idol is:");
         }
         idolgame.idolhell(msg);
     }
@@ -151,10 +151,10 @@ bot.on("message", msg => {
         eurobeat.drift(msg);
     }
     else if (command == "stand") {
-        msg.channel.sendMessage("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+        msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
     }
     else if (command == "jojo") {
-        msg.channel.sendMessage("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+        msg.channel.send("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
     }
     else if (command == "gitgud") {
         msg.channel.sendFile("./gitgud.jpg");
@@ -167,10 +167,10 @@ bot.on("message", msg => {
     }
     else if (msg.author.id == 93389633261416448) {
         if (command == "isp") {
-            msg.channel.sendMessage("https://my.mixtape.moe/gerost.mp3");
+            msg.channel.send("https://my.mixtape.moe/gerost.mp3");
         }
         else if (command == "zukin") {
-            msg.channel.sendMessage('https://i.imgur.com/Tv1EoL6.png');
+            msg.channel.send('https://i.imgur.com/Tv1EoL6.png');
         }
     }
 });
