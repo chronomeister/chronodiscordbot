@@ -16,15 +16,36 @@ exports.logemoji = function(msgid, userid, chanid, guildid, emojiid, ts) {
 };
 exports.checkusage = function(msg, guildid) {
     //console.dir([msgid, userid, guildid, chanid, emojiid, ts]);
-    var html = '<html><head><style>img{max-width:32px;max-height:32px;}</style></head><body><table border="1" frame="border" cellspacing="0"><tr><td>emoji</td><td>count</td></tr>';
     guildid =  guildid ? guildid : msg.guild.id;
-    db.each(`SELECT CAST(emojiid AS TEXT) "emojiid", count(msgid) "cnt" FROM emojilog WHERE guildid = ? GROUP BY emojiid ORDER BY count(msgid) DESC`, [guildid], function(err, row){
-        html += `<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td></tr>`;
-    }, function(){
-        html += "</table></body></html>";
-        fs.writeFileSync("./emojiusage.html", html);
-        msg.channel.send({file : "./emojiusage.html"}).then(function(){fs.unlink("./emojiusage.html");});
-    });
-
+    if (guildid != msg.guild.id) {
+        var html = '<html><head><style>img{max-width:32px;max-height:32px;}</style></head><body><table border="1" frame="border" cellspacing="0"><tr><td>emoji</td><td>count</td></tr>';
+        db.each(`SELECT CAST(emojiid AS TEXT) "emojiid", count(msgid) "cnt" FROM emojilog WHERE guildid = ? GROUP BY emojiid ORDER BY count(msgid) DESC`, [guildid], function(err, row){
+            html += `<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td></tr>`;
+        }, function(){
+            html += "</table></body></html>";
+            sendmsg(msg, html);
+        });
+    } else {
+        var html = '<html><head><style>img{max-width:32px;max-height:32px;}</style></head><body><table border="1" frame="border" cellspacing="0"><tr><td>emoji</td><td>count</td><td>most used</td><td>times</td></tr>';
+        var users = new Map();
+        msg.guild.members.array().forEach(function(mem){
+            users.set(mem.user.id, {name : mem.user.username, av : mem.user.avatar});
+        });
+        db.each(`SELECT CAST(emojiid AS TEXT) "emojiid", CAST(cnt AS TEXT) "cnt", CAST(userid AS TEXT) "userid", max FROM (SELECT CAST(emojiid AS TEXT) "emojiid", CAST(guildid AS TEXT) "guildid", count(msgid) "cnt" FROM emojilog GROUP BY emojiid, guildid ORDER BY count(msgid) DESC) a JOIN (SELECT emojiid, guildid, userid, max(msgs) "max" FROM (SELECT emojiid, userid, guildid, count(msgid) "msgs" FROM emojilog GROUP BY emojiid, userid, guildid ORDER BY count(msgid) DESC) a GROUP BY emojiid, guildid) b USING (emojiid, guildid) WHERE guildid = ? GROUP BY emojiid ORDER BY cnt DESC`, [guildid], function(err, row){
+            // console.dir(users);
+            // console.dir(row);
+            var usr = users.get(row.userid) ? users.get(row.userid) : undefined;
+            var img = usr ? `<img src="https://cdn.discordapp.com/avatars/93389633261416448/${usr.av}.png" title="${usr.name}"></img>` : "undefined";
+            // console.dir(`<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td><td>${img}</td><td>${row.max}</td></tr>`);
+            html += `<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td><td>${img}</td><td>${row.max}</td></tr>`;
+        }, function(){
+            html += "</table></body></html>";
+            sendmsg(msg, html);
+        });
+    }
 };
+var sendmsg = function(msg, html) {
+    fs.writeFileSync("./emojiusage.html", html);
+    msg.channel.send({file : "./emojiusage.html"}).then(function(){fs.unlink("./emojiusage.html");});
+}
 // CREATE TABLE tmpemojilog AS SELECT msgid, userid, guildid "chanid", chanid "guildid", emojiid, ts FROM emojilog;DROP TABLE emojilog; ALTER TABLE tmpemojilog RENAME TO emojilog;
