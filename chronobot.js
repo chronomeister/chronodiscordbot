@@ -53,7 +53,9 @@ var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
 var emojiservers = new Discord.Collection();
 
 bot.on("messageReactionAdd", (reaction, user) => {
-    elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
+    if (emojiservers.get(reaction.emoji.id)) {
+        elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
+    }
 });
 
 bot.on("messageUpdate", msg => {
