@@ -15,7 +15,7 @@ exports.logemoji = function(msgid, userid, chanid, guildid, emojiid, ts) {
           , [msgid, userid, chanid, guildid, emojiid, ts]);
 };
 exports.checkusage = function(msg, guildid) {
-    //console.dir([msgid, userid, guildid, chanid, emojiid, ts]);
+    // console.dir([msgid, userid, guildid, chanid, emojiid, ts]);
     guildid =  guildid ? guildid : msg.guild.id;
     if (guildid != msg.guild.id) {
         var html = '<html><head><style>img{max-width:32px;max-height:32px;}</style></head><body><table border="1" frame="border" cellspacing="0"><tr><td>emoji</td><td>count</td></tr>';
@@ -28,6 +28,7 @@ exports.checkusage = function(msg, guildid) {
     } else {
         var html = '<html><head><style>img{max-width:32px;max-height:32px;}</style></head><body><table border="1" frame="border" cellspacing="0"><tr><td>emoji</td><td>count</td><td>most used</td><td>times</td></tr>';
         var users = new Map();
+        // console.dir(msg.guild.members);
         msg.guild.members.array().forEach(function(mem){
             users.set(mem.user.id, {name : mem.user.username, av : mem.user.avatar});
         });
@@ -35,7 +36,7 @@ exports.checkusage = function(msg, guildid) {
             // console.dir(users);
             // console.dir(row);
             var usr = users.get(row.userid) ? users.get(row.userid) : undefined;
-            var img = usr ? `<img src="https://cdn.discordapp.com/avatars/93389633261416448/${usr.av}.png" title="${usr.name}"></img>` : "undefined";
+            var img = usr ? `<img src="https://cdn.discordapp.com/avatars/${row.userid}/${usr.av}.png" title="${usr.name}"></img>` : "undefined";
             // console.dir(`<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td><td>${img}</td><td>${row.max}</td></tr>`);
             html += `<tr><td><img src="https://cdn.discordapp.com/emojis/${row.emojiid}.png"></img></td><td>${row.cnt}</td><td>${img}</td><td>${row.max}</td></tr>`;
         }, function(){
