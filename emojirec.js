@@ -32,7 +32,7 @@ exports.checkusage = function(msg, guildid) {
         msg.guild.members.array().forEach(function(mem){
             users.set(mem.user.id, {name : mem.user.username, av : mem.user.avatar});
         });
-        db.each(`SELECT CAST(emojiid AS TEXT) "emojiid", CAST(cnt AS TEXT) "cnt", CAST(userid AS TEXT) "userid", max FROM (SELECT CAST(emojiid AS TEXT) "emojiid", CAST(guildid AS TEXT) "guildid", count(msgid) "cnt" FROM emojilog GROUP BY emojiid, guildid ORDER BY count(msgid) DESC) a JOIN (SELECT emojiid, guildid, userid, max(msgs) "max" FROM (SELECT emojiid, userid, guildid, count(msgid) "msgs" FROM emojilog GROUP BY emojiid, userid, guildid ORDER BY count(msgid) DESC) a GROUP BY emojiid, guildid) b USING (emojiid, guildid) WHERE guildid = ? GROUP BY emojiid ORDER BY cnt DESC`, [guildid], function(err, row){
+        db.each(`SELECT CAST(emojiid AS TEXT) "emojiid", CAST(cnt AS TEXT) "cnt", CAST(userid AS TEXT) "userid", max FROM (SELECT CAST(emojiid AS TEXT) "emojiid", CAST(guildid AS TEXT) "guildid", count(msgid) "cnt" FROM emojilog GROUP BY emojiid, guildid ORDER BY count(msgid) DESC) a JOIN (SELECT emojiid, guildid, userid, max(msgs) "max" FROM (SELECT emojiid, userid, guildid, count(msgid) "msgs" FROM emojilog GROUP BY emojiid, userid, guildid ORDER BY count(msgid) DESC) a GROUP BY emojiid, guildid) b USING (emojiid, guildid) WHERE guildid = ? GROUP BY emojiid ORDER BY CAST(cnt AS INT) DESC`, [guildid], function(err, row){
             // console.dir(users);
             // console.dir(row);
             var usr = users.get(row.userid) ? users.get(row.userid) : undefined;
