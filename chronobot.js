@@ -172,6 +172,12 @@ bot.on("message", msg => {
         else if (command == "zukin") {
             msg.channel.send('https://i.imgur.com/Tv1EoL6.png');
         }
+        else if (command == "test") {
+            msg.channel.send("hi");
+        }
+        else if (command == "echeck") {
+            elog.checkusage(msg, params[0]);
+        }
     }
 });
 
