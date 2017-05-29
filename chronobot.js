@@ -46,6 +46,7 @@ var commands = new Map([
     ["stand", "IS THAT A JOJO REFERENCE?!"],
     ["jojo", "IT IS A JOJO REFERENCE!"],
     ["gitgud", "Is someone sucking? Tell 'em what to do."],
+    ["thicc OR extrathicc OR et", "When you're Aku and need to order a large."],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
@@ -160,6 +161,9 @@ bot.on("message", msg => {
     }
     else if (command == "gitgud") {
         msg.channel.send({file:"./gitgud.jpg"});
+    }
+    else if (command == "thicc" || command == "extrathicc" || command == "et") {
+        msg.channel.send({file:"./thicc.jpg"});
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
