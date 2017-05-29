@@ -18,6 +18,6 @@ exports.pic = function(msg) {
             ((seconds > 0) ? seconds + " second" + (seconds == 1 ? "" : "s") + " " : "") +
             "left to protect " + eventparams.protect;
         msg.channel.send(message);
-        msg.channel.sendFile('./TIME2RANK.png');
+        msg.channel.send({file:'./TIME2RANK.png'});
     }
 }
