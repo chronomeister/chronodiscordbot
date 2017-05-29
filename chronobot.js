@@ -159,7 +159,7 @@ bot.on("message", msg => {
         msg.channel.send("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
     }
     else if (command == "gitgud") {
-        msg.channel.sendFile("./gitgud.jpg");
+        msg.channel.send({file:"./gitgud.jpg"});
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
