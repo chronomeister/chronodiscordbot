@@ -11,7 +11,6 @@ t = new Date;
 t.setTime(t.getTime()+9*60*60*1000); // can now assume UTC is jp time
 bday = [];
 idols.forEach(function(val){if (val.day == t.getDate() && val.month == (t.getMonth() + 1)) {bday.push(val)}});
-console.dir(bday);
 if (bday.length < 1) return;
 messagelst = ["Happy birthday to today's idols:"];
 bday.forEach(function(val){messagelst.push(`${val.name} from ${val.series}`)});
