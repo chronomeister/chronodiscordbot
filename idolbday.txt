@@ -1,0 +1,358 @@
+
+Aqours
+01 01 - Kurosawa Dia
+02 10 - Matsuura Kanan
+03 04 - Kunikida Hanamaru
+04 17 - Watanabe You
+06 13 - Ohara Mari
+07 13 - Tsushima Yoshiko
+08 01 - Takami Chika
+09 19 - Sakurauchi Riko
+09 21 - Kurosawa Ruby
+
+Muse
+01 17 - Koizumi Hanayo
+03 15 - Sonoda Umi
+04 19 - Nishikino Maki
+06 09 - Toujou Nozomi
+07 22 - Yazawa Nico
+08 03 - Kousaka Honoka
+09 12 - Minami Kotori
+10 21 - Ayase Eli
+11 01 - Hoshizora Rin
+
+Perfect Dream
+01 23 - Nakasu Kasumi
+02 05 - Emma 
+03 01 - Uehara Ayumu
+04 03 - Osaka Shizuku
+05 30 - Miyashita Ai
+06 29 - Asaka Karin
+08 08 - Yuki Setsuna
+11 13 - Tennoji Rina 
+12 16 - Konoe Kanata
+
+BangDream!
+01 07 - Hazawa Tsugumi
+02 28 - Seta Kaoru
+03 20 - Hikawa Hina
+03 20 - Hikawa Sayo
+03 23 - Ushigome Rimi
+04 06 - Shirasagi Chisato
+04 10 - Mitake Ran
+04 15 - Udagawa Tomoe
+05 11 - Matsubara Kanon
+05 19 - Yamabuki Saaya
+06 27 - Wakamiya Eve
+07 03 - Udagawa Ako
+07 14 - Toyama Kasumi
+07 30 - Kitazawa Hagumi
+08 08 - Tsurumaki Kokoro
+08 25 - Imai Lisa
+09 03 - Aoba Moca
+10 01 - Michelle / Osawa Misaki
+10 17 - Shirokane Rinko
+10 23 - Uehara Himari
+10 26 - Minato Yukina
+10 27 - Ichigaya Arisa
+11 03 - Yamato Maya
+12 04 - Hanazono Tae
+12 27 - Maruyama Aya
+
+765 Pro
+01 21 - Takane Shijou
+02 25 - Chihaya Kisaragi
+03 25 - Yayoi Takatsuki
+04 03 - Haruka Amami
+05 05 - Iori Minase
+05 22 - Ami Futami
+05 22 - Mami Futami
+06 23 - Ritsuko Akizuki
+07 19 - Azusa Miura
+08 29 - Makoto Kikuchi
+10 10 - Hibiki Ganaha
+11 23 - Miki Hoshii
+12 24 - Yukiho Hagiwara
+Staff
+07 06 - Junichirou Takagi
+07 06 - Junjirou Takagi 
+09 09 - Kotori Otonashi
+
+961 Pro (Jupiter)
+02 14 - Hokuto Ijuuin
+03 03 - Touma Amagase
+04 20 - Shouta Mitarai
+Staff
+09 06 - Takao Kuroi
+
+876 Pro
+03 07 - Eri Mizutani
+06 25 - Ai Hidaka
+09 15 - Ryo Akizuki
+ 
+Million Live
+01 08 - Emily Stewart
+01 18 - Shiho Kitazawa
+01 27 - Mizuki Makabe
+02 04 - Matsuri Tokugawa
+02 12 - Nao Yokoyama
+02 20 - Serika Hakozaki
+03 01 - Roco Handa
+03 18 - Yuriko Nanao
+03 22 - Minako Satake
+03 30 - Noriko Fukuda
+04 15 - Megumi Tokoro
+04 24 - Miya Miyao
+04 29 - Tamaki Ogami
+05 17 - Reika Kitakami
+05 31 - Anna Mochizuki
+06 07 - Arisa Matsuda
+06 12 - Konomi Baba
+07 28 - Mirai Kasuga
+07 04 - Hinata Kinoshita
+07 23 - Ayumu Maihama
+07 30 - Tsubasa Ibuki
+08 10 - Umi Kousaka
+08 18 - Kana Yabuki
+08 27 - Karen Shinomiya
+09 02 - Fuka Toyokawa
+09 14 - Shizuka Mogami
+09 20 - Subaru Nagayoshi
+09 26 - Julia
+10 05 - Kotoha Tanaka
+10 21 - Chizuru Nikaido
+10 26 - Elena Shimabara
+11 06 - Momoko Suou
+11 11 - Tomoka Tenkubashi
+11 21 - Rio Momose
+12 03 - Akane Nonohara
+12 16 - Iku Nakatani
+12 29 - Sayoko Takayama
+ 
+Cinderella Girls
+01 01 - Kako Takafuji
+01 01 - Karen Domyoji
+01 03 - Sora Nonomura
+01 03 - Tomoe Murakami
+01 06 - Kanako Mimura
+01 06 - Miyako Anzai
+01 10 - Shiori Sena
+01 13 - Ayame Hamaguchi
+01 19 - Mary Cochran
+01 21 - Kumiko Matsuyama
+01 21 - Mai Fukuyama
+01 23 - Kotoka Saionji
+01 28 - Yuu Ohta
+02 03 - Asuka Ninomiya
+02 06 - Tsubaki Egami
+02 07 - Ai Togo
+02 08 - Nina Ichihara
+02 11 - Fuka Asano
+02 14 - Frederica Miyamoto
+02 14 - Yukino Aihara
+02 17 - Mahiro Kitagawa
+02 18 - Kozue Yusa
+02 22 - Miku Maekawa
+02 24 - Tsukasa Kiryu
+02 25 - Miyu Mifune
+02 26 - Chiaki Kurokawa
+03 03 - Kana Imai
+03 06 - Kanna Ariura
+03 07 - Sanae Katagiri
+03 07 - Tomoka Wakabayashi
+03 09 - Shinobu Kudo
+03 13 - Yuko Hori
+03 16 - Miyuki Yanase
+03 18 - Misaki Etou
+03 19 - Hasumi Nagatomi
+03 20 - Yuriko Ohnishi
+03 21 - Chizuru Matsuo
+03 23 - Yuka Nakano
+03 25 - Noa Takamine
+03 27 - Sakura Muramatsu
+03 28 - Koume Shirasaka
+03 30 - Kurumi Ohnuma
+04 01 - Koharu Koga
+04 04 - Helen
+04 06 - Hinako Kita
+04 07 - Rumi Wakui
+04 08 - Aya Kirino
+04 08 - Momoka Sakurai
+04 08 - Ranko Kanzaki
+04 09 - Hina Araki
+04 10 - Haruna Kamijo
+04 12 - Michiru Ohara
+04 14 - Chika Yokoyama
+04 14 - Miria Akagi
+04 14 - Reina Koseki
+04 14 - Sana Miyoshi
+04 15 - Yumi Aiba
+04 18 - Tokiko Zaizen
+04 19 - Hotaru Shiragiku
+04 24 - Uzuki Shimamura
+04 27 - Seira Mizuki
+04 27 - Shiho Makihara
+05 01 - Emi Namba
+05 02 - Ako Tsuchiya
+05 04 - Wakaba Kusakabe
+05 05 - Nana Abe
+05 06 - Marina Sawada
+05 07 - Yui Ohtsuki
+05 08 - Reiko Takahashi
+05 08 - Saki Yoshioka
+05 09 - Mirei Hayasaka
+05 09 - Nono Morikubo
+05 12 - Kiyora Yanagi
+05 18 - Yoriko Furusawa
+05 21 - Layla
+05 25 - Ayuna Hamakawa
+05 29 - Honoka Ayase
+05 30 - Shiki Ichinose
+06 03 - Shizuku Oikawa
+06 04 - Hitomi Niwa
+06 06 - Syoko Hoshi
+06 07 - Chie Sasaki
+06 09 - Chinami Komuro
+06 10 - Akiha Ikebukuro
+06 11 - Chieri Ogata
+06 12 - Saori Okuyama
+06 14 - Kaede Takagaki
+06 15 - Hajime Fujiwara
+06 20 - Otoha Umeki
+06 27 - Ema Senzaki
+06 29 - Natalia
+06 30 - Riina Tada
+07 01 - Kanade Hayami
+07 01 - Tomo Fujii
+07 03 - Yoshino Yorita
+07 07 - Azuki Momoi
+07 07 - Erika Akanishi
+07 10 - Miu Yaguchi
+07 13 - Mutsumi Ujiie
+07 16 - Yasuha Okazaki
+07 17 - Haru Yuuki
+07 20 - Kaoru Ryuzaki
+07 20 - Umi Sugisaka
+07 22 - Shin Sato
+07 23 - Natsumi Soma
+07 25 - Aiko Takamori
+07 27 - Minami Nitta
+07 30 - Rita Jougasaki
+07 31 - Arisu Tachibana
+08 01 - Atsumi Munakata
+08 01 - Nagisa Aino
+08 03 - Naho Ebihara
+08 04 - Akane Hino
+08 07 - Takumi Mukai
+08 08 - Manami Kiba
+08 09 - Natsuki Kimura
+08 10 - Kyoko Igarashi
+08 10 - Rin Shibuya
+08 15 - Kate
+08 17 - Hiromi Seki
+08 17 - Kai Nishijima
+08 18 - Aoi Shuto
+08 24 - Arisa Mochida
+08 26 - Clarice
+08 27 - Satomi Sakakibara
+08 27 - Setsuna Imura
+08 28 - Seika Suzumiya
+09 01 - Kirari Moroboshi
+09 01 - Sarina Matsumoto
+09 02 - Anzu Futaba
+09 05 - Karen Hojo
+09 07 - Mayu Sakuma
+09 09 - Nene Kurihara
+09 14 - Hikaru Nanjo
+09 14 - Yuki Himekawa
+09 16 - Nao Kamiya
+09 19 - Anastasia
+09 19 - Cathy Graham
+09 20 - Tamami Wakiyama
+09 24 - Megumi Ijuin
+09 26 - Kiyomi Saejima
+09 28 - Yukimi Sajo
+09 29 - Yao Fueifuei
+10 01 - Ryo Matsunaga
+10 03 - Rena Hyodo
+10 06 - Yuuki Otokura
+10 09 - Nanami Asari
+10 10 - Noriko Shiina
+10 11 - Toko Hattori
+10 14 - Meiko Namiki
+10 14 - Rina Fujimoto
+10 18 - Sae Kobayakawa
+10 18 - Yukari Mizumoto
+10 23 - Honami Nishikawa
+10 26 - Suzuho Ueda
+10 27 - Fumika Sagisawa
+10 30 - Miyabi Tsukimiya
+11 03 - Yume Narumiya
+11 06 - Misato Manaka
+11 07 - Makino Yagami
+11 11 - Chinatsu Aikawa
+11 11 - Izumi Ohishi
+11 12 - Mika Jougasaki
+11 13 - Ayaka Kishibe
+11 14 - Miyo Harada
+11 17 - Ibuki Komatsu
+11 19 - Risa Matoba
+11 22 - Rei Shinohara
+11 23 - Sachiko Koshimizu
+11 25 - Mizuki Kawashima
+12 01 - Mio Honda
+12 02 - Yuzu Kitami
+12 05 - Midori Mizuno
+12 08 - Airi Totoki
+12 12 - Syuko Shiomi
+12 16 - Aki Yamato
+12 16 - Miho Kohinata
+12 24 - Eve Santaclaus
+12 25 - Hijiri Mochizuki
+12 28 - Saya Matsubara
+12 29 - Itsuki Manabe
+12 29 - Yoko Saito
+Staff
+11 28 - Chihiro Sengawa
+03 10 - Rookie Trainer
+06 10 - Trainer
+09 10 - Veteran Trainer
+12 10 - Master Trainer
+ 
+SideM
+01 02 - Jun Fuyumi
+01 13 - Michio Hazama
+01 17 - Yukihiro Kamiya
+02 02 - Kyoji Takajo
+02 10 - Kanon Himeno
+02 23 - Teru Tendo
+03 07 - Hideo Akuno
+03 22 - Minori Watanabe
+03 25 - Nao Okamura
+03 30 - Haruna Wakazato
+04 02 - Kei Tsuzuki
+04 04 - Suzaku Akai
+04 12 - Shiki Iseya
+04 22 - Shiro Tachibana
+05 05 - Ryu Kimura
+06 02 - Tsubasa Kashiwagi
+06 17 - Rei Kagura
+06 18 - Natsuki Sakaki
+07 03 - Kuro Kiyosumi
+07 07 - Kyosuke Aoi
+07 07 - Yusuke Aoi
+07 22 - Genbu Kurono
+08 01 - Pierre
+08 08 - Rui Maita
+08 19 - Saki Mizushima
+08 24 - Shoma Hanamura
+09 01 - Jiro Yamashita
+09 14 - Michiru Enjoji
+09 24 - Kaoru Sakuraba
+10 09 - Asselin BB II
+11 08 - Soichiro Shinonome
+11 12 - Kirio Nekoyanagi
+11 22 - Hayato Akiyama
+12 12 - Makio Uzuki
+12 21 - Takeru Taiga
+12 24 - Seiji Shingen
