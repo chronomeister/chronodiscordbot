@@ -3,7 +3,7 @@
     {"url" : "https://www.youtube.com/watch?v=dv13gl0a-FA", "Title" : "Deja vu", "Artist" : "Dave Rodgers"},
     {"url" : "https://www.youtube.com/watch?v=atuFSv2bLa8", "Title" : "Gas Gas Gas", "Artist" : "Manuel"},
     {"url" : "https://www.youtube.com/watch?v=XCiDuy4mrWU", "Title" : "Running in the 90s", "Artist" : "Max Coveri"},
-    {"url" : "https://www.youtube.com/watch?v=Ba-8A3mOIio", "Title" : "Dont stop the music", "Artist" : "Lou Grant"},
+    {"url" : "https://www.youtube.com/watch?v=Ba-8A3mOIio", "Title" : "Dont Stop the Music", "Artist" : "Lou Grant"},
     {"url" : "https://www.youtube.com/watch?v=XswuFtW1bco", "Title" : "Spaceboy", "Artist" : "Dave Rodgers"},
     {"url" : "https://www.youtube.com/watch?v=qFEWBm_3yK8", "Title" : "Forever Young", "Artist" : "Symbol"},
     {"url" : "https://www.youtube.com/watch?v=jlRu2QW-veg", "Title" : "Grand Prix", "Artist" : "Mega NRG Man"}
@@ -11,9 +11,9 @@
     {"url" : "https://www.youtube.com/watch?v=YbqLkgN-lQ0", "Title" : "Speed Lover", "Artist" : "Speedman"},
     {"url" : "https://www.youtube.com/watch?v=2wHRVLUx4_g", "Title" : "Adrenaline", "Artist" : "Ace"},
     {"url" : "https://www.youtube.com/watch?v=_vTwDqsqvj4", "Title" : "Crazy Little Love", "Artist" : "Nuage"},
-    {"url" : "https://www.youtube.com/watch?v=NkM_1G6KviU", "Title" : "I wont fall apart", "Artist" : "Jager"},
     {"url" : "https://www.youtube.com/watch?v=XhQIXO0vUOM", "Title" : "Max Power", "Artist" : "Dr.Love Feat. D.Essex"},
-    {"url" : "https://www.youtube.com/watch?v=gi-cc8V_Lb0", "Title" : "Dont turn it off", "Artist" : "Go 2"},
+    {"url" : "https://www.youtube.com/watch?v=NkM_1G6KviU", "Title" : "I Won't Fall Apart", "Artist" : "Jager"},
+    {"url" : "https://www.youtube.com/watch?v=gi-cc8V_Lb0", "Title" : "Dont Turn It Off", "Artist" : "Go 2"},
     {"url" : "https://www.youtube.com/watch?v=qF_HIay9Wrg", "Title" : "Disco Fire", "Artist" : "Dave Rodgers"},
     {"url" : "https://www.youtube.com/watch?v=_8Q0qRu7CSE", "Title" : "Futureland", "Artist" : "Ace"},
     {"url" : "https://www.youtube.com/watch?v=w5aOj4qe28s", "Title" : "Go Beat Crazy", "Artist" : "Fastway"},
@@ -22,5 +22,8 @@
     {"url" : "https://www.youtube.com/watch?v=SkII71N2M-Q", "Title" : "Revolution", "Artist" : "Fastway"},
     {"url" : "https://www.youtube.com/watch?v=1V5luPMBy4Y", "Title" : "The Top", "Artist" : "Ken Blast"},
     {"url" : "https://www.youtube.com/watch?v=ko-mjerzNlY", "Title" : "When The Sun Goes Down", "Artist" : "Ken Blast"},
+    {"url" : "https://www.youtube.com/watch?v=AsbOOPkmEGw", "Title" : "Beat Of The Rising Sun", "Artist" : "Dave Rodgers"},
+    {"url" : "https://www.youtube.com/watch?v=n5o5he4W9TE", "Title" : "NRG", "Artist" : "Go 2"},
+    {"url" : "https://www.youtube.com/watch?v=ivhqJrcl-V8", "Title" : "A Perfect Hero", "Artist" : "Chris Stanton"},
     {"url" : "https://www.youtube.com/watch?v=qQnfyxB__54", "Title" : "Power of Sound", "Artist" : "Ace"}
 ]]
