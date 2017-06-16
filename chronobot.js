@@ -159,6 +159,9 @@ bot.on("message", msg => {
     else if (command == "jojo") {
         msg.channel.send("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
     }
+    else if (command == "jail") {
+        msg.channel.send("https://youtu.be/XeDM1ZjMK50");
+    }
     else if (command == "gitgud") {
         msg.channel.send({file:"./gitgud.jpg"});
     }
