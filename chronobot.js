@@ -17,7 +17,7 @@ var friendcd =  require("./friendcd.js");
 var eurobeat =  require("./eurobeat.js");
 var blue =  require("./blue.js");
 var elog =  require("./emojirec.js");
-
+var ibday = require("./ibdaywhen.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -47,6 +47,7 @@ var commands = new Map([
     ["jojo", "IT IS A JOJO REFERENCE!"],
     ["gitgud", "Is someone sucking? Tell 'em what to do."],
     ["thicc OR extrathicc OR et", "When you're Aku and need to order a large."],
+    ["ibday OR idolbday", "When is the next idol birthday?"],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
@@ -167,6 +168,9 @@ bot.on("message", msg => {
     }
     else if (command == "thicc" || command == "extrathicc" || command == "et") {
         msg.channel.send({file:"./thicc.jpg"});
+    }
+    else if (command == "ibday" || command == "idolbday") {
+        ibday.when(msg, params);
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
