@@ -18,11 +18,10 @@ var eurobeat =  require("./eurobeat.js");
 var blue =  require("./blue.js");
 var elog =  require("./emojirec.js");
 var ibday = require("./ibdaywhen.js");
+var hummingbird = require("./hummingbird.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
-
-// https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-01-31&endDate=2017-01-31&expand=schedule.teams,schedule.linescore,schedule.broadcasts.all,schedule.ticket,schedule.game.content.media.epg,schedule.radioBroadcasts,schedule.decisions,schedule.scoringplays,schedule.game.content.highlights.scoreboard,team.leaders,schedule.game.seriesSummary,seriesSummary.series&leaderCategories=points,goals,assists&leaderGameTypes=R&site=en_nhl&teamId=&gameType=&timecode=
 
 const TIMEOUT = 2 * 1000;
 
@@ -48,6 +47,7 @@ var commands = new Map([
     ["gitgud", "Is someone sucking? Tell 'em what to do."],
     ["thicc OR extrathicc OR et", "When you're Aku and need to order a large."],
     ["ibday OR idolbday", "When is the next idol birthday?"],
+    ["hb OR hummingbird", "Because chrono is obsessed but too lazy to go look up a countdown for a song."],
     ["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
@@ -171,6 +171,9 @@ bot.on("message", msg => {
     }
     else if (command == "ibday" || command == "idolbday") {
         ibday.when(msg, params);
+    }
+    else if (command == "hb" || command == "hummingbird") {
+        hummingbird.when(msg);
     }
     // else if (command == "test") {
     //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
