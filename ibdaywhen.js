@@ -1,7 +1,7 @@
 var exports = module.exports = {};
-var idols = require('./idolbday.json');
 var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 exports.when = function(msg, params) {
+	var idols = require('./idolbday.json');
 	var msglist = [];
 	if (params.length < 1) {
 		var t = new Date();
