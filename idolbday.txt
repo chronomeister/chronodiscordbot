@@ -23,13 +23,13 @@ Muse
 
 Perfect Dream
 01 23 - Nakasu Kasumi
-02 05 - Emma 
+02 05 - Emma
 03 01 - Uehara Ayumu
 04 03 - Osaka Shizuku
 05 30 - Miyashita Ai
 06 29 - Asaka Karin
 08 08 - Yuki Setsuna
-11 13 - Tennoji Rina 
+11 13 - Tennoji Rina
 12 16 - Konoe Kanata
 
 Bang Dream!
@@ -75,7 +75,7 @@ Bang Dream!
 12 24 - Yukiho Hagiwara
 Staff
 07 06 - Junichirou Takagi
-07 06 - Junjirou Takagi 
+07 06 - Junjirou Takagi
 09 09 - Kotori Otonashi
 
 961 Pro (Jupiter)
@@ -89,7 +89,7 @@ Staff
 03 07 - Eri Mizutani
 06 25 - Ai Hidaka
 09 15 - Ryo Akizuki
- 
+
 Million Live
 01 08 - Emily Stewart
 01 18 - Shiho Kitazawa
@@ -128,7 +128,7 @@ Million Live
 12 03 - Akane Nonohara
 12 16 - Iku Nakatani
 12 29 - Sayoko Takayama
- 
+
 Cinderella Girls
 01 01 - Kako Takafuji
 01 01 - Karen Domyoji
@@ -318,7 +318,7 @@ Staff
 06 10 - Trainer
 09 10 - Veteran Trainer
 12 10 - Master Trainer
- 
+
 SideM
 01 02 - Jun Fuyumi
 01 13 - Michio Hazama
@@ -356,3 +356,64 @@ SideM
 12 12 - Makio Uzuki
 12 21 - Takeru Taiga
 12 24 - Seiji Shingen
+
+Sun Jan 8	All day	Megumi Toda's Birthday (Ayumu Maihama)  
+All day	Rie Suegara's Birthday (Fuka Toyokawa)
+Sun Jan 15	All day	Choucho Kiritani's Birthday (Miya Miyao)
+Tue Jan 17	All day	Reina Ueda's Birthday (Umi Kousaka)
+Sat Jan 21	All day	Yumi Hara's Birthday (Takane Shijou)
+Mon Jan 30	All day	Asami Shimoda's Birthday (Mami/Ami Futami)
+February 2017
+Wed Feb 15	All day	Azumi Asakura's Birthday (Yukiho Hagiwara)
+All day	Kotori Koiwai's Birthday (Tomoka Tenkubashi)
+Sun Feb 19	All day	Hiromi Hirata's Birthday (Makoto Kikuchi)
+All day	Yuu Kahara's Birthday (Emily Stewart)
+March 2017
+Thu Mar 9	All day	Akari Harashima's Birthday (Iku Nakatani)
+Sat Mar 25	All day	Machico's Birthday (Tsubasa Ibuki)
+Wed Mar 29	All day	Keiko Watanabe's Birthday (Momoko Suou)
+All day	Saki Ogasawara's Birthday (Akana Nonohara)
+Thu Mar 30	All day	Rikako Yamaguchi's Birthday (Rio Momose)
+April 2017
+Sat Apr 8	All day	Asuka Kakumoto's Birthday (Elena Shimabara)
+Fri Apr 14	All day	Akiko Hasegawa's Birthday (Miki Hoshii)
+Sat Apr 15	All day	Manami Numakura's Birthday (Hibiki Ganaha)
+May 2017
+Mon May 8	All day	Chiaki Takahashi's Birthday (Azusa Miura)
+All day	Yukiyo Fujii's Birthday (Megumi Tokoro)
+Tue May 16	All day	Asami Imai's Birthday (Chihaya Kisaragi)
+Sat May 27	All day	Ayaka Suwa's Birthday (Matsuri Tokugawa)
+Tue May 30	All day	Rie Kugimiya's Birthday (Iori Minase)
+June 2017
+Thu Jun 1	All day	Rie Murakawa's Birthday (Arisa Matsuda)
+Thu Jun 15	All day	Atsuki Nakamura's Birthday (Roco Handa)
+Sun Jun 25	All day	Momo Asakura's Birthday (Serika Hakozaki)
+Tue Jun 27	All day	Haruka Yamazaki's Birthday (Mirai Kasuga)
+Wed Jun 28	All day	Yui Kondo's Birthday (Karen Shinomiya)
+July 2017
+Wed Jul 12	All day	Risa Taneda's Birthday (Kotoha Tanaka)
+Tue Jul 18	All day	Shiina Natsukawa's Birthday (Anna Mochizuki)
+August 2017
+Fri Aug 18	All day	Eri Oozeki's Birthday (Minako Satake)
+Fri Aug 25	All day	Yuri Komagata's Birthday (Sayoko Takayama)
+Mon Aug 28	All day	Sora Amamiya's Birthday (Shiho Kitazawa)
+September 2017
+Wed Sep 6	All day	Nana Hamasaki's Birthday (Noriko Fukuda)
+Wed Sep 20	All day	Rika Abe's Birthday (Mizuki Makabe)
+Wed Sep 27	All day	Emi Hirayama's Birthday (Reika Kitakami)
+October 2017
+Tue Oct 10	All day	Nao Tamura's Birthday (Hinata Kinoshita)
+Thu Oct 12	All day	Miku Itou's Birthday (Yuriko Nanao)
+Sat Oct 28	All day	Eri Inagawa's Birthday (Tamaki Ogami)
+November 2017
+Thu Nov 2	All day	Naomi Wakabayashi's Birthday (Ritsuko Akizuki)
+Fri Nov 10	All day	Azusa Tadokoro's Birthday (Shizuka Mogami)
+Mon Nov 13	All day	Yuka Saitou's Birthday (Subaru Nagayoshi)
+Tue Nov 14	All day	Ibuki Kido's Birthday (Kana Yabuki)
+Sun Nov 19	All day	Eriko Nakamura's Birthday (Haruka Amami)
+December 2017
+Sat Dec 2	All day	Mayoko Nigo's Birthday (Yayoi Takatsuki)
+Mon Dec 4	All day	Yui Watanabe's Birthday (Nao Yokoyama)
+Wed Dec 20	All day	Minami Takahashi's Birthday (Konomi Baba)
+Mon Dec 25	All day	Aimi's Birthday (Julia)
+All day	Kanako Nomura's Birthday (Chizuru Nikaido)
