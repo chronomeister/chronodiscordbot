@@ -158,7 +158,7 @@ bot.on("message", msg => {
         msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
     }
     else if (command == "jojo") {
-        msg.channel.send("ＩＳ　ＴＨＡＴ　Ａ　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+        msg.channel.send("ＨＯＬＹ　ＳＨＩＴ！　ＩＳ　ＴＨＡＴ　Ａ　ＭＯＴＨＥＲＦＵＣＫＩＮ′　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
     }
     else if (command == "jail") {
         msg.channel.send("https://youtu.be/XeDM1ZjMK50");
