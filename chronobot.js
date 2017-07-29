@@ -186,7 +186,7 @@ bot.on("message", msg => {
             msg.channel.send("https://my.mixtape.moe/gerost.mp3");
         }
         else if (command == "zukin") {
-            msg.channel.send('https://i.imgur.com/Tv1EoL6.png');
+            msg.channel.send({file:"./zukin.png"});
         }
         else if (command == "test") {
             msg.channel.send("hi");
