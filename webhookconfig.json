@@ -3,23 +3,20 @@
         "screen_name" : "KanColle_STAFF",
         "webhooks" : [
             "https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA",
-            "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz"
+            "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz",
+            "https://discordapp.com/api/webhooks/345013271289659392/VtrZfbx4SNfzZjklra76QqJ-g2kHi071Sep_tB8WmAjV-p629vWcB-awolH3l4PFR0Kl"
         ]
     },{
         "screen_name" : "KCIconWatcher",
         "webhooks" : [
             "https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA",
-            "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz"
+            "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz",
+            "https://discordapp.com/api/webhooks/345013271289659392/VtrZfbx4SNfzZjklra76QqJ-g2kHi071Sep_tB8WmAjV-p629vWcB-awolH3l4PFR0Kl"
         ]
     },{
         "screen_name" : "kancolle_1draw",
         "webhooks" : [
             "https://discordapp.com/api/webhooks/304675011283648512/k7NscxYe3DS179kao4-Q7u6Yf575mY7YzAtqnhAoFl42y7zv4wXleM-Cot8fGPoQKmcQ",
-            "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz"
-        ]
-    },{
-        "screen_name" : "metaphorminute",
-        "webhooks" : [
             "https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz"
         ]
     }
