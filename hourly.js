@@ -12797,7 +12797,9 @@ while(!line) {
 // console.log(tl[hours[rnd]["id"]][tkey]);
 request.post({url:"https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz",
 	form: {
-		content:`${hours[rnd]["name"]} says "${tl[hours[rnd]["id"]][tkey]}"`
+		username: `${hours[rnd]["name"]}`,
+		content:`${tl[hours[rnd]["id"]][tkey]}`,
+		avatar_url:`https://raw.githubusercontent.com/KC3Kai/KC3Kai/master/src/assets/img/ships/${hours[rnd]["id"]}.png`
 	}},
 	function(err, rsp, body){}
 );
