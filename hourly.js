@@ -12795,7 +12795,7 @@ while(!line) {
 //
 // console.log(hours[rnd]["name"]);
 // console.log(tl[hours[rnd]["id"]][tkey]);
-request.post({url:"https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz",
+request.post({url:"https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA",
 	form: {
 		username: `${hours[rnd]["name"]}`,
 		content:`${tl[hours[rnd]["id"]][tkey]}`,
