@@ -12779,15 +12779,21 @@ var hours = [
 ];
 
 var request = require('request');
+var dayrng = require('random-seed');
+var configs = require('./cbotconfig.json');
 
 var t = new Date;
 t.setTime(t.getTime()+9*60*60*1000); // can now assume UTC is jp time
+var dtstr = new Date(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate());
+var rndgen = dayrng(dtstr);
+
 var hr = "0" + t.getUTCHours();
 var tkey = "H" + hr.slice(hr.length-2) + "00";
-var rnd = Math.floor(Math.random()*hours.length);
+// console.dir(rndgen.random());process.exit();
+var rnd = Math.floor(rndgen.random()*hours.length);
 var line;
 while(!line) {
-	rnd = Math.floor(Math.random()*hours.length);
+	rnd = Math.floor(rndgen.random()*hours.length);
 	line = tl[hours[rnd]["id"]][tkey];
 }
 // https://raw.githubusercontent.com/KC3Kai/KC3Kai/master/src/assets/img/ships/183.png
@@ -12795,11 +12801,17 @@ while(!line) {
 //
 // console.log(hours[rnd]["name"]);
 // console.log(tl[hours[rnd]["id"]][tkey]);
-request.post({url:"https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA",
-	form: {
-		username: `${hours[rnd]["name"]}`,
-		content:`${tl[hours[rnd]["id"]][tkey]}`,
-		avatar_url:`https://raw.githubusercontent.com/KC3Kai/KC3Kai/master/src/assets/img/ships/${hours[rnd]["id"]}.png`
-	}},
-	function(err, rsp, body){}
-);
+var webhooks = [
+	configs.webhooks.gct.kc,
+	configs.webhooks.ctbpg.wht
+];
+webhooks.forEach(function(uri){
+	request.post({url:uri,
+		form: {
+			username: `${hours[rnd]["name"]}`,
+			content:`${tl[hours[rnd]["id"]][tkey]}`,
+			avatar_url:`https://raw.githubusercontent.com/KC3Kai/KC3Kai/master/src/assets/img/ships/${hours[rnd]["id"]}.png`
+		}},
+		function(err, rsp, body){}
+	);
+});
