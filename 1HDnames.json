@@ -196,8 +196,8 @@
 "旗風" : "Hatakaze",
 "天霧" : "Amagiri",
 "狭霧" : "Sagiri",
-"Richelieu" : "Richelieu",
-"Ark Royal" : "Ark Royal",
+"リシュリュー" : "Richelieu",
+"アークロイヤル" : "Ark Royal",
 "松輪" : "Matsuwa",
 
 "ルイージ" : "Luigi Torelli",
@@ -270,5 +270,6 @@
 "駆逐イ級後期型" : "Destroyer I-class Late Model",
 "駆逐ニ級後期型" : "Destroyer Ni-class Late Model",
 "駆逐ハ級後期型" : "Destroyer Ha-class Late Model",
-"駆逐ロ級後期型" : "Destroyer Ro-class Late Model"
+"駆逐ロ級後期型" : "Destroyer Ro-class Late Model",
+"潜水新棲姫" : "Gate Keeper #1"
 }
