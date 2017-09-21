@@ -50,7 +50,9 @@ function getStatus(first) {
 					user.webhooks.forEach(function(url){
 						request.post({url:url,
 							form: {
-								content:`https://twitter.com/${user.screen_name}/status/${newtweetid}`
+								content:`https://twitter.com/${user.screen_name}/status/${newtweetid}`,
+								username: user.screen_name,
+								avatar_url: newtweet.user.profile_image_url_https
 							}},
 							function(err, rsp, body){
 								if (user.screen_name == "kancolle_1draw") {
