@@ -193,6 +193,15 @@
 "春日丸(大鷹)" : "Kasuga Maru (Taiyou)",
 "択捉" : "Etorofu",
 "神威" : "Kamoi",
+"旗風" : "Hatakaze",
+"天霧" : "Amagiri",
+"狭霧" : "Sagiri",
+"リシュリュー" : "Richelieu",
+"アーク・ロイヤル" : "Ark Royal",
+"松輪" : "Matsuwa",
+
+"ルイージ" : "Luigi Torelli",
+
 "伊良湖" : "Irako",
 "間宮" : "Mamiya",
 "中枢棲姫" : "Central Princess",
@@ -261,5 +270,6 @@
 "駆逐イ級後期型" : "Destroyer I-class Late Model",
 "駆逐ニ級後期型" : "Destroyer Ni-class Late Model",
 "駆逐ハ級後期型" : "Destroyer Ha-class Late Model",
-"駆逐ロ級後期型" : "Destroyer Ro-class Late Model"
+"駆逐ロ級後期型" : "Destroyer Ro-class Late Model",
+"潜水新棲姫" : "New Submarine Princess"
 }
