@@ -25,7 +25,12 @@ function getStatus(first) {
 		// console.log(user);
 		if (first) {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name}, function(error, tweets, response) {
-				// console.log(JSON.parse(response.body));
+				console.dir(JSON.parse(response.body)[0].lang);
+				if (user.TL) {
+					console.log(`${user.screen_name} needs TL`);
+				} else {
+					console.log(`${user.screen_name} none TL`);
+				}
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
@@ -119,6 +124,27 @@ function getStatus(first) {
 	});
 }
 getStatus(1);
+
+// npm install xml-js
+
+// request.get({
+//     url : 'https://api.microsofttranslator.com/V2/Http.svc/Translate',
+// 	headers : {
+// 		'Ocp-Apim-Subscription-Key': configs.msazurekey
+// 	},
+//     qs : {
+// 		'appid' : '',
+//         'text' : txt,
+// 		'from' : 'ja',
+// 		'to' : 'en'
+//     },
+//     body : ''
+// }, function (error, response, html) {
+// 	fs.writeFile('dump.txt', util.inspect(response));
+// 	var body = xmlparse.xml2js(response.body, {compact: true});
+// 	console.dir(body.string._text.replace(/ship it/ig, "KanColle"));
+// });
+
 
 // setTimeout(getStatus, 1000);
 setInterval(getStatus, 1500 * 1000 * (whconfig.length + 2) / (15 * 60));
