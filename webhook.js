@@ -150,24 +150,26 @@ function newTweet(tweetobj, user) {
 			body : ''
 		}, function (error, rsp, html) {
 			var body = xmlparse.xml2js(rsp.body, {compact: true});
-			var tl = body.string._text.replace(/ship (it|this)/ig, "KanColle");
-			user.webhooks.forEach(function(url){
-				request.post({url:url,
-					form: {
-						payload_json : JSON.stringify({
-							username: user.screen_name,
-							avatar_url: tweetobj.user.profile_image_url_https,
-							embeds : [
-								{
-									description : tl,
-								}
-							]
-						})
-					}
-				},
-				function(err, rsp, body){}
-				);
-			});
+			if (body.string) {
+				var tl = body.string._text.replace(/ship (it|this)/ig, "KanColle");
+				user.webhooks.forEach(function(url){
+					request.post({url:url,
+						form: {
+							payload_json : JSON.stringify({
+								username: user.screen_name,
+								avatar_url: tweetobj.user.profile_image_url_https,
+								embeds : [
+									{
+										description : tl,
+									}
+								]
+							})
+						}
+					},
+					function(err, rsp, body){}
+					);
+				});
+			}
 		});
 	}
 
