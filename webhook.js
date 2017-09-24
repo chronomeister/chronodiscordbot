@@ -26,20 +26,13 @@ function getStatus(first) {
 		if (first) {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, tweet_mode : "extended"}, function(error, tweets, response) {
 				var tweetobj = JSON.parse(response.body)[0];
-				console.dir(JSON.parse(response.body)[0].lang);
-				if (user.TL) {
-					console.log(`${user.screen_name} needs TL`);
-				} else {
-					console.log(`${user.screen_name} none TL`);
-				}
-
+				// console.dir(JSON.parse(response.body)[0].lang);
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
 					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
 					//testing
 				}
-				newTweet(tweetobj,user);
 			});
 		} else {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid, tweet_mode : "extended"}, function(error, tweets, response) {
