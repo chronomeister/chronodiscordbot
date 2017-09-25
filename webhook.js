@@ -113,29 +113,28 @@ function newTweet(tweetobj, user) {
 			case 2:
 			tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
 			break;
-			case 3:
-			enlist[2] = "and " + enlist[2];
+			default:
+			enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
 			tl = "Looks like today's 1HD is " + enlist.join(", ");
 			break;
-			default:
-			tl = "Something is a bit off and I shouldn't even be saying this meesage. I blame chrono";
-			break;
 		}
-		request.post({url:url,
-			form: {
-				payload_json : JSON.stringify({
-					username: user.screen_name,
-					avatar_url: tweetobj.user.profile_image_url_https,
-					embeds : [
-						{
-							description : tl,
-						}
-					]
-				})
-			}
-		},
-		function(err, rsp, body){}
-		);
+		user.webhooks.forEach(function(url){
+			request.post({url:url,
+				form: {
+					payload_json : JSON.stringify({
+						username: user.screen_name,
+						avatar_url: tweetobj.user.profile_image_url_https,
+						embeds : [
+							{
+								description : tl,
+							}
+						]
+					})
+				}
+			},
+			function(err, rsp, body){}
+			);
+		});
 	} else if (user.screen_name == "KanColle_STAFF") {
 		request.get({
 			url : 'https://api.microsofttranslator.com/V2/Http.svc/Translate',
