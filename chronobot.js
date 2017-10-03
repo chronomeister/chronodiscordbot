@@ -73,7 +73,7 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    var cdchannelid = '242663092171964417';'239224953172393984';
+    var cdchannelid = '239224953172393984';'242663092171964417';
 
     var ematch;
     while ((ematch = emjregex.exec(msg.content)) !== null) {
