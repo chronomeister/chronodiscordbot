@@ -73,7 +73,7 @@ bot.on("message", msg => {
     if(msg.author.bot){
         return;
     }
-    // var cdchannelid = '239224576393871361'; '242663092171964417';
+    var cdchannelid = '242663092171964417';'239224953172393984';
 
     var ematch;
     while ((ematch = emjregex.exec(msg.content)) !== null) {
@@ -149,7 +149,13 @@ bot.on("message", msg => {
         //});
     }
     else if (command == "cg") {
-        cg.time(msg);
+        cg.time(msg).then( id => {
+            if (!started && msg.channel.id === cdchannelid) {
+               msg.delete();
+               bot.setInterval(friendcd.updatemsg,3257,id);
+               started = true;
+            }
+        });
     }
     else if (command == "eurobeat") {
         eurobeat.drift(msg);
