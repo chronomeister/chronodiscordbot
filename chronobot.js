@@ -172,6 +172,9 @@ bot.on("message", msg => {
     else if (command == "gitgud") {
         msg.channel.send({file:"./gitgud.jpg"});
     }
+	else if (command == "toblerone") {
+        msg.channel.send({file:"./toblerone.jpg"});
+    }
     else if (command == "thicc" || command == "extrathicc" || command == "et") {
         msg.channel.send({file:"./thicc.jpg"});
     }
