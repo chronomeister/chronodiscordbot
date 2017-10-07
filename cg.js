@@ -11,7 +11,7 @@ exports.time = function(msg, qary) {
     var hours = Math.floor(Math.floor(Math.floor(time / 1000) / 60) / 60) % 24;
     var minutes = Math.floor(Math.floor(time / 1000) / 60) % 60;
     var seconds = Math.floor(time / 1000) % 60;
-    if (days == 6) {msg.channel.send((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
+    if (days == 6) {msg.channel.send((serval ?`${serval} `: "") + "EPISODE " + (nextepnum - 1) + " OF CINDERELLA GIRLS GEKIJOU SEASON 2 IS OUT! WATCH IT NOW!" + (serval ?` ${serval}`: ""));}
     var message = (serval ?`${serval} `: "") + "Episode " + nextepnum + " of Cinderella Girls Gekijou Season 2 airs in " +
        ((days > 0) ? days + " day" + (days == 1 ? "" : "s") + " " : "") +
        ((hours > 0) ? hours + " hour" + (hours == 1 ? "" : "s") + " " : "") +
