@@ -3,7 +3,7 @@ var exports = module.exports = {};
 exports.updatemsg = function(msg) {
     // assume UTC for everything
 	var serval = msg.guild.emojis.find(function(emoji){return emoji.name === 'muri';});
-    var firstep = new Date(Date.UTC(2017,09,03,12,55));
+    var firstep = new Date(Date.UTC(2017,09,03,12,54));
     var now = Date.now();
     var nextepnum = Math.floor(Math.floor(Math.floor(Math.floor(Math.floor((now - firstep) / 1000) / 60) / 60) / 24) / 7) + 2;
     if (nextepnum > 12) return;
