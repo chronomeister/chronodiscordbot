@@ -28,18 +28,33 @@ exports.when = function(msg, params) {
 		if (tmrbday.length + nowbday.length == 0) msglist.push(":FeelsBadMan:");
 	} else {
 		var namelist = [];
-		var namerx = [];
-		params.forEach(function(name){
-			namerx.push(new RegExp(`\\b${name}\\b`, "i"));
-		});
-		idols.forEach(function(val){namelist.push(val)});
-		namerx.forEach(function(rx){
-			for (var i = 0; i < namelist.length; i++) {
-				if (!rx.test(namelist[i].name)) {
-					namelist.splice(i--,1);
+		if (Date.parse(params[0]) === NaN) {
+			var namerx = [];
+			params.forEach(function(name){
+				namerx.push(new RegExp(`\\b${name}\\b`, "i"));
+			});
+			idols.forEach(function(val){namelist.push(val)});
+			namerx.forEach(function(rx){
+				for (var i = 0; i < namelist.length; i++) {
+					if (!rx.test(namelist[i].name)) {
+						namelist.splice(i--,1);
+					}
 				}
-			}
-		});
+			});
+		} else {
+			var c = new Date(d);
+			var m = c.getMonth() + 1;
+			b.forEach(function(idol){
+				if (idol.month - 1 === c.getMonth() && idol.day - 0 === c.getDate() - 0)
+				{
+					namelist.push(idol);
+				} else {
+					console.log(`${idol.month - 1} <> ${c.getMonth()} and ${idol.day - 0} <> ${c.getDate() - 0}`)
+				}
+			});
+			a = `${m} - ${c.getDate()}`;
+			console.dir(Date.parse(d) === NaN);
+		}
 		if (namelist.length == 0) {msglist.push(`I could not find any idols matching that name`)}
 		else {
 			if (namelist.length > 1) msglist.push(`I found ${namelist.length} idols matching that name`);
