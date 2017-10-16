@@ -181,7 +181,7 @@ bot.on("message", msg => {
     else if (command == "ibday" || command == "idolbday") {
         ibday.when(msg, params);
     }
-    else if (command == "hb" || command == "hummingbird") {
+    else if (command == "fff" || command == "funfunfun" || command == "funfare") {
         hummingbird.when(msg);
     }
     // else if (command == "test") {
