@@ -28,7 +28,8 @@ exports.when = function(msg, params) {
 		if (tmrbday.length + nowbday.length == 0) msglist.push(":FeelsBadMan:");
 	} else {
 		var namelist = [];
-		if (Date.parse(params[0]) === NaN) {
+		var isName = isNaN(Date.parse(params[0]));
+		if (isName) {
 			var namerx = [];
 			params.forEach(function(name){
 				namerx.push(new RegExp(`\\b${name}\\b`, "i"));
@@ -42,22 +43,18 @@ exports.when = function(msg, params) {
 				}
 			});
 		} else {
-			var c = new Date(d);
+			var c = new Date(params[0]);
 			var m = c.getMonth() + 1;
-			b.forEach(function(idol){
+			idols.forEach(function(idol){
 				if (idol.month - 1 === c.getMonth() && idol.day - 0 === c.getDate() - 0)
 				{
 					namelist.push(idol);
-				} else {
-					console.log(`${idol.month - 1} <> ${c.getMonth()} and ${idol.day - 0} <> ${c.getDate() - 0}`)
 				}
 			});
-			a = `${m} - ${c.getDate()}`;
-			console.dir(Date.parse(d) === NaN);
 		}
-		if (namelist.length == 0) {msglist.push(`I could not find any idols matching that name`)}
+		if (namelist.length == 0) {msglist.push(`I could not find any idol${!isName ? "'s birthdays" : "s"} matching that ${isName ? "name" : "date"}`)}
 		else {
-			if (namelist.length > 1) msglist.push(`I found ${namelist.length} idols matching that name`);
+			if (namelist.length > 1) msglist.push(`I found ${namelist.length} idol${!isName ? " birthdays" : "s"} matching that ${isName ? "name" : "date"}`);
 			namelist.forEach(function(val){msglist.push(`${val.name} from ${val.series} has a birthday on ${mon[val.month-1]} ${val.day}`);});
 		}
 	}
