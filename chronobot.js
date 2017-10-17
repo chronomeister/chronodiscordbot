@@ -22,7 +22,7 @@ var hummingbird = require("./hummingbird.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
-
+const util = require('util');
 const TIMEOUT = 2 * 1000;
 
 var timeouts = {};
@@ -184,6 +184,9 @@ bot.on("message", msg => {
 		else if (command == "fff" || command == "funfunfun" || command == "funfare") {
 			hummingbird.when(msg);
 		}
+		else if (command == "slap" && msg.mentions.users.size > 0) {
+			msg.channel.send(`<@${msg.author.id}> slaps <@${msg.mentions.users.first().id}> with a large trout`);
+		}
 		// else if (command == "test") {
 		//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
 		// }
@@ -199,6 +202,7 @@ bot.on("message", msg => {
 			}
 			else if (command == "test") {
 				msg.channel.send("hi");
+				// fs.writeFile('./dump.txt', util.inspect(msg.mentions.users.first()));
 			}
 			else if (command == "echeck") {
 				elog.checkusage(msg, params[0]);
