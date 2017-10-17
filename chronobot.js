@@ -184,8 +184,8 @@ bot.on("message", msg => {
 		else if (command == "fff" || command == "funfunfun" || command == "funfare") {
 			hummingbird.when(msg);
 		}
-		else if (command == "dab" && msg.mentions.users.size > 0) {
-			msg.channel.send(`<@${msg.author.id}> slaps <@${msg.mentions.users.first().id}> with a large trout`);
+		else if ((command == "dab" || command == "slap") && msg.mentions.users.size > 0) {
+			msg.channel.send(`<@${msg.author.id}> dabs at <@${msg.mentions.users.first().id}>`);
 		}
 		// else if (command == "test") {
 		//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
