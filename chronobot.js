@@ -31,193 +31,193 @@ var started = false;
 var cdid;
 var prefix = "!";
 var commands = new Map([
-    ["help", "Yo, I heard you like help so I got you a help in your help so I can help you help."],
-    ["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
-    ["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\n\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. Be aware your location will be stored in a local database the maintainer can read. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\n\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
-    ["bobross OR br","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
-    ["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency. You may give a number of the first currency to get the value of the second currency.\nYou may use SPK,PUL,JEW for Deresute spark, 10-pull, and jewels respectively"],
-    ["youtube OR yt","Simple search of youtube. Returns top result."],
-    ["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
-    ["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
-    ["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
-    ["cg", "Like friends, but for Cinderella Girls Theater."],
-    ["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
-    ["stand", "IS THAT A JOJO REFERENCE?!"],
-    ["jojo", "IT IS A JOJO REFERENCE!"],
-    ["gitgud", "Is someone sucking? Tell 'em what to do."],
-    ["thicc OR extrathicc OR et", "When you're Aku and need to order a large."],
-    ["ibday OR idolbday", "When is the next idol birthday?"],
-    ["hb OR hummingbird", "Because chrono is obsessed but too lazy to go look up a countdown for a song."],
-    ["regional", "Send a message with additional cancer of regional indicators."]
+	["help", "Yo, I heard you like help so I got you a help in your help so I can help you help."],
+	["idolhell", "This function returns a random idol from a list of idols.\nCurrent list is: Love Live, Idolm\@ster\nCan take one parameter as to add an adjective flair to what idol is returned."],
+	["weather","This function returns the current weather from WeatherUnderground. May use (US) State/City or (US) ZIP code or Country/City or latitute,longitude or airport code. eg: \"" + prefix + "weather 60290\"\n\nSubcommands:\nregister *location*: register you to a *location*. Used to register you to a location to avoid typing in a location in the future. DM me if you don't want to show off your location. Be aware your location will be stored in a local database the maintainer can read. eg: \"" + prefix + "weather register CA/San_Francisco\" / \"" + prefix + "weather register Tokyo, Japan\"\n\nuseMetric: toggles the use of metric for your weather. Will return your new setting. eg: \"" + prefix + "weather useMetric"], //\nlocation: toggles the status of displaying your location when using the " + prefix + "weather command. Will return the new status.
+	["bobross OR br","Returns a random Bob Ross quote. Every day is a good day when you paint. KappaRoss"],
+	["cx","Gets the current exchange rate for two currencies. Provide a six character string with the first 3 characters being the from currency and the next 3 characters being the to currency. You may give a number of the first currency to get the value of the second currency.\nYou may use SPK,PUL,JEW for Deresute spark, 10-pull, and jewels respectively"],
+	["youtube OR yt","Simple search of youtube. Returns top result."],
+	["8ball","Ask the mystical 8ball your question and receive an answer. May or may not be accurate."],
+	["choose", "Don't like 8ball's answers? Fine, you can narrow down the repsonses. Provide a list of choices separated by a semicolon (;) and I will pick one from them."],
+	["friends", "Because chrono got obsessed with this Kemono Friends show and needs to know the next air time."],
+	["cg", "Like friends, but for Cinderella Girls Theater."],
+	["eurobeat", "When you need to experience some Deju Vu of Running in the 90's."],
+	["stand", "IS THAT A JOJO REFERENCE?!"],
+	["jojo", "IT IS A JOJO REFERENCE!"],
+	["gitgud", "Is someone sucking? Tell 'em what to do."],
+	["thicc OR extrathicc OR et", "When you're Aku and need to order a large."],
+	["ibday OR idolbday", "When is the next idol birthday?"],
+	["hb OR hummingbird", "Because chrono is obsessed but too lazy to go look up a countdown for a song."],
+	["regional", "Send a message with additional cancer of regional indicators."]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
 var emojiservers = new Discord.Collection();
 
 bot.on("messageReactionAdd", (reaction, user) => {
-    if (emojiservers.get(reaction.emoji.id)) {
-        elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
-    }
+	if (emojiservers.get(reaction.emoji.id)) {
+		elog.logemoji(reaction.message.id, '', reaction.message.channel.id, reaction.message.channel.guild.id, reaction.emoji.id, reaction.message.createdTimestamp);
+	}
 });
 
 bot.on("messageUpdate", msg => {
-    while ((ematch = emjregex.exec(msg.content)) !== null) {
-        if (emojiservers.get(ematch[1])) {
-            //msgid, userid, guildid, emojiid, ts
-            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
-        }
-    }
+	while ((ematch = emjregex.exec(msg.content)) !== null) {
+		if (emojiservers.get(ematch[1])) {
+			//msgid, userid, guildid, emojiid, ts
+			elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+		}
+	}
 });
 
 bot.on("message", msg => {
-    if(msg.author.bot){
-        return;
-    }
-    var cdchannelid = '239224953172393984';'242663092171964417';
+	if(msg.author.bot){
+		return;
+	}
+	var cdchannelid = '239224953172393984';'242663092171964417';
 
-    var ematch;
-    while ((ematch = emjregex.exec(msg.content)) !== null) {
-        if (emojiservers.get(ematch[1])) {
-            //msgid, userid, guildid, emojiid, ts
-            elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
-            // console.dir([msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp]);
-        }
-    }
-    // console.dir([msg, msg.channel.id]);
-    // msg.channel.send('<@242659286830940160>');
-    // idlemaster.addUser(msg.author);
-    // var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
-    // if (dad.test(msg.content)) {fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
-    if (!msg.content.startsWith(prefix)) return;
-    var params = msg.content.substr(1).split(' ');
-    var command = params.shift();
-    if (command === "help") {
-        var cmd = params.shift();
-        if (!commands.has(cmd)) {
-            // console.dir();
-            if (typeof cmd === "undefined") {
-                var cmds = [];
-                // var iter = commands.keys();
-                for(let key of commands.keys()) {cmds.push(prefix + key)};
-                // console.dir(cmds);
-                msg.channel.send("Current commands are: \n" + cmds.join("\n") + "\n");
-                msg.channel.send("For more help on a specific command type: '" + prefix + "help *command*'");
-            } else {
-                msg.channel.send("Command not found.");
-            }
-        } else {
-            msg.author.send(commands.get(cmd));
-        }
-    }
-    else if (command === "idolhell") {
-        if (params.length > 0) {
-            msg.channel.send(msg.author + ", your " + params.join(" ") + " idol is:");
-        }
-        idolgame.idolhell(msg);
-    }
-    // else if (command.startsWith("score")) {
-    //     idlemaster.getScore(msg);
-    // }
-    else if (command === "weather") {
-        weather.getWeather(msg, params);
-    }
-    else if (command === "bobross" || command === "br") {
-        br.bobross(msg);
-    }
-    else if (command === "cx") {
-        cx.currencyexchange(msg, params);
-    }
-    else if (command === "youtube" || command === "yt") {
-        yt.youtube(msg, params);
-    }
-    else if (command === "8ball") {
-        eight.eightball(msg);
-    }
-    else if (command === "choose") {
-        choose.choice(msg, params);
-    }
-    else if (command == "tier") {
-        irankpic.pic(msg);
-    }
-    else if (command == "friends") {
-        friends.time(msg);//.then( id => {
-            //if (!started && msg.channel.id === cdchannelid) {
-            //    msg.delete();
-            //    bot.setInterval(friendcd.updatemsg,3257,id);
-            //    started = true;
-            //}
-        //});
-    }
-    else if (command == "cg") {
-        cg.time(msg).then( id => {
-            if (!started && msg.channel.id === cdchannelid) {
-               msg.delete();
-               bot.setInterval(friendcd.updatemsg,3257,id);
-               started = true;
-            }
-        });
-    }
-    else if (command == "eurobeat") {
-        eurobeat.drift(msg);
-    }
-    else if (command == "stand") {
-        msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
-    }
-    else if (command == "jojo") {
-        msg.channel.send("ＨＯＬＹ　ＳＨＩＴ！　ＩＳ　ＴＨＡＴ　Ａ　ＭＯＴＨＥＲＦＵＣＫＩＮ′　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
-    }
-    else if (command == "jail") {
-        msg.channel.send("https://youtu.be/XeDM1ZjMK50");
-    }
-    else if (command == "gitgud") {
-        msg.channel.send({file:"./gitgud.jpg"});
-    }
-	else if (command == "toblerone") {
-        msg.channel.send({file:"./toblerone.jpg"});
-    }
-    else if (command == "thicc" || command == "extrathicc" || command == "et") {
-        msg.channel.send({file:"./thicc.jpg"});
-    }
-    else if (command == "ibday" || command == "idolbday") {
-        ibday.when(msg, params);
-    }
-    else if (command == "fff" || command == "funfunfun" || command == "funfare") {
-        hummingbird.when(msg);
-    }
-    // else if (command == "test") {
-    //     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
-    // }
-    else if (command == "regional") {
-        blue.region(msg, params);
-    }
-    else if (msg.author.id == 93389633261416448) {
-        if (command == "isp") {
-            msg.channel.send("https://my.mixtape.moe/gerost.mp3");
-        }
-        else if (command == "zukin") {
-            msg.channel.send({file:"./zukin.png"});
-        }
-        else if (command == "test") {
-            msg.channel.send("hi");
-        }
-        else if (command == "echeck") {
-            elog.checkusage(msg, params[0]);
-        }
-    }
-});
+	var ematch;
+	while ((ematch = emjregex.exec(msg.content)) !== null) {
+		if (emojiservers.get(ematch[1])) {
+			//msgid, userid, guildid, emojiid, ts
+			elog.logemoji(msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp);
+			// console.dir([msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp]);
+		}
+	}
+	// console.dir([msg, msg.channel.id]);
+	// msg.channel.send('<@242659286830940160>');
+	// idlemaster.addUser(msg.author);
+	// var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
+	// if (dad.test(msg.content)) {fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, ' + dad.exec(msg.content)[2] +"\"\n", function(){})}
+	if (!msg.content.startsWith(prefix)) return;
+	var params = msg.content.substr(1).split(' ');
+	var command = params.shift();
+	if (command === "help") {
+		var cmd = params.shift();
+		if (!commands.has(cmd)) {
+			// console.dir();
+			if (typeof cmd === "undefined") {
+				var cmds = [];
+				// var iter = commands.keys();
+				for(let key of commands.keys()) {cmds.push(prefix + key)};
+				// console.dir(cmds);
+				msg.channel.send("Current commands are: \n" + cmds.join("\n") + "\n");
+				msg.channel.send("For more help on a specific command type: '" + prefix + "help *command*'");
+			} else {
+				msg.channel.send("Command not found.");
+			}
+		} else {
+			msg.author.send(commands.get(cmd));
+		}
+	}
+	else if (command === "idolhell") {
+		if (params.length > 0) {
+			msg.channel.send(msg.author + ", your " + params.join(" ") + " idol is:");
+		}
+		idolgame.idolhell(msg);
+	}
+	// else if (command.startsWith("score")) {
+	//     idlemaster.getScore(msg);
+	// }
+	else if (command === "weather") {
+		weather.getWeather(msg, params);
+	}
+	else if (command === "bobross" || command === "br") {
+		br.bobross(msg);
+	}
+	else if (command === "cx") {
+		cx.currencyexchange(msg, params);
+	}
+	else if (command === "youtube" || command === "yt") {
+		yt.youtube(msg, params);
+	}
+	else if (command === "8ball") {
+		eight.eightball(msg);
+	}
+	else if (command === "choose") {
+		choose.choice(msg, params);
+	}
+	else if (command == "tier") {
+		irankpic.pic(msg);
+	}
+	else if (command == "friends") {
+		friends.time(msg);//.then( id => {
+			//if (!started && msg.channel.id === cdchannelid) {
+			//    msg.delete();
+			//    bot.setInterval(friendcd.updatemsg,3257,id);
+			//    started = true;
+			//}
+			//});
+		}
+		else if (command == "cg") {
+			cg.time(msg).then( id => {
+				if (!started && msg.channel.id === cdchannelid) {
+					msg.delete();
+					bot.setInterval(friendcd.updatemsg,3257,id);
+					started = true;
+				}
+			});
+		}
+		else if (command == "eurobeat") {
+			eurobeat.drift(msg);
+		}
+		else if (command == "stand") {
+			msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+		}
+		else if (command == "jojo") {
+			msg.channel.send("ＨＯＬＹ　ＳＨＩＴ！　ＩＳ　ＴＨＡＴ　Ａ　ＭＯＴＨＥＲＦＵＣＫＩＮ′　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+		}
+		else if (command == "jail") {
+			msg.channel.send("https://youtu.be/XeDM1ZjMK50");
+		}
+		else if (command == "gitgud") {
+			msg.channel.send({file:"./gitgud.jpg"});
+		}
+		else if (command == "toblerone") {
+			msg.channel.send({file:"./toblerone.jpg"});
+		}
+		else if (command == "thicc" || command == "extrathicc" || command == "et") {
+			msg.channel.send({file:"./thicc.jpg"});
+		}
+		else if (command == "ibday" || command == "idolbday") {
+			ibday.when(msg, params);
+		}
+		else if (command == "fff" || command == "funfunfun" || command == "funfare") {
+			hummingbird.when(msg);
+		}
+		// else if (command == "test") {
+		//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
+		// }
+		else if (command == "regional") {
+			blue.region(msg, params);
+		}
+		else if (msg.author.id == 93389633261416448) {
+			if (command == "isp") {
+				msg.channel.send("https://my.mixtape.moe/gerost.mp3");
+			}
+			else if (command == "zukin") {
+				msg.channel.send({file:"./zukin.png"});
+			}
+			else if (command == "test") {
+				msg.channel.send("hi");
+			}
+			else if (command == "echeck") {
+				elog.checkusage(msg, params[0]);
+			}
+		}
+	});
 
-bot.on('ready', () => {
-  console.log('I am ready!');
-  bot.guilds.forEach(function(val, key, glds){
-      val.emojis.forEach(function(ev, ek, emjs){
-          emojiservers.set(ek,key);
-      });
-    //   console.dir(val);
-  });
-  //console.dir(emojiservers);
-});
+	bot.on('ready', () => {
+		console.log('I am ready!');
+		bot.guilds.forEach(function(val, key, glds){
+			val.emojis.forEach(function(ev, ek, emjs){
+				emojiservers.set(ek,key);
+			});
+			//   console.dir(val);
+		});
+		//console.dir(emojiservers);
+	});
 
-bot.login(configs.discordkey);
+	bot.login(configs.discordkey);
 
 
-// setInterval(idlemaster.updateIdle, idlemaster.CHECKINTERVAL);
+	// setInterval(idlemaster.updateIdle, idlemaster.CHECKINTERVAL);
