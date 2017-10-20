@@ -2,7 +2,7 @@ var exports = module.exports = {};
 
 exports.when = function(msg) {
 	var n = new Date();
-	var r = new Date(Date.UTC(2017,10,08,15));
+	var r = new Date(Date.UTC(2017,10,07,15));
 	var time = r - n;
     var days = Math.floor(Math.floor(Math.floor(Math.floor(time / 1000) / 60) / 60) / 24);
     var hours = Math.floor(Math.floor(Math.floor(time / 1000) / 60) / 60) % 24;
