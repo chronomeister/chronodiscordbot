@@ -147,81 +147,78 @@ bot.on("message", msg => {
 			//    started = true;
 			//}
 			//});
-		}
-		else if (command == "cg") {
-			cg.time(msg).then( id => {
-				if (!started && msg.channel.id === cdchannelid) {
-					msg.delete();
-					bot.setInterval(friendcd.updatemsg,3257,id);
-					started = true;
-				}
-			});
-		}
-		else if (command == "eurobeat") {
-			eurobeat.drift(msg);
-		}
-		else if (command == "stand") {
-			msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
-		}
-		else if (command == "jojo") {
-			msg.channel.send("ＨＯＬＹ　ＳＨＩＴ！　ＩＳ　ＴＨＡＴ　Ａ　ＭＯＴＨＥＲＦＵＣＫＩＮ′　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
-		}
-		else if (command == "jail") {
-			msg.channel.send("https://youtu.be/XeDM1ZjMK50");
-		}
-		else if (command == "gitgud") {
-			msg.channel.send({file:"./gitgud.jpg"});
-		}
-		else if (command == "toblerone") {
-			msg.channel.send({file:"./toblerone.jpg"});
-		}
-		else if (command == "thicc" || command == "extrathicc" || command == "et") {
-			msg.channel.send({file:"./thicc.jpg"});
-		}
-		else if (command == "ibday" || command == "idolbday") {
-			ibday.when(msg, params);
-		}
-		else if (command == "fff" || command == "funfunfun" || command == "funfare") {
-			hummingbird.when(msg);
-		}
-		else if ((command == "dab" || command == "slap") && msg.mentions.users.size > 0) {
-			msg.channel.send(`<@${msg.author.id}> dabs at <@${msg.mentions.users.first().id}>`);
-		}
-		// else if (command == "test") {
-		//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
-		// }
-		else if (command == "regional") {
-			blue.region(msg, params);
-		}
-		else if (msg.author.id == 93389633261416448) {
-			if (command == "isp") {
-				msg.channel.send("https://my.mixtape.moe/gerost.mp3");
+	}
+	else if (command == "cg") {
+		cg.time(msg).then( id => {
+			if (!started && msg.channel.id === cdchannelid) {
+				msg.delete();
+				bot.setInterval(friendcd.updatemsg,3257,id);
+				started = true;
 			}
-			else if (command == "zukin") {
-				msg.channel.send({file:"./zukin.png"});
-			}
-			else if (command == "test") {
-				msg.channel.send("hi");
-				// fs.writeFile('./dump.txt', util.inspect(msg.mentions.users.first()));
-			}
-			else if (command == "echeck") {
-				elog.checkusage(msg, params[0]);
-			}
-		}
-	});
-
-	bot.on('ready', () => {
-		console.log('I am ready!');
-		bot.guilds.forEach(function(val, key, glds){
-			val.emojis.forEach(function(ev, ek, emjs){
-				emojiservers.set(ek,key);
-			});
-			//   console.dir(val);
 		});
-		//console.dir(emojiservers);
+	}
+	else if (command == "eurobeat") {
+		eurobeat.drift(msg);
+	}
+	else if (command == "stand") {
+		msg.channel.send("ゴ ゴ ゴ ゴ ゴ ゴ ＴＨＩＳ　ＭＵＳＴ　ＢＥ　ＴＨＥ　ＷＯＲＫ　ＯＦ　ＡＮ　ＥＮＥＭＹ　『**ＳＴＡＮＤ**』ゴ ゴ ゴ ゴ ゴ ゴ");
+	}
+	else if (command == "jojo") {
+		msg.channel.send("ＨＯＬＹ　ＳＨＩＴ！　ＩＳ　ＴＨＡＴ　Ａ　ＭＯＴＨＥＲＦＵＣＫＩＮ′　ＪＯＪＯ　ＲＥＦＥＲＥＮＣＥ？");
+	}
+	else if (command == "jail") {
+		msg.channel.send("https://youtu.be/XeDM1ZjMK50");
+	}
+	else if (command == "gitgud") {
+		msg.channel.send({file:"./gitgud.jpg"});
+	}
+	else if (command == "toblerone") {
+		msg.channel.send({file:"./toblerone.jpg"});
+	}
+	else if (command == "thicc" || command == "extrathicc" || command == "et") {
+		msg.channel.send({file:"./thicc.jpg"});
+	}
+	else if (command == "ibday" || command == "idolbday") {
+		ibday.when(msg, params);
+	}
+	else if (command == "fff" || command == "funfunfun" || command == "funfare") {
+		hummingbird.when(msg);
+	}
+	else if ((command == "dab" || command == "slap") && msg.mentions.users.size > 0) {
+		msg.channel.send(`<@${msg.author.id}> dabs at <@${msg.mentions.users.first().id}>`);
+	}
+	// else if (command == "test") {
+	//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
+	// }
+	else if (command == "regional") {
+		blue.region(msg, params);
+	}
+	else if (msg.author.id == 93389633261416448) {
+		if (command == "isp") {
+			msg.channel.send("https://my.mixtape.moe/gerost.mp3");
+		}
+		else if (command == "zukin") {
+			msg.channel.send({file:"./zukin.png"});
+		}
+		else if (command == "test") {
+			msg.channel.send("hi");
+			// fs.writeFile('./dump.txt', util.inspect(msg.mentions.users.first()));
+		}
+		else if (command == "echeck") {
+			elog.checkusage(msg, params[0]);
+		}
+	}
+});
+
+bot.on('ready', () => {
+	console.log('I am ready!');
+	bot.guilds.forEach(function(val, key, glds){
+		val.emojis.forEach(function(ev, ek, emjs){
+			emojiservers.set(ek,key);
+		});
+		//   console.dir(val);
 	});
+	//console.dir(emojiservers);
+});
 
-	bot.login(configs.discordkey);
-
-
-	// setInterval(idlemaster.updateIdle, idlemaster.CHECKINTERVAL);
+bot.login(configs.discordkey);
