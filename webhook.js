@@ -12,7 +12,7 @@ var client = new Twitter({
 var whconfig = require('./webhookconfig.json');
 
 var lastseenid = {};
-whconfig.forEach(function(user){
+whconfig.twitters.forEach(function(user){
 	user.lastseenid = "";
 });
 var kcprofileimg = "";
@@ -21,7 +21,8 @@ var kcprofileimg = "";
  * number of tweets per second depends on topic popularity
  **/
 function getStatus(first) {
-	whconfig.forEach(function(user){
+	console.log("get");
+	whconfig.twitters.forEach(function(user){
 		// console.log(user);
 		if (first) {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, tweet_mode : "extended"}, function(error, tweets, response) {
@@ -30,10 +31,10 @@ function getStatus(first) {
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
-					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
+					kcprofileimg = "";//JSON.parse(response.body)[0].user.profile_image_url_https;
 					//testing
 				}
-				//newTweet(tweetobj, user);
+				// newTweet(tweetobj, user);
 			});
 		} else {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid, tweet_mode : "extended"}, function(error, tweets, response) {
@@ -57,8 +58,8 @@ function getStatus(first) {
 					var info = JSON.parse(response.body);
 					if (kcprofileimg != info.profile_image_url_https) {
 						kcprofileimg = info.profile_image_url_https;
+						var lrg = kcprofileimg.replace("normal", "400x400");
 						user.webhooks.forEach(function(url){
-							var lrg = kcprofileimg.replace("normal", "400x400");
 							request.post({url:url,
 								form: {
 									content:`New KC profile image detected! ${lrg}`
@@ -66,6 +67,9 @@ function getStatus(first) {
 								function(err, rsp, body){}
 							);
 						});
+						whconfig.selfposts.forEach(function(post){
+							me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
+						})
 					}
 				});
 			}
@@ -175,10 +179,14 @@ function newTweet(tweetobj, user) {
 
 }
 
+var Discord = require("discord.js");
+var me = new Discord.Client();
+me.login(whconfig.selftoken);
+
 getStatus(1);
 
 // setTimeout(getStatus, 1000);
-setInterval(getStatus, 1500 * 1000 * (whconfig.length + 2) / (15 * 60));
+setInterval(getStatus, 1500 * 1000 * (whconfig.twitters.length + 2) / (15 * 60));
 
 // client.stream('site', {follow: '448311788'}, function(stream) {
 //   stream.on('data', function(event) {
