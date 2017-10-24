@@ -33,7 +33,7 @@ function getStatus(first) {
 					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
 					//testing
 				}
-				// newTweet(tweetobj, user);
+				newTweet(tweetobj, user);
 			});
 		} else {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid, tweet_mode : "extended"}, function(error, tweets, response) {
@@ -139,22 +139,19 @@ function newTweet(tweetobj, user) {
 			);
 		});
 	} else if (user.screen_name == "KanColle_STAFF") {
-		request.get({
-			url : 'https://api.microsofttranslator.com/V2/Http.svc/Translate',
-			headers : {
-				'Ocp-Apim-Subscription-Key': auth.msazurekey
-			},
-			qs : {
-				'appid' : '',
-				'text' : tweetobj.full_text,
-				'from' : tweetobj.lang,
-				'to' : 'en'
-			},
-			body : ''
+		request.post({
+			url : "https://translation.googleapis.com/language/translate/v2",
+			qs : { "key" : auth.gkey },
+			form : {
+				"q" : tweetobj.full_text,
+				"format" : "text",
+				"source" : tweetobj.lang,
+				"target" : "en"
+			}
 		}, function (error, rsp, html) {
-			var body = xmlparse.xml2js(rsp.body, {compact: true});
-			if (body.string) {
-				var tl = body.string._text.replace(/ship (it|this)/ig, "KanColle");
+			var body = JSON.parse(rsp.body);
+			if (body.data) {
+				var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
 				user.webhooks.forEach(function(url){
 					request.post({url:url,
 						form: {
@@ -174,6 +171,41 @@ function newTweet(tweetobj, user) {
 				});
 			}
 		});
+		// request.get({
+		// 	url : 'https://api.microsofttranslator.com/V2/Http.svc/Translate',
+		// 	headers : {
+		// 		'Ocp-Apim-Subscription-Key': auth.msazurekey
+		// 	},
+		// 	qs : {
+		// 		'appid' : '',
+		// 		'text' : tweetobj.full_text,
+		// 		'from' : tweetobj.lang,
+		// 		'to' : 'en'
+		// 	},
+		// 	body : ''
+		// }, function (error, rsp, html) {
+		// 	var body = xmlparse.xml2js(rsp.body, {compact: true});
+		// 	if (body.string) {
+		// 		var tl = body.string._text.replace(/ship (it|this)/ig, "KanColle");
+		// 		user.webhooks.forEach(function(url){
+		// 			request.post({url:url,
+		// 				form: {
+		// 					payload_json : JSON.stringify({
+		// 						username: user.screen_name,
+		// 						avatar_url: tweetobj.user.profile_image_url_https,
+		// 						embeds : [
+		// 							{
+		// 								description : tl,
+		// 							}
+		// 						]
+		// 					})
+		// 				}
+		// 			},
+		// 			function(err, rsp, body){}
+		// 			);
+		// 		});
+		// 	}
+		// });
 	}
 
 }
