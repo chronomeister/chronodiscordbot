@@ -30,7 +30,7 @@ function getStatus(first) {
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
-					kcprofileimg = "";//JSON.parse(response.body)[0].user.profile_image_url_https;
+					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
 					//testing
 				}
 				// newTweet(tweetobj, user);
