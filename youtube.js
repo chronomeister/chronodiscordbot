@@ -1,12 +1,12 @@
 var exports = module.exports = {};
-//var API_KEY = 'AIzaSyBJBw0kZANiuIDpXyrQx74ko77Do0HkT8g';
+//var API_KEY = '';
 var request = require('request');
 var configs = require('./cbotconfig.json');
 
 exports.youtube = function(msg, qary) {
     var parammap = new Map();
     // var qary = [];
-    parammap.set("key", configs.ytkey);
+    parammap.set("key", configs.gkey);
     // parammap.set('key', API_KEY);
     parammap.set('part', 'id,snippet');
     // qary.push('諸星きらり');
