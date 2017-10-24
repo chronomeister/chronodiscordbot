@@ -33,7 +33,7 @@ function getStatus(first) {
 					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
 					//testing
 				}
-				newTweet(tweetobj, user);
+				// newTweet(tweetobj, user);
 			});
 		} else {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid, tweet_mode : "extended"}, function(error, tweets, response) {
