@@ -21,7 +21,6 @@ var kcprofileimg = "";
  * number of tweets per second depends on topic popularity
  **/
 function getStatus(first) {
-	console.log("get");
 	whconfig.twitters.forEach(function(user){
 		// console.log(user);
 		if (first) {
