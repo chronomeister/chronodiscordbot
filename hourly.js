@@ -1,3 +1,4 @@
+//SELECT en, c.api_id, api_yomi, c.api_name, b.api_name, c.api_voicef, b.api_voicef FROM jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) c(api_id INT, api_name TEXT, api_yomi TEXT, api_voicef INT) LEFT JOIN jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) b(api_id INT, api_name TEXT, api_voicef INT, api_aftershipid INT) ON (c.api_id = b.api_aftershipid) LEFT JOIN jptoenships tl ON (c.api_id = tl.api_id) WHERE c.api_voicef >= 3 AND (b.api_voicef < 3 OR b.api_voicef IS NULL)
 var hours = [
     {"id":"57","name":"Ooi"},
     {"id":"58","name":"Kitakami"},
@@ -102,7 +103,7 @@ var hours = [
     {"id":"438","name":"Saratoga"},
     {"id":"369","name":"Yamakaze"},
     {"id":"372","name":"Commandant Teste"},
-    {"id":"147","name":"Hibiki"},
+    {"id":"147","name":"Верный"},
     {"id":"126","name":"Imuya"},
     {"id":"127","name":"Goya"},
     {"id":"128","name":"Hacchan"},
@@ -147,7 +148,7 @@ while(!line) {
 // console.log(hours[rnd]["name"]);
 // console.log(tl[hours[rnd]["id"]][tkey]);
 var webhooks = [
-	//configs.webhooks.gct.kc,
+	configs.webhooks.gct.kc,
 	configs.webhooks.ctbpg.wht
 ];
 webhooks.forEach(function(uri){
