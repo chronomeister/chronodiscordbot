@@ -59,9 +59,11 @@ exports.currencyexchange = function(msg, cx) {
 	}, function (error, response, html) {
 		if (!error && response.statusCode == 200) {
 			var cxrate = JSON.parse(response.body);
-			//console.dir(response);
-			if (cxrate.query.results.rate.name == "N/A") {
+			// console.dir(response);
+			if (cxrate.query.results != null && cxrate.query.results.rate.name == "N/A") {
 				msg.channel.send("Invalid country code(s)");
+			} else if (cxrate.query.results == null) {
+				msg.channel.send("couldnt get exchange rate data, something broke");
 			} else if (cx[1]) {
 				msg.channel.send(cx[1] + " " + fromdsp + " in " + todsp + " is: " + (cxrate.query.results.rate.Rate * cx[1]) * mult);
 			} else {
