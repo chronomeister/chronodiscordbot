@@ -169,8 +169,11 @@ bot.on("message", msg => {
 	else if (command == "jail") {
 		msg.channel.send("https://youtu.be/XeDM1ZjMK50");
 	}
-	else if (command == "seduce" || command == "seduceme") {
+	else if (command == "seduce" && msg.author.id == 93389633261416448) {
 		msg.channel.send("https://youtu.be/3-tH5e-SwDU");
+	}
+	else if (command == "seduce" || command == "seduceme") {
+		msg.channel.send("https://www.youtube.com/watch?v=izGwDsrQ1eQ");
 	}
 	else if (command == "gitgud") {
 		msg.channel.send({file:"./gitgud.jpg"});
