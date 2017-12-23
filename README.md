@@ -9,6 +9,8 @@ npm install jsonfile
 npm install sqlite3  
 npm install request  
 npm install twitter
+npm install request
+npm install request-promise-native
 
 # TODO:  
 timeout.  

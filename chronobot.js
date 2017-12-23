@@ -19,6 +19,7 @@ var blue =  require("./blue.js");
 var elog =  require("./emojirec.js");
 var ibday = require("./ibdaywhen.js");
 var hummingbird = require("./hummingbird.js");
+var anime = require("./anime.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -199,6 +200,9 @@ bot.on("message", msg => {
 	else if (command == "regional") {
 		blue.region(msg, params);
 	}
+	else if (command == "anime") {
+		anime.search(msg, params);
+	}
 	else if (msg.author.id == 93389633261416448) {
 		if (command == "isp") {
 			msg.channel.send("https://my.mixtape.moe/gerost.mp3");
@@ -227,4 +231,5 @@ bot.on('ready', () => {
 	//console.dir(emojiservers);
 });
 
+try {fs.closeSync(fs.openSync('./anime.json', 'r'))} catch(discard) { fs.writeFileSync('./anime.json', '{}')}
 bot.login(configs.discordkey);
