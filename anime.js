@@ -97,7 +97,6 @@ exports.search = function(msg, params) {
 				if (animes.length > 1) {
 					embed.setFooter(`Found ${animes.length} matches to "${sq}". Showing only first entry`)
 				}
-				// console.dir(anime);
 				msg.channel.send(embed);
 			}
 			else {
@@ -109,7 +108,6 @@ exports.search = function(msg, params) {
 			msg.channel.send(`Something went wrong. API changed or site is down`);
 		}
 	}
-	// query: here's what to look for in the variable. Media: hey i wanted an anime back, using these variables i defined.
 }
 function IntToDateStr(time) {
 	var a = new Date((time + (9*60*60)) * 1000).toUTCString();
