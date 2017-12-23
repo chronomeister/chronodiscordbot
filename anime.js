@@ -15,9 +15,17 @@ exports.search = function(msg, params) {
 		var al = params.shift();
 		var val = params.join(' ');
 		if (!aliases[msg.author.id]) aliases[msg.author.id] = {};
-		aliases[msg.author.id][al] = val;
+		var sendmsg;
+		if (al === 'delete') {
+			var delval = params.shift();
+			delete aliases[msg.author.id][delval];
+			sendmsg = `"${delval}" is no long aliased for you`;
+		} else {
+			aliases[msg.author.id][al] = val;
+			sendmsg = `"${al}" is now aliased to "${val}" for you`;
+		}
 		fs.writeFile('./anime.json', JSON.stringify(aliases), ()=>{});
-		msg.channel.send(`"${al}" is now aliased to "${val}" for you`);
+		msg.channel.send(sendmsg);
 	} else {
 		var query = `
 		query ($search: String) {
@@ -71,10 +79,6 @@ exports.search = function(msg, params) {
 			.then(handleData)
 			.catch(handleError);
 
-		function handleResponse(response) {
-			return ;
-		}
-
 		function handleData(data) {
 			var animes = JSON.parse(data).data.Page.media;
 			if (animes[0]) {
@@ -93,7 +97,6 @@ exports.search = function(msg, params) {
 				if (animes.length > 1) {
 					embed.setFooter(`Found ${animes.length} matches to "${sq}". Showing only first entry`)
 				}
-				// console.dir(anime);
 				msg.channel.send(embed);
 			}
 			else {
@@ -102,10 +105,9 @@ exports.search = function(msg, params) {
 		}
 
 		function handleError(error) {
-			console.log('Error, check console');
+			msg.channel.send(`Something went wrong. API changed or site is down`);
 		}
 	}
-	// query: here's what to look for in the variable. Media: hey i wanted an anime back, using these variables i defined.
 }
 function IntToDateStr(time) {
 	var a = new Date((time + (9*60*60)) * 1000).toUTCString();
