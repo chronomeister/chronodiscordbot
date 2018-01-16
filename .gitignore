@@ -11,7 +11,7 @@ test2.js
 testinc.js
 testinc.json
 npm-debug.log
-dad.txt
+*.txt
 emojis
 self.js
 dump.js

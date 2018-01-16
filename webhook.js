@@ -16,6 +16,13 @@ whconfig.twitters.forEach(function(user){
 	user.lastseenid = "";
 });
 var kcprofileimg = "";
+const tweetlogfile = './tweetlog.txt';
+const profilelogfile = './profilelog.txt';
+function logstr(file, init, user, msg) {
+	var d = new Date();
+	fs.appendFile(file, d.toUTCString() + " : " + (init ? "init" : "ntwt") + " : user : " + user + " , msg : " + msg + "\n", null);
+}
+
 /**
  * Stream statuses filtered by keyword
  * number of tweets per second depends on topic popularity
@@ -28,9 +35,11 @@ function getStatus(first) {
 				var tweetobj = JSON.parse(response.body)[0];
 				// console.dir(JSON.parse(response.body)[0].lang);
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
+				logstr(tweetlogfile, true, user.screen_name, user.lastseenid);
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
 					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
+					logstr(profilelogfile, true, user.screen_name, kcprofileimg);
 					//testing
 				}
 				// newTweet(tweetobj, user);
@@ -57,6 +66,7 @@ function getStatus(first) {
 					var info = JSON.parse(response.body);
 					if (kcprofileimg != info.profile_image_url_https) {
 						kcprofileimg = info.profile_image_url_https;
+						logstr(profilelogfile,false, user.screen_name, kcprofileimg);
 						var lrg = kcprofileimg.replace("normal", "400x400");
 						user.webhooks.forEach(function(url){
 							request.post({url:url,
@@ -80,6 +90,7 @@ function newTweet(tweetobj, user) {
 	var xmlparse = require('xml-js');
 	var util = require("util");
 	var newtweetid = tweetobj.id_str;
+	logstr(tweetlogfile, false, user.screen_name, newtweetid);
 	user.webhooks.forEach(function(url){
 		request.post({url:url,
 			form: {
