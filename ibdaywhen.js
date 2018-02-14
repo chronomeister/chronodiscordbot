@@ -16,14 +16,20 @@ exports.when = function(msg, params) {
 		}
 		else {
 			msglist.push("Today's idol birthdays:");
-			nowbday.forEach(function(val){msglist.push(`  ${val.name} from ${val.series}`)});
+			nowbday.forEach(function(val){
+				var dispname = val.name + (val.seiyuu ? ", seiyuu of " + val.seiyuu : "");
+				msglist.push(`  ${dispname} from ${val.series}`);
+			});
 		}
 		if (tmrbday.length < 1) {
 			msglist.push("No idol birthdays tomorrow.");
 		}
 		else {
 			msglist.push("Tomorrow's idol birthdays:");
-			tmrbday.forEach(function(val){msglist.push(`  ${val.name} from ${val.series}`)});
+			tmrbday.forEach(function(val){
+				var dispname = val.name + (val.seiyuu ? ", seiyuu of " + val.seiyuu : "");
+				msglist.push(`  ${dispname} from ${val.series}`);
+			});
 		}
 		if (tmrbday.length + nowbday.length == 0) msglist.push(":FeelsBadMan:");
 	} else {
@@ -55,7 +61,10 @@ exports.when = function(msg, params) {
 		if (namelist.length == 0) {msglist.push(`I could not find any idol${!isName ? "'s birthdays" : "s"} matching that ${isName ? "name" : "date"}`)}
 		else {
 			if (namelist.length > 1) msglist.push(`I found ${namelist.length} idol${!isName ? " birthdays" : "s"} matching that ${isName ? "name" : "date"}`);
-			namelist.forEach(function(val){msglist.push(`${val.name} from ${val.series} has a birthday on ${mon[val.month-1]} ${val.day}`);});
+			namelist.forEach(function(val){
+				var dispname = val.name + (val.seiyuu ? ", seiyuu of " + val.seiyuu : "");
+				msglist.push(`${dispname} from ${val.series} has a birthday on ${mon[val.month-1]} ${val.day}`);
+			});
 		}
 	}
 	msg.channel.send(msglist.join("\n"));

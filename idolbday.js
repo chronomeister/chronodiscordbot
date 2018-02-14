@@ -13,7 +13,10 @@ var bday = [];
 idols.forEach(function(val){if (val.day == t.getDate() && val.month == (t.getMonth() + 1)) {bday.push(val)}});
 if (bday.length < 1) return;
 var messagelst = ["Happy birthday to today's idols:"];
-bday.forEach(function(val){messagelst.push(`${val.name} from ${val.series}`)});
+bday.forEach(function(val){
+	var dispname = val.name + (val.seiyuu ? ", seiyuu of " + val.seiyuu : "");
+	messagelst.push(`  ${dispname} from ${val.series}`);
+});
 webhooks.forEach(function(url){
     request.post({url:url,
         form: {
