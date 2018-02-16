@@ -75,7 +75,6 @@ bot.on("messageUpdate", msg => {
 bot.on("message", msg => {
 	if(msg.author.bot){
 		return;
-
 	}
 	var cdchannelid = '239224953172393984';'242663092171964417';
 
