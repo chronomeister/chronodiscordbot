@@ -105,7 +105,7 @@ function newTweet(tweetobj, user) {
 	});
 
 	if (user.screen_name == "kancolle_1draw") {
-		request.post({url:"https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz", form: {	payload_json : JSON.stringify({ username: user.screen_name,avatar_url: tweetobj.user.profile_image_url_https,embeds : [{description : "in there",}]})}});
+		// request.post({url:"https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz", form: {	payload_json : JSON.stringify({ username: user.screen_name,avatar_url: tweetobj.user.profile_image_url_https,embeds : [{description : "in there",}]})}});
 		var namemap = require('./1HDnames.json');
 		var match = (tweetobj.full_text.match(/お題は ([^\r\n]+) .なります/));
 		if (!match) return;
