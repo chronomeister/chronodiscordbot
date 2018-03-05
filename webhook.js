@@ -33,11 +33,12 @@ function getStatus(first) {
 		if (first) {
 			client.get('statuses/user_timeline', {screen_name : user.screen_name, tweet_mode : "extended"}, function(error, tweets, response) {
 				var tweetobj = JSON.parse(response.body)[0];
-				// console.dir(JSON.parse(response.body)[0].lang);
+				// console.dir(response.body);
 				user.lastseenid = JSON.parse(response.body)[0].id_str;
 				logstr(tweetlogfile, true, user.screen_name, user.lastseenid);
 				// console.dir(user);
 				if (user.screen_name == "KanColle_STAFF") {
+					// console.log("kcstaff");
 					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
 					logstr(profilelogfile, true, user.screen_name, kcprofileimg);
 					//testing
@@ -62,6 +63,7 @@ function getStatus(first) {
 				}
 			});
 			if (user.screen_name == "KanColle_STAFF") {
+				// console.log("in der");
 				client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
 					var info = JSON.parse(response.body);
 					if (kcprofileimg != info.profile_image_url_https) {
