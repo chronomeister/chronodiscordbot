@@ -61,7 +61,7 @@ function start() {
 					} else {
 						var addimgs = tweet.extended_entities.media.length - 1;
 						// console.dir(tweet.extended_entities.media.constructor);
-						imgcount = tweet.extended_entities.media.length > 1 ? ` (contains ${addimgs} additional image${addimgs == 2 ? "" : "s"})` : "";
+						imgcount = tweet.extended_entities.media.length > 1 ? ` (contains ${addimgs} additional image${addimgs == 1 ? "" : "s"})` : "";
 					}
 				} else if (tweet.entities && tweet.entities.media) {
 					// console.log("entities");
