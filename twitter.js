@@ -23,10 +23,13 @@ users.forEach(function(e,idx){
 	i++;
 	client.get('users/show', {screen_name : e.user}, function(error, tweets, response) {
 		var info = JSON.parse(response.body);
-		console.log(info.id_str);
+		// console.log(info.id_str);
 		users[idx].id_str = info.id_str;
 		follows.push(info.id_str);
-		if (--i == 0) {console.dir(follows);start();}
+		if (--i == 0) {
+			// console.dir(follows);
+			start();
+		}
 	});
 });
 
@@ -41,26 +44,34 @@ function start() {
 				var embvideo = "";
 				var imgcount = "";
 				if (tweet.extended_tweet && tweet.extended_tweet.entities && tweet.extended_tweet.entities.media) {
+					// console.log("extended_tweet");
 					embimage = tweet.extended_tweet.entities.media[0].media_url_https;
 					if (tweet.extended_tweet.entities.media[0].video_info) {
 						embvideo = " (has video embeded)";
 					} else {
-						imgcount = tweet.extended_tweet.entities.media.length > 1 ? ` ( contains ${tweet.extended_tweet.entities.media.legnth - 1} additional image${tweet.extended_tweet.entities.media.legnth == 2 ? "" : "s"})` : undefined;
+						var addimgs = tweet.extended_tweet.entities.media.length - 1;
+						// console.dir(tweet.extended_tweet);
+						imgcount = tweet.extended_tweet.entities.media.length > 1 ? ` (contains ${addimgs} additional image${addimgs == 1 ? "" : "s"})` : "";
 					}
 				} else if (tweet.extended_entities && tweet.extended_entities.media) {
+					// console.log("extended_entities");
 					embimage = tweet.extended_entities.media[0].media_url_https;
 					if (tweet.extended_entities.media[0].video_info) {
 						embvideo = " (has video embeded)";
 					} else {
-						imgcount = tweet.extended_entities.media.length > 1 ? ` ( contains ${tweet.extended_entities.media.legnth - 1} additional image${tweet.extended_entities.media.legnth == 2 ? "" : "s"})` : undefined;
+						var addimgs = tweet.extended_entities.media.length - 1;
+						// console.dir(tweet.extended_entities.media.constructor);
+						imgcount = tweet.extended_entities.media.length > 1 ? ` (contains ${addimgs} additional image${addimgs == 2 ? "" : "s"})` : "";
 					}
 				} else if (tweet.entities && tweet.entities.media) {
+					// console.log("entities");
 					embimage = tweet.entities.media[0].media_url_https;
-					imgcount = tweet.entities.media.length > 1 ? ` ( contains ${tweet.entities.media.legnth - 1} additional image${tweet.entities.media.legnth == 2 ? "" : "s"})` : undefined;
+					var addimgs = tweet.entities.media.length - 1;
+					imgcount = tweet.entities.media.length > 1 ? ` (contains ${addimgs} additional image${addimgs == 1 ? "" : "s"})` : "";
 				}
 				// console.log(tweet.text);
 				var userobj = users.find(function(usertest){
-					console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
+					// console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
 					return usertest.id_str === tweet.user.id_str;
 				});
 				if (!userobj) {return;}
@@ -73,7 +84,7 @@ function start() {
 								avatar_url: tweet.user.profile_image_url_https,
 								embeds : [
 									{
-										// author: {name: tweet.user.screen_name, url: `https://twitter.com/${tweet.user.screen_name}`},
+										author: {name: `${tweet.user.name} (${tweet.user.screen_name})`, url: `https://twitter.com/${tweet.user.screen_name}`},
 										title: `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
 										avatar_url: tweet.user.profile_image_url_https,
 										color: 3513327,
