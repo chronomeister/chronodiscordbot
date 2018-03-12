@@ -38,8 +38,8 @@ function start() {
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
-				fs.appendFile('./twitter.txt', `New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
-				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
+				// fs.appendFile('./twitter.txt', `New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
+				fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var embimage = "";
 				var embvideo = "";
 				var imgcount = "";
@@ -74,7 +74,7 @@ function start() {
 					// console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
 					return usertest.id_str === tweet.user.id_str;
 				});
-				if (!userobj) {return;}
+				if (!userobj || tweet.retweeted_status) {fs.appendFile('./twitter.txt', "retweet" + "\n", () => {}); return;}
 				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
 				userobj.webhooks.forEach(function(url){
 					request.post({url:url,
