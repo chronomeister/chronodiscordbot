@@ -6,6 +6,8 @@ var STATUSENUM = Object.freeze({"FINISHED":"Finished", "RELEASING":"Currenly Air
 var SEASONENUM = Object.freeze({"WINTER":"Winter", "SPRING":"Spring", "SUMMER" : "Summer", "FALL": "Fall"});
 
 // query: here's what to look for in the variable. Media: hey i wanted an anime back, using these variables i defined.
+
+// TO DO: Add timeout to
 exports.search = function(msg, params) {
 	if (params.length < 1) {msg.channel.send("Nothing to search for. Maybe sometime in the future I might turn this into a soon to air list"); return;}
 	var aliases = require('./anime.json');
