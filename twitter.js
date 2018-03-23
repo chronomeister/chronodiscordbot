@@ -79,23 +79,22 @@ function start() {
 									tl = "Looks like today's 1HD is " + enlist.join(", ");
 									break;
 								}
-								userobj.webhooks.forEach(function(url){
-									request.post({url:url,
-										form: {
-											payload_json : JSON.stringify({
-												username: tweet.user.screen_name,
-												avatar_url: tweet.user.profile_image_url_https,
-												embeds : [
-													{
-														description : tl,
-													}
-												]
-											})
-										}
-									},
-									function(err, rsp, body){}
-									);
-								});
+								// console.log(url);
+								request.post({url:url,
+									form: {
+										payload_json : JSON.stringify({
+											username: tweet.user.screen_name,
+											avatar_url: tweet.user.profile_image_url_https,
+											embeds : [
+												{
+													description : tl,
+												}
+											]
+										})
+									}
+								},
+								function(err, rsp, body){}
+								);
 							} else if (userobj.tl) {
 								request.post({
 									url : "https://translation.googleapis.com/language/translate/v2",
@@ -110,22 +109,20 @@ function start() {
 									var body = JSON.parse(rsp.body);
 									if (body.data) {
 										var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
-										userobj.webhooks.forEach(function(url){
-											request.post({url:url,
-												form: {
-													payload_json : JSON.stringify({
-														username: tweet.user.screen_name,
-														avatar_url: tweet.user.profile_image_url_https,
-														embeds : [
-															{
-																description : tl,
-															}
-														]
-													})
-												}
-											}, function(err, rsp, body){}
-											);
-										});
+										request.post({url:url,
+											form: {
+												payload_json : JSON.stringify({
+													username: tweet.user.screen_name,
+													avatar_url: tweet.user.profile_image_url_https,
+													embeds : [
+														{
+															description : tl,
+														}
+													]
+												})
+											}
+										}, function(err, rsp, body){}
+										);
 									}
 								});
 							}
@@ -144,26 +141,18 @@ function start() {
 }
 
 function preptweet(whurl, tweet) {
+	// console.log("prep tweet : " + tweet.id_str);
 	// already checked rt status
-	var twmedia = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
+	var twmediaobj = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
 	// console.dir(tweet, {depth:9});
 	var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
 	var embimage;
 	var addlinks = [];
 	// doserial(tweet, writeurl).then();
 	// check for youtube links and replace urls
-	if (tweet.extended_tweet && tweet.extended_tweet.entities && tweet.extended_tweet.entities.urls) {
-		// tweet.entities.urls
-		tweet.extended_tweet.entities.urls.forEach((element) => {
-			if (element.expanded_url.match(/youtu(\.be\/|be\.com\/)/)) {
-				addlinks.push(element.expanded_url);
-			}
-			txt = txt.replace(element.url, element.expanded_url);
-			// console.log(`replace ${element.url} with ${element.expanded_url}`);
-		});
-	} else if (tweet.entities && tweet.entities.urls) {
-		// tweet.entities.urls
-		tweet.entities.urls.forEach((element) => {
+	if (twmediaobj && twmediaobj.urls) {
+		// console.log("urls");
+		twmediaobj.urls.forEach((element) => {
 			if (element.expanded_url.match(/youtu(\.be\/|be\.com\/)/)) {
 				addlinks.push(element.expanded_url);
 			}
@@ -172,13 +161,12 @@ function preptweet(whurl, tweet) {
 		});
 	}
 	// pull extended entities
-	var mediaobj = tweet.extended_tweet.extended_entities ? tweet.extended_tweet.extended_entities : tweet.entities;
-	if (mediaobj) {
+	if (twmediaobj && twmediaobj.media) {
 		// console.log("has entities");
-		// console.log(`is a ${mediaobj.media[0].type} type entity`);
-		switch (mediaobj.media[0].type) {
+		// console.log(`is a ${twmediaobj.media[0].type} type entity`);
+		switch (twmediaobj.media[0].type) {
 			case "video": // can only have 1
-				var vidinfo = mediaobj.media.shift();
+				var vidinfo = twmediaobj.media.shift();
 				if (vidinfo.video_info) { // could be monetized and just a check for that, will need discord to handle it
 					var bigvari;
 					bigvari = vidinfo.video_info.variants.reduce((largest, cur) => {
@@ -208,12 +196,12 @@ function preptweet(whurl, tweet) {
 				}
 				break;
 			case "photo": // can have more than 1
-				var embimgobj = mediaobj.media.shift();
+				var embimgobj = twmediaobj.media.shift();
 				embimage = embimgobj.media_url_https;
 				var regex = new RegExp(` ?${embimgobj.url}`);
 				txt = txt.replace(regex, "");
 				// console.log(`replace ${embimgobj.url} with ""`);
-				mediaobj.media.forEach((e) => {
+				twmediaobj.media.forEach((e) => {
 					addlinks.push({
 						author :
 							{
@@ -245,6 +233,7 @@ function preptweet(whurl, tweet) {
 }
 
 function posttweet(tweet) {
+	// console.log("post tweet : " + tweet.id_str);
 	return reqprom({
 		method: 'POST',
 		uri: tweet.whurl,
