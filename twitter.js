@@ -141,7 +141,7 @@ function start() {
 }
 
 function preptweet(whurl, tweet) {
-	console.log("prep tweet : " + tweet.id_str);
+	// console.log("prep tweet : " + tweet.id_str);
 	// already checked rt status
 	var twmediaobj = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
 	// console.dir(tweet, {depth:9});
