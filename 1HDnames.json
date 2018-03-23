@@ -205,7 +205,7 @@
 "涼月" : "Suzutsuki",
 "対馬" : "Tsushima",
 "日振" : "Hiburi",
-"ガンビア・ベイ" : "Gambier Bay",
+"ガンビア" : "Gambier Bay",
 "大東" : "Daitou",
 "ジャーヴィス" : "Jervis",
 "浜波" : "Hamanami",
@@ -280,5 +280,7 @@
 "駆逐ニ級後期型" : "Destroyer Ni-class Late Model",
 "駆逐ハ級後期型" : "Destroyer Ha-class Late Model",
 "駆逐ロ級後期型" : "Destroyer Ro-class Late Model",
-"潜水新棲姫" : "New Submarine Princess"
+"潜水新棲姫" : "New Submarine Princess",
+"護衛棲水姫" : "Abyssal Gambay",
+"深海鶴棲姫" : "Abyssal ZuiZui"
 }
