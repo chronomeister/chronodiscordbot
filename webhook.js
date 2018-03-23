@@ -20,7 +20,7 @@ const tweetlogfile = './tweetlog.txt';
 const profilelogfile = './profilelog.txt';
 function logstr(file, init, user, msg) {
 	var d = new Date();
-	fs.appendFile(file, d.toUTCString() + " : " + (init ? "init" : "ntwt") + " : user : " + user + " , msg : " + msg + "\n", null);
+	fs.appendFile(file, d.toUTCString() + " : " + (init ? "init" : "new profile") + " : user : " + user + " , msg : " + msg + "\n", () => {});
 }
 
 /**
@@ -31,56 +31,34 @@ function getStatus(first) {
 	whconfig.twitters.forEach(function(user){
 		// console.log(user);
 		if (first) {
-			client.get('statuses/user_timeline', {screen_name : user.screen_name, tweet_mode : "extended"}, function(error, tweets, response) {
-				var tweetobj = JSON.parse(response.body)[0];
-				// console.dir(response.body);
-				user.lastseenid = JSON.parse(response.body)[0].id_str;
-				logstr(tweetlogfile, true, user.screen_name, user.lastseenid);
-				// console.dir(user);
+			client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
 				if (user.screen_name == "KanColle_STAFF") {
-					// console.log("kcstaff");
-					kcprofileimg = JSON.parse(response.body)[0].user.profile_image_url_https;
+					kcprofileimg = JSON.parse(response.body).profile_image_url_https;
 					logstr(profilelogfile, true, user.screen_name, kcprofileimg);
-					//testing
 				}
-				// newTweet(tweetobj, user);
 			});
 		} else {
-			client.get('statuses/user_timeline', {screen_name : user.screen_name, since_id : user.lastseenid, tweet_mode : "extended"}, function(error, tweets, response) {
-			// client.get('statuses/user_timeline', {screen_name : user.screen_name, count : 1}, function(error, tweets, response) {
-				// fs.writeFile('./twitter.txt', response.body, function(){}); return;
-				var tweets = JSON.parse(response.body);
-				var ids = tweets.map(function(status){
-					return status.id_str;
-				});
-				// console.log(user.screen_name + " : " + user.lastseenid);
-				user.lastseenid = tweets[0] ? tweets[0].id_str : user.lastseenid;
-				while (tweets.length > 0) {
-					var newtweet = tweets.pop();
-					newTweet(newtweet,user);
-					// console.log(newtweetid);
-					// request.post({url:'https://discordapp.com/api/webhooks/304453640138260481/smTg_XBiNvPHzaSQk0TUOvhAMYpxFxa5L3JOxOTlrxeU4A71SJfxTeyYv7_Y0W-F2DWA',
-				}
-			});
 			if (user.screen_name == "KanColle_STAFF") {
-				// console.log("in der");
 				client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
-					var info = JSON.parse(response.body);
-					if (kcprofileimg != info.profile_image_url_https) {
-						kcprofileimg = info.profile_image_url_https;
-						logstr(profilelogfile,false, user.screen_name, kcprofileimg);
-						var lrg = kcprofileimg.replace("normal", "400x400");
-						user.webhooks.forEach(function(url){
-							request.post({url:url,
-								form: {
-									content:`New KC profile image detected! ${lrg}`
-								}},
-								function(err, rsp, body){}
-							);
-						});
-						whconfig.selfposts.forEach(function(post){
-							me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
-						})
+					if (response.body && response.body.profile_image_url_https) {
+						var info = JSON.parse(response.body);
+						if (kcprofileimg != info.profile_image_url_https) {
+							kcprofileimg = info.profile_image_url_https;
+							logstr(profilelogfile, false, user.screen_name, kcprofileimg);
+							var lrg = kcprofileimg.replace("_normal", "");
+							console.log(kcprofileimg);
+							user.webhooks.forEach(function(url){
+								request.post({url:url,
+									form: {
+										content:`New KC profile image detected! ${lrg}`
+									}},
+									function(err, rsp, body){}
+								);
+							});
+							whconfig.selfposts.forEach(function(post){
+								me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
+							})
+						}
 					}
 				});
 			}
@@ -88,140 +66,7 @@ function getStatus(first) {
 	});
 }
 
-function newTweet(tweetobj, user) {
-	var xmlparse = require('xml-js');
-	var util = require("util");
-	var newtweetid = tweetobj.id_str;
-	logstr(tweetlogfile, false, user.screen_name, newtweetid);
-	user.webhooks.forEach(function(url){
-		request.post({url:url,
-			form: {
-				content:`https://twitter.com/${user.screen_name}/status/${newtweetid}`,
-				username: user.screen_name,
-				avatar_url: tweetobj.user.profile_image_url_https
-			}},
-			function(err, rsp, body){
-
-			}
-		);
-	});
-
-	if (user.screen_name == "kancolle_1draw") {
-		// request.post({url:"https://discordapp.com/api/webhooks/309148289620639755/xJfhIfAP400QmIj3VWEvco75DeNe-xytekYOXJvf87iJ3csu1c3h0DQyivueDykBCVHz", form: {	payload_json : JSON.stringify({ username: user.screen_name,avatar_url: tweetobj.user.profile_image_url_https,embeds : [{description : "in there",}]})}});
-		var namemap = require('./1HDnames.json');
-		var match = (tweetobj.full_text.match(/お題は ([^\r\n]+) .なります/));
-		if (!match) return;
-		var names = match[1].trim().split(/ /)
-		// console.dir(names);
-		var enlist = [];
-		names.forEach(function(name){
-			if (namemap[name]) enlist.push(namemap[name]);
-		});
-		var tl = "";
-		// console.log(enlist.length);
-		switch (enlist.length){
-			case 0:
-			tl = "I can't identify any ships today. I blame chrono.";
-			break;
-			case 1:
-			tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
-			break;
-			case 2:
-			tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
-			break;
-			default:
-			enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
-			tl = "Looks like today's 1HD is " + enlist.join(", ");
-			break;
-		}
-		user.webhooks.forEach(function(url){
-			request.post({url:url,
-				form: {
-					payload_json : JSON.stringify({
-						username: user.screen_name,
-						avatar_url: tweetobj.user.profile_image_url_https,
-						embeds : [
-							{
-								description : tl,
-							}
-						]
-					})
-				}
-			},
-			function(err, rsp, body){}
-			);
-		});
-	} else if (user.screen_name == "KanColle_STAFF") {
-		request.post({
-			url : "https://translation.googleapis.com/language/translate/v2",
-			qs : { "key" : auth.gkey },
-			form : {
-				"q" : tweetobj.full_text,
-				"format" : "text",
-				"source" : tweetobj.lang,
-				"target" : "en"
-			}
-		}, function (error, rsp, html) {
-			var body = JSON.parse(rsp.body);
-			if (body.data) {
-				var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
-				user.webhooks.forEach(function(url){
-					request.post({url:url,
-						form: {
-							payload_json : JSON.stringify({
-								username: user.screen_name,
-								avatar_url: tweetobj.user.profile_image_url_https,
-								embeds : [
-									{
-										description : tl,
-									}
-								]
-							})
-						}
-					},
-					function(err, rsp, body){}
-					);
-				});
-			}
-		});
-		// request.get({
-		// 	url : 'https://api.microsofttranslator.com/V2/Http.svc/Translate',
-		// 	headers : {
-		// 		'Ocp-Apim-Subscription-Key': auth.msazurekey
-		// 	},
-		// 	qs : {
-		// 		'appid' : '',
-		// 		'text' : tweetobj.full_text,
-		// 		'from' : tweetobj.lang,
-		// 		'to' : 'en'
-		// 	},
-		// 	body : ''
-		// }, function (error, rsp, html) {
-		// 	var body = xmlparse.xml2js(rsp.body, {compact: true});
-		// 	if (body.string) {
-		// 		var tl = body.string._text.replace(/ship (it|this)/ig, "KanColle");
-		// 		user.webhooks.forEach(function(url){
-		// 			request.post({url:url,
-		// 				form: {
-		// 					payload_json : JSON.stringify({
-		// 						username: user.screen_name,
-		// 						avatar_url: tweetobj.user.profile_image_url_https,
-		// 						embeds : [
-		// 							{
-		// 								description : tl,
-		// 							}
-		// 						]
-		// 					})
-		// 				}
-		// 			},
-		// 			function(err, rsp, body){}
-		// 			);
-		// 		});
-		// 	}
-		// });
-	}
-
-}
+function newTweet(tweetobj, user) {}
 
 var Discord = require("discord.js");
 var me = new Discord.Client();
@@ -229,7 +74,6 @@ me.login(whconfig.selftoken);
 
 getStatus(1);
 
-// setTimeout(getStatus, 1000);
 setInterval(getStatus, 1500 * 1000 * (whconfig.twitters.length + 2) / (15 * 60));
 
 // client.stream('site', {follow: '448311788'}, function(stream) {

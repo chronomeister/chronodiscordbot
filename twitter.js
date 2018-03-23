@@ -39,9 +39,10 @@ function start() {
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
+				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
 				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
-				console.log(tweet.text);
+				// console.log(tweet.text);
 				var userobj = users.find(function(usertest){
 					// console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
 					return usertest.id_str === tweet.user.id_str;
@@ -144,8 +145,8 @@ function start() {
 
 function preptweet(whurl, tweet) {
 	// already checked rt status
-	var twmedia = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : )
-	console.dir(tweet, {depth:9});
+	var twmedia = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
+	// console.dir(tweet, {depth:9});
 	var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
 	var embimage;
 	var addlinks = [];
@@ -158,7 +159,7 @@ function preptweet(whurl, tweet) {
 				addlinks.push(element.expanded_url);
 			}
 			txt = txt.replace(element.url, element.expanded_url);
-			console.log(`replace ${element.url} with ${element.expanded_url}`);
+			// console.log(`replace ${element.url} with ${element.expanded_url}`);
 		});
 	} else if (tweet.entities && tweet.entities.urls) {
 		// tweet.entities.urls
@@ -167,23 +168,23 @@ function preptweet(whurl, tweet) {
 				addlinks.push(element.expanded_url);
 			}
 			txt = txt.replace(element.url, element.expanded_url);
-			console.log(`replace ${element.url} with ${element.expanded_url}`);
+			// console.log(`replace ${element.url} with ${element.expanded_url}`);
 		});
 	}
 	// pull extended entities
 	var mediaobj = tweet.extended_tweet.extended_entities ? tweet.extended_tweet.extended_entities : tweet.entities;
 	if (mediaobj) {
-		console.log("has entities");
-		console.log(`is a ${mediaobj.media[0].type} type entity`);
+		// console.log("has entities");
+		// console.log(`is a ${mediaobj.media[0].type} type entity`);
 		switch (mediaobj.media[0].type) {
 			case "video": // can only have 1
 				var vidinfo = mediaobj.media.shift();
 				if (vidinfo.video_info) { // could be monetized and just a check for that, will need discord to handle it
 					var bigvari;
 					bigvari = vidinfo.video_info.variants.reduce((largest, cur) => {
-						return (cur.birate ? largest : (cur.bitrate > largest.bitrate ? cur : largest));
+						return (!largest.bitrate || (cur.bitrate && cur.bitrate > largest.bitrate) ? cur : largest);
 					});
-					console.dir(bigvari);
+					// console.dir(bigvari);
 					addlinks.push({
 						author :
 							{
@@ -194,7 +195,7 @@ function preptweet(whurl, tweet) {
 						whurl : whurl
 					});
 				} else {
-					console.dir(vidinfo.expanded_url);
+					// console.dir(vidinfo.expanded_url);
 					addlinks.push({
 						author :
 							{
