@@ -162,10 +162,10 @@ function preptweet(whurl, tweet) {
 	}
 	// pull extended entities
 	// console.log("prep tweet : " + whurl);
-	console.dir(twmediaobj);
+	// console.dir(twmediaobj);
 	if (twmediaobj && twmediaobj.media) {
 		// console.log("has entities");
-		console.log(`is a ${twmediaobj.media[0].type} type entity`);
+		// console.log(`is a ${twmediaobj.media[0].type} type entity`);
 		var mediainfo = JSON.parse(JSON.stringify(twmediaobj.media))
 		if (mediainfo[0].type == "video") {
 			var vidinfo = mediainfo.shift();
