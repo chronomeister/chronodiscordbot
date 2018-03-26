@@ -243,6 +243,7 @@ function preptweet(whurl, tweet) {
 }
 
 function posttweet(tweet) {
+	fs.appendFile('./twitter.txt', `Post to ${tweet.whurl}` + "\n", () => {});
 	// console.log("post tweet : " + tweet.id_str);
 	return reqprom({
 		method: 'POST',
