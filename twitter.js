@@ -126,6 +126,7 @@ function start() {
 									}
 								});
 							}
+							Promise.resolve();
 						});
 					});
 				}
@@ -141,7 +142,6 @@ function start() {
 }
 
 function preptweet(whurl, tweet) {
-	// console.log("prep tweet : " + tweet.id_str);
 	// already checked rt status
 	var twmediaobj = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
 	// console.dir(tweet, {depth:9});
@@ -161,12 +161,14 @@ function preptweet(whurl, tweet) {
 		});
 	}
 	// pull extended entities
+	// console.log("prep tweet : " + whurl);
 	if (twmediaobj && twmediaobj.media) {
 		// console.log("has entities");
 		// console.log(`is a ${twmediaobj.media[0].type} type entity`);
-		switch (twmediaobj.media[0].type) {
+		var mediainfo = JSON.parse(JSON.stringify(twmediaobj.media));
+		switch (mediainfo[0].type) {
 			case "video": // can only have 1
-				var vidinfo = twmediaobj.media.shift();
+				var vidinfo = mediainfo.shift();
 				if (vidinfo.video_info) { // could be monetized and just a check for that, will need discord to handle it
 					var bigvari;
 					bigvari = vidinfo.video_info.variants.reduce((largest, cur) => {
@@ -196,12 +198,12 @@ function preptweet(whurl, tweet) {
 				}
 				break;
 			case "photo": // can have more than 1
-				var embimgobj = twmediaobj.media.shift();
+				var embimgobj = mediainfo.shift();
 				embimage = embimgobj.media_url_https;
 				var regex = new RegExp(` ?${embimgobj.url}`);
 				txt = txt.replace(regex, "");
 				// console.log(`replace ${embimgobj.url} with ""`);
-				twmediaobj.media.forEach((e) => {
+				mediainfo.forEach((e) => {
 					addlinks.push({
 						author :
 							{
@@ -229,7 +231,15 @@ function preptweet(whurl, tweet) {
 	}
 	// console.dir(txt);
 	// console.dir(addlinks);
-	return posttweet(tweetobjpost).then(() => {doserial(addlinks, writeurl)}).then(() => {Promise.resolve();});
+	return posttweet(tweetobjpost).then(() => {
+		if (addlinks.length > 0) {
+			return doserial(addlinks, writeurl);
+		} else {
+			return Promise.resolve();
+		}
+	}).then(() => {
+		return Promise.resolve();
+	});
 }
 
 function posttweet(tweet) {
@@ -253,7 +263,7 @@ function posttweet(tweet) {
 			],
 		},
 		json : true
-	}).then(() => {Promise.resolve();}).catch(() => {Promise.resolve();});
+	}).then(() => {return Promise.resolve();}).catch(() => {return Promise.resolve();});
 }
 
 function doserial(ary, fn) {
@@ -261,7 +271,7 @@ function doserial(ary, fn) {
 		return p.then(function(){
 			return fn(item);
 		});
-	}, Promise.resolve())
+	}, Promise.resolve());
 }
 
 function writeurl(link) {
@@ -277,5 +287,5 @@ function writeurl(link) {
 			content : link.url
 		},
 		json : true
-	}).then(() => {Promise.resolve();}).catch(() => {Promise.resolve();});
+	}).then(() => {return Promise.resolve();}).catch(() => {return Promise.resolve();});
 }
