@@ -40,9 +40,9 @@ function getStatus(first) {
 		} else {
 			if (user.screen_name == "KanColle_STAFF") {
 				client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
-					if (response.body && response.body.profile_image_url_https) {
+					if (response.body) {
 						var info = JSON.parse(response.body);
-						if (kcprofileimg != info.profile_image_url_https) {
+						if (info.profile_image_url_https && kcprofileimg != info.profile_image_url_https) {
 							kcprofileimg = info.profile_image_url_https;
 							logstr(profilelogfile, false, user.screen_name, kcprofileimg);
 							var lrg = kcprofileimg.replace("_normal", "");
