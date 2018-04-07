@@ -42,8 +42,8 @@ function getStatus(first) {
 				client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
 					if (response.body) {
 						var info = JSON.parse(response.body);
-						console.dir(info.profile_image_url_https);
-						const fs = require('fs'); var util = require('util'); fs.appendFile('./dump.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
+						// console.dir(info.profile_image_url_https);
+						// const fs = require('fs'); var util = require('util'); fs.appendFile('./dump.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
 						if (info.profile_image_url_https && kcprofileimg != info.profile_image_url_https) {
 							kcprofileimg = info.profile_image_url_https;
 							logstr(profilelogfile, false, user.screen_name, kcprofileimg);
