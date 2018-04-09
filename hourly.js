@@ -50,7 +50,7 @@ while(!line) {
 //
 // console.log(tl[hours[rnd]["id"]][tkey]);
 var webhooks = [
-	// configs.webhooks.gct.kc,
+	configs.webhooks.gct.kc,
 	configs.webhooks.ctbpg.wht
 ];
 if (todaynames.length > 0) {
