@@ -1,4 +1,5 @@
-//SELECT en, c.api_id, api_yomi, c.api_name, b.api_name, c.api_voicef, b.api_voicef FROM jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) c(api_id INT, api_name TEXT, api_yomi TEXT, api_voicef INT) LEFT JOIN jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) b(api_id INT, api_name TEXT, api_voicef INT, api_aftershipid INT) ON (c.api_id = b.api_aftershipid) LEFT JOIN jptoenships tl ON (c.api_id = tl.api_id) WHERE c.api_voicef >= 3 AND (b.api_voicef < 3 OR b.api_voicef IS NULL)
+//SELECT '		{"id":"' || c.api_id || '","name":"' || en || '"},', en, c.api_id, api_yomi, c.api_name, b.api_name, c.api_voicef, b.api_voicef FROM jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) c(api_id INT, api_name TEXT, api_yomi TEXT, api_voicef INT) LEFT JOIN jsonb_to_recordset((SELECT start2->'api_data'->'api_mst_ship' FROM kcjson ORDER BY apidate DESC LIMIT 1)) b(api_id INT, api_name TEXT, api_voicef INT, api_aftershipid INT) ON (c.api_id = b.api_aftershipid) LEFT JOIN jptoenships tl ON (c.api_id = tl.api_id) WHERE c.api_voicef >= 3 AND (b.api_voicef < 3 OR b.api_voicef IS NULL) ORDER BY c.api_id
+
 var lines = require('./hourly.json');
 
 var request = require('request');
