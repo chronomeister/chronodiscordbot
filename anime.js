@@ -86,7 +86,7 @@ exports.search = function(msg, params) {
 			if (animes[0]) {
 				var anime = animes[0];
 				var embed = new Discord.RichEmbed();
-				embed.setDescription(anime.description.replace(/<br[ /]*>/g, ""));
+				if (anime.description) {embed.setDescription(anime.description.replace(/<br[ /]*>/g, ""));}
 				embed.setThumbnail(anime.coverImage.medium);
 				embed.setAuthor(`${anime.title.romaji} (${anime.title.native})`, "https://anilist.co/img/logo_al.png", anime.siteUrl);
 				embed.addField("Airing Season", (SEASONENUM[anime.season] || "Unknown") + " " + anime.startDate.year, true);
