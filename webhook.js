@@ -12,12 +12,13 @@ var client = new Twitter({
 var whconfig = require('./webhookconfig.json');
 var util = require('util');
 
-var lastseenid = {};
-whconfig.twitters.forEach(function(user){
-	user.lastseenid = "";
+var seenids = {};
+
+whconfig.twitters.forEach((user) => {
+	seenids[user.screen_name] = [undefined, ""];
 });
+
 var kcprofileimg = "";
-var kcdevname = "chronombot";
 const tweetlogfile = './tweetlog.txt';
 const profilelogfile = './profilelog.txt';
 function logstr(file, init, user, msg) {
@@ -34,40 +35,41 @@ function getStatus(first) {
 		// console.log(user);
 		if (first) {
 			client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
-				if (user.screen_name == kcdevname) {
+				// console.log(`${Date.now()}> ${response.statusCode}`);
+				if (response.statusCode == 200) {
 					kcprofileimg = JSON.parse(response.body).profile_image_url_https;
+					seenids[user.screen_name].push(kcprofileimg);
 					logstr(profilelogfile, true, user.screen_name, kcprofileimg);
 				}
 			});
 		} else {
-			if (user.screen_name == kcdevname) {
-				client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
-					if (response.body) {
-						// fs.appendFile('./twitter.txt', util.inspect(, {depth : 9}) + "\n", () => {});
-						var info = JSON.parse(response.body);
-						// console.log(`${Date.now()}> ${response.statusCode} : ${info.profile_image_url_https}`);
-						if (info.profile_image_url_https && kcprofileimg != info.profile_image_url_https) {
-							kcprofileimg = info.profile_image_url_https;
-							logstr(profilelogfile, false, user.screen_name, kcprofileimg);
-							var lrg = kcprofileimg.replace("_normal", "");
-							console.log(kcprofileimg);
-							user.webhooks.forEach(function(url){
-								request.post({url:url,
-									form: {
-										content:`New KC profile image detected! ${lrg}`
-									}},
-									function(err, rsp, body){}
-								);
-							});
-							whconfig.selfposts.forEach(function(post){
-								if (me && me.guilds && me.guilds.get(post.guild)) {
-									me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
-								}
-							})
-						}
+			client.get('users/show', {screen_name : user.screen_name}, function(error, tweets, response) {
+				if (response.statusCode == 200) {
+					var info = JSON.parse(response.body);
+					// console.log(`${Date.now()}> ${response.statusCode} : ${info.profile_image_url_https}`);
+					if (! seenids[user.screen_name].includes(info.profile_image_url_https)) {
+						fs.appendFile('./twitter.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
+						kcprofileimg = info.profile_image_url_https;
+						seenids[user.screen_name].push(kcprofileimg);
+						logstr(profilelogfile, false, user.screen_name, kcprofileimg);
+						var lrg = kcprofileimg.replace("_normal", "");
+						// console.log(kcprofileimg);
+						user.webhooks.forEach(function(url){
+							request.post({url:url,
+								form: {
+									content:`New KC profile image detected! ${lrg}`
+								}},
+								function(err, rsp, body){}
+							);
+						});
+						whconfig.selfposts.forEach(function(post){
+							if (me && me.guilds && me.guilds.get(post.guild)) {
+								me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
+							}
+						})
 					}
-				});
-			}
+				}
+			});
 		}
 	});
 }
