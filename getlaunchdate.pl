@@ -6,15 +6,18 @@ use Data::Dumper;
 my $ua = LWP::UserAgent->new;
 #a = []; $("dt a").each((i,e) => {if($(e).attr("href").match("wiki")){a.push("'https://ja.wikipedia.org" + $(e).attr("href") + "',")}}); a.join("\r\n");
 my @links = (
-'https://en.wikipedia.org/wiki/Russian_battleship_Gangut_(1911)',
-'https://en.wikipedia.org/wiki/Soviet_battleship_Oktyabrskaya_Revolutsiya',
-'https://en.wikipedia.org/wiki/Russian_battleship_Petropavlovsk_(1911)',
-'https://en.wikipedia.org/wiki/Soviet_battleship_Marat',
-'https://en.wikipedia.org/wiki/Soviet_battleship_Volkhov',
-'https://en.wikipedia.org/wiki/Russian_battleship_Poltava_(1911)',
-'https://en.wikipedia.org/wiki/Soviet_battleship_Frunze',
-'https://en.wikipedia.org/wiki/Russian_battleship_Sevastopol_(1911)',
-'https://en.wikipedia.org/wiki/Soviet_battleship_Parizhskaya_Kommuna',
+'https://en.wikipedia.org/wiki/USS_Omaha_(CL-4)',
+'https://en.wikipedia.org/wiki/USS_Milwaukee_(CL-5)',
+'https://en.wikipedia.org/wiki/USS_Cincinnati_(CL-6)',
+'https://en.wikipedia.org/wiki/USS_Raleigh_(CL-7)',
+'https://en.wikipedia.org/wiki/USS_Detroit_(CL-8)',
+'https://en.wikipedia.org/wiki/USS_Richmond_(CL-9)',
+'https://en.wikipedia.org/wiki/USS_Concord_(CL-10)',
+'https://en.wikipedia.org/wiki/USS_Trenton_(CL-11)',
+'https://en.wikipedia.org/wiki/USS_Marblehead_(CL-12)',
+'https://en.wikipedia.org/wiki/USS_Memphis_(CL-13)',
+'https://en.wikipedia.org/wiki/USS_Milwaukee_(CL-5)',
+
 );
 
 foreach my $link (@links) {
