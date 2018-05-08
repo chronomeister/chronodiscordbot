@@ -50,89 +50,29 @@ function start() {
 				if (!userobj || tweet.retweeted_status) {fs.appendFile('./twitter.txt', "retweet" + "\n", () => {});} else
 				{
 					var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
-					userobj.webhooks.forEach(function(url){
-						preptweet(url, tweet).then(() => {
-							if (tweet.user.screen_name == "kancolle_1draw") {
-								var namemap = require('./1HDnames.json');
-								var match = (txt.match(/お題は ([^\r\n]+) .なります/));
-								if (!match) return;
-								var names = match[1].trim().split(/ /)
-								// console.dir(names);
-								var enlist = [];
-								names.forEach(function(name){
-									if (namemap[name]) enlist.push(namemap[name]);
-								});
-								var tl = "";
-								// console.log(enlist.length);
-								switch (enlist.length){
-									case 0:
-									tl = "I can't identify any ships today. I blame chrono.";
-									break;
-									case 1:
-									tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
-									break;
-									case 2:
-									tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
-									break;
-									default:
-									enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
-									tl = "Looks like today's 1HD is " + enlist.join(", ");
-									break;
-								}
-								// console.log(url);
-								request.post({url:url,
-									form: {
-										payload_json : JSON.stringify({
-											username: tweet.user.screen_name,
-											avatar_url: tweet.user.profile_image_url_https,
-											embeds : [
-												{
-													description : tl,
-												}
-											]
-										})
-									}
-								},
-								function(err, rsp, body){}
-								);
-							} else if (userobj.tl) {
-								request.post({
-									url : "https://translation.googleapis.com/language/translate/v2",
-									qs : { "key" : auth.gkey },
-									form : {
-										"q" : txt,
-										"format" : "text",
-										"source" : tweet.lang,
-										"target" : "en"
-									}
-								}, function (error, rsp, html) {
-									var body = JSON.parse(rsp.body);
-									if (body.data) {
-										var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
-										request.post({url:url,
-											form: {
-												payload_json : JSON.stringify({
-													username: tweet.user.screen_name,
-													avatar_url: tweet.user.profile_image_url_https,
-													embeds : [
-														{
-															description : tl,
-														}
-													]
-												})
-											}
-										}, function(err, rsp, body){}
-										);
-									}
-								});
+					if (userobj.tl) {
+						request.post({
+							url : "https://translation.googleapis.com/language/translate/v2",
+							qs : { "key" : auth.gkey },
+							form : {
+								"q" : txt,
+								"format" : "text",
+								"source" : tweet.lang,
+								"target" : "en"
 							}
-							Promise.resolve();
+						}, function (error, rsp, html) {
+							var body = JSON.parse(rsp.body);
+							if (body.data) {
+								var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
+								sendwebhooks(userobj, tweet, tl);
+							}
 						});
-					});
+					} else {
+						sendwebhooks(userobj, tweet, undefined);
+					}
 				}
 			}
 			// if (i++ >= 10) {process.exit();}
-
 		});
 
 		stream.on('error', function(error) {
@@ -140,7 +80,71 @@ function start() {
 		});
 	});
 }
-
+function sendwebhooks (userobj, tweet, tl) {
+	userobj.webhooks.forEach(function(url){
+		preptweet(url, tweet).then(() => {
+			if (tweet.user.screen_name == "kancolle_1draw") {
+				var namemap = require('./1HDnames.json');
+				var match = (txt.match(/お題は ([^\r\n]+) .なります/));
+				if (!match) return;
+				var names = match[1].trim().split(/ /)
+				// console.dir(names);
+				var enlist = [];
+				names.forEach(function(name){
+					if (namemap[name]) enlist.push(namemap[name]);
+				});
+				var tl = "";
+				// console.log(enlist.length);
+				switch (enlist.length){
+					case 0:
+					tl = "I can't identify any ships today. I blame chrono.";
+					break;
+					case 1:
+					tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
+					break;
+					case 2:
+					tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
+					break;
+					default:
+					enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
+					tl = "Looks like today's 1HD is " + enlist.join(", ");
+					break;
+				}
+				// console.log(url);
+				request.post({url:url,
+					form: {
+						payload_json : JSON.stringify({
+							username: tweet.user.screen_name,
+							avatar_url: tweet.user.profile_image_url_https,
+							embeds : [
+								{
+									description : tl,
+								}
+							]
+						})
+					}
+				},
+				function(err, rsp, body){}
+				);
+			} else if (tl) {
+				request.post({url:url,
+					form: {
+						payload_json : JSON.stringify({
+							username: tweet.user.screen_name,
+							avatar_url: tweet.user.profile_image_url_https,
+							embeds : [
+								{
+									description : tl,
+								}
+							]
+						})
+					}
+				}, function(err, rsp, body){
+				});
+			}
+		});
+	});
+}
 function preptweet(whurl, tweet) {
 	// already checked rt status
 	var twmediaobj = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
