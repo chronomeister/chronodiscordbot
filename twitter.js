@@ -35,7 +35,7 @@ users.forEach(function(e,idx){
 });
 
 function start() {
-	console.log("started");
+	console.log(Date() + " : started");
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
@@ -83,8 +83,11 @@ function start() {
 function sendwebhooks (userobj, tweet, tl) {
 	userobj.webhooks.forEach(function(url){
 		preptweet(url, tweet).then(() => {
+			var d = new Date();
+			console.log(d.toISOString());
 			if (tweet.user.screen_name == "kancolle_1draw") {
 				var namemap = require('./1HDnames.json');
+				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
 				var match = (txt.match(/お題は ([^\r\n]+) .なります/));
 				if (!match) return;
 				var names = match[1].trim().split(/ /)
@@ -142,6 +145,7 @@ function sendwebhooks (userobj, tweet, tl) {
 				}, function(err, rsp, body){
 				});
 			}
+			Promise.resolve();
 		});
 	});
 }
@@ -249,6 +253,7 @@ function preptweet(whurl, tweet) {
 function posttweet(tweet) {
 	fs.appendFile('./twitter.txt', `Post to ${tweet.whurl}` + "\n", () => {});
 	// console.log("post tweet : " + tweet.id_str);
+	var twts = new Date(parseInt(tweet.timestamp_ms));
 	return reqprom({
 		method: 'POST',
 		uri: tweet.whurl,
@@ -263,7 +268,8 @@ function posttweet(tweet) {
 					color: 3513327,
 					description : tweet.txt,
 					image : {url : tweet.embimage},
-					footer : {icon_url : "https://abs.twimg.com/icons/apple-touch-icon-192x192.png", text : "Twitter"}
+					footer : {icon_url : "https://abs.twimg.com/icons/apple-touch-icon-192x192.png", text : "Twitter"},
+					timestamp : twts.toISOString()
 				}
 			],
 		},
