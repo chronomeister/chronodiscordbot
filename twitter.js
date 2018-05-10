@@ -42,7 +42,6 @@ function start() {
 				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
 				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
-				// console.log(tweet.text);
 				var userobj = users.find(function(usertest){
 					// console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
 					return usertest.id_str === tweet.user.id_str;
@@ -84,7 +83,7 @@ function sendwebhooks (userobj, tweet, tl) {
 	userobj.webhooks.forEach(function(url){
 		preptweet(url, tweet).then(() => {
 			var d = new Date();
-			console.log(d.toISOString());
+			// console.log(d.toISOString());
 			if (tweet.user.screen_name == "kancolle_1draw") {
 				var namemap = require('./1HDnames.json');
 				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
@@ -227,6 +226,8 @@ function preptweet(whurl, tweet) {
 				break;
 		}
 	}
+	var twdate = new Date(parseInt(tweet.timestamp_ms));
+	var twts = twdate.toISOString();
 	var tweetobjpost = {
 		txt : txt,
 		embimage : embimage,
@@ -235,7 +236,8 @@ function preptweet(whurl, tweet) {
 		profile_image_url_https : tweet.user.profile_image_url_https,
 		author : tweet.user.name,
 		id_str : tweet.id_str,
-		whurl : whurl
+		whurl : whurl,
+		timestamp : twts
 	}
 	// console.dir(txt);
 	// console.dir(addlinks);
@@ -252,8 +254,6 @@ function preptweet(whurl, tweet) {
 
 function posttweet(tweet) {
 	fs.appendFile('./twitter.txt', `Post to ${tweet.whurl}` + "\n", () => {});
-	// console.log("post tweet : " + tweet.id_str);
-	var twts = new Date(parseInt(tweet.timestamp_ms));
 	return reqprom({
 		method: 'POST',
 		uri: tweet.whurl,
@@ -262,14 +262,14 @@ function posttweet(tweet) {
 			avatar_url: tweet.profile_image_url_https,
 			embeds : [
 				{
-					author: {name: `${tweet.name} (${tweet.screen_name})`, url: `https://twitter.com/${tweet.screen_name}`},
+					author: {name: `${tweet.name} (@${tweet.screen_name})`, url: `https://twitter.com/${tweet.screen_name}`},
 					title: `https://twitter.com/${tweet.screen_name}/status/${tweet.id_str}`,
 					avatar_url: tweet.profile_image_url_https,
 					color: 3513327,
 					description : tweet.txt,
 					image : {url : tweet.embimage},
 					footer : {icon_url : "https://abs.twimg.com/icons/apple-touch-icon-192x192.png", text : "Twitter"},
-					timestamp : twts.toISOString()
+					timestamp : tweet.timestamp
 				}
 			],
 		},
