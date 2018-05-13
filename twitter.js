@@ -80,10 +80,15 @@ function start() {
 	});
 }
 function sendwebhooks (userobj, tweet, tl) {
+	var tweettl = JSON.parse(JSON.stringify(tl));
 	userobj.webhooks.forEach(function(url){
+		// console.log("before");
+		// console.log(tl);
 		preptweet(url, tweet).then(() => {
 			var d = new Date();
-			// console.log(d.toISOString());
+			// console.log("after");
+			// console.dir(tl);
+			// if (tweettl) {console.log("is TL");} else {console.log("not TL.");}
 			if (tweet.user.screen_name == "kancolle_1draw") {
 				var namemap = require('./1HDnames.json');
 				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
@@ -128,7 +133,7 @@ function sendwebhooks (userobj, tweet, tl) {
 				},
 				function(err, rsp, body){}
 				);
-			} else if (tl) {
+			} else if (tweettl) {
 				request.post({url:url,
 					form: {
 						payload_json : JSON.stringify({
@@ -136,7 +141,7 @@ function sendwebhooks (userobj, tweet, tl) {
 							avatar_url: tweet.user.profile_image_url_https,
 							embeds : [
 								{
-									description : tl,
+									description : tweettl,
 								}
 							]
 						})
