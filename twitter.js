@@ -35,14 +35,13 @@ users.forEach(function(e,idx){
 });
 
 function start() {
-	console.log("started");
+	console.log(Date() + " : started");
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
 				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
 				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
-				// console.log(tweet.text);
 				var userobj = users.find(function(usertest){
 					// console.log(`${usertest.id_str} === ${tweet.user.id_str}`)
 					return usertest.id_str === tweet.user.id_str;
@@ -50,89 +49,29 @@ function start() {
 				if (!userobj || tweet.retweeted_status) {fs.appendFile('./twitter.txt', "retweet" + "\n", () => {});} else
 				{
 					var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
-					userobj.webhooks.forEach(function(url){
-						preptweet(url, tweet).then(() => {
-							if (tweet.user.screen_name == "kancolle_1draw") {
-								var namemap = require('./1HDnames.json');
-								var match = (txt.match(/お題は ([^\r\n]+) .なります/));
-								if (!match) return;
-								var names = match[1].trim().split(/ /)
-								// console.dir(names);
-								var enlist = [];
-								names.forEach(function(name){
-									if (namemap[name]) enlist.push(namemap[name]);
-								});
-								var tl = "";
-								// console.log(enlist.length);
-								switch (enlist.length){
-									case 0:
-									tl = "I can't identify any ships today. I blame chrono.";
-									break;
-									case 1:
-									tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
-									break;
-									case 2:
-									tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
-									break;
-									default:
-									enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
-									tl = "Looks like today's 1HD is " + enlist.join(", ");
-									break;
-								}
-								// console.log(url);
-								request.post({url:url,
-									form: {
-										payload_json : JSON.stringify({
-											username: tweet.user.screen_name,
-											avatar_url: tweet.user.profile_image_url_https,
-											embeds : [
-												{
-													description : tl,
-												}
-											]
-										})
-									}
-								},
-								function(err, rsp, body){}
-								);
-							} else if (userobj.tl) {
-								request.post({
-									url : "https://translation.googleapis.com/language/translate/v2",
-									qs : { "key" : auth.gkey },
-									form : {
-										"q" : txt,
-										"format" : "text",
-										"source" : tweet.lang,
-										"target" : "en"
-									}
-								}, function (error, rsp, html) {
-									var body = JSON.parse(rsp.body);
-									if (body.data) {
-										var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
-										request.post({url:url,
-											form: {
-												payload_json : JSON.stringify({
-													username: tweet.user.screen_name,
-													avatar_url: tweet.user.profile_image_url_https,
-													embeds : [
-														{
-															description : tl,
-														}
-													]
-												})
-											}
-										}, function(err, rsp, body){}
-										);
-									}
-								});
+					if (userobj.tl) {
+						request.post({
+							url : "https://translation.googleapis.com/language/translate/v2",
+							qs : { "key" : auth.gkey },
+							form : {
+								"q" : txt,
+								"format" : "text",
+								"source" : tweet.lang,
+								"target" : "en"
 							}
-							Promise.resolve();
+						}, function (error, rsp, html) {
+							var body = JSON.parse(rsp.body);
+							if (body.data) {
+								var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
+								sendwebhooks(userobj, tweet, tl);
+							}
 						});
-					});
+					} else {
+						sendwebhooks(userobj, tweet, undefined);
+					}
 				}
 			}
 			// if (i++ >= 10) {process.exit();}
-
 		});
 
 		stream.on('error', function(error) {
@@ -140,7 +79,80 @@ function start() {
 		});
 	});
 }
-
+function sendwebhooks (userobj, tweet, tl) {
+	var tweettl = JSON.parse(JSON.stringify(tl));
+	userobj.webhooks.forEach(function(url){
+		// console.log("before");
+		// console.log(tl);
+		preptweet(url, tweet).then(() => {
+			var d = new Date();
+			// console.log("after");
+			// console.dir(tl);
+			// if (tweettl) {console.log("is TL");} else {console.log("not TL.");}
+			if (tweet.user.screen_name == "kancolle_1draw") {
+				var namemap = require('./1HDnames.json');
+				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
+				var match = (txt.match(/お題は ([^\r\n]+) .なります/));
+				if (!match) return;
+				var names = match[1].trim().split(/ /)
+				// console.dir(names);
+				var enlist = [];
+				names.forEach(function(name){
+					if (namemap[name]) enlist.push(namemap[name]);
+				});
+				var tl = "";
+				// console.log(enlist.length);
+				switch (enlist.length){
+					case 0:
+					tl = "I can't identify any ships today. I blame chrono.";
+					break;
+					case 1:
+					tl = "Looks like today's 1HD is " + enlist.join(", ") + " and two ships I can't identify";
+					break;
+					case 2:
+					tl = "Looks like today's 1HD is " + enlist.join(", ") + " and one ship I can't identify";
+					break;
+					default:
+					enlist[enlist.length - 1] = "and " + enlist[enlist.length - 1];
+					tl = "Looks like today's 1HD is " + enlist.join(", ");
+					break;
+				}
+				// console.log(url);
+				request.post({url:url,
+					form: {
+						payload_json : JSON.stringify({
+							username: tweet.user.screen_name,
+							avatar_url: tweet.user.profile_image_url_https,
+							embeds : [
+								{
+									description : tl,
+								}
+							]
+						})
+					}
+				},
+				function(err, rsp, body){}
+				);
+			} else if (tweettl) {
+				request.post({url:url,
+					form: {
+						payload_json : JSON.stringify({
+							username: tweet.user.screen_name,
+							avatar_url: tweet.user.profile_image_url_https,
+							embeds : [
+								{
+									description : tweettl,
+								}
+							]
+						})
+					}
+				}, function(err, rsp, body){
+				});
+			}
+			Promise.resolve();
+		});
+	});
+}
 function preptweet(whurl, tweet) {
 	// already checked rt status
 	var twmediaobj = (tweet.extended_tweet ? tweet.extended_tweet.extended_entities : tweet.entities)
@@ -219,6 +231,8 @@ function preptweet(whurl, tweet) {
 				break;
 		}
 	}
+	var twdate = new Date(parseInt(tweet.timestamp_ms));
+	var twts = twdate.toISOString();
 	var tweetobjpost = {
 		txt : txt,
 		embimage : embimage,
@@ -227,7 +241,8 @@ function preptweet(whurl, tweet) {
 		profile_image_url_https : tweet.user.profile_image_url_https,
 		author : tweet.user.name,
 		id_str : tweet.id_str,
-		whurl : whurl
+		whurl : whurl,
+		timestamp : twts
 	}
 	// console.dir(txt);
 	// console.dir(addlinks);
@@ -244,7 +259,6 @@ function preptweet(whurl, tweet) {
 
 function posttweet(tweet) {
 	fs.appendFile('./twitter.txt', `Post to ${tweet.whurl}` + "\n", () => {});
-	// console.log("post tweet : " + tweet.id_str);
 	return reqprom({
 		method: 'POST',
 		uri: tweet.whurl,
@@ -253,13 +267,14 @@ function posttweet(tweet) {
 			avatar_url: tweet.profile_image_url_https,
 			embeds : [
 				{
-					author: {name: `${tweet.name} (${tweet.screen_name})`, url: `https://twitter.com/${tweet.screen_name}`},
+					author: {name: `${tweet.name} (@${tweet.screen_name})`, url: `https://twitter.com/${tweet.screen_name}`},
 					title: `https://twitter.com/${tweet.screen_name}/status/${tweet.id_str}`,
 					avatar_url: tweet.profile_image_url_https,
 					color: 3513327,
 					description : tweet.txt,
 					image : {url : tweet.embimage},
-					footer : {icon_url : "https://abs.twimg.com/icons/apple-touch-icon-192x192.png", text : "Twitter"}
+					footer : {icon_url : "https://abs.twimg.com/icons/apple-touch-icon-192x192.png", text : "Twitter"},
+					timestamp : tweet.timestamp
 				}
 			],
 		},
