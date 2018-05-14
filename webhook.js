@@ -48,7 +48,7 @@ function getStatus(first) {
 					var info = JSON.parse(response.body);
 					// console.log(`${Date.now()}> ${response.statusCode} : ${info.profile_image_url_https}`);
 					if (! seenids[user.screen_name].includes(info.profile_image_url_https)) {
-						fs.appendFile('./twitter.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
+						//fs.appendFile('./twitter.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
 						kcprofileimg = info.profile_image_url_https;
 						seenids[user.screen_name].push(kcprofileimg);
 						logstr(profilelogfile, false, user.screen_name, kcprofileimg);

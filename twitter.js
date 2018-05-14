@@ -36,9 +36,11 @@ users.forEach(function(e,idx){
 
 function start() {
 	console.log(Date() + " : started");
+	console.log("following: " + follows.join(','));
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
+				// console.log("new tweet");
 				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
 				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
@@ -80,7 +82,7 @@ function start() {
 	});
 }
 function sendwebhooks (userobj, tweet, tl) {
-	var tweettl = JSON.parse(JSON.stringify(tl));
+	var tweettl = tl ? JSON.parse(JSON.stringify(tl)) : tl;
 	userobj.webhooks.forEach(function(url){
 		// console.log("before");
 		// console.log(tl);
