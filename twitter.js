@@ -29,7 +29,7 @@ users.forEach(function(e,idx){
 		follows.push(info.id_str);
 		if (--i == 0) {
 			// console.dir(follows);
-			start();
+			setTimeout(start, 10000);
 		}
 	});
 });
