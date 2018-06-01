@@ -47,7 +47,6 @@ exports.currencyexchange = function(msg, cx) {
 		}
 		to = "JPY";
 	}
-	console.log(`${from} TO ${to}`)
 	request.get({
 		url : 'http://data.fixer.io/api/latest',
 		qs : {
