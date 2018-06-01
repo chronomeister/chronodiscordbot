@@ -12,7 +12,7 @@ exports.currencyexchange = function(msg, cx) {
 	var fromdsp = from;
 	var todsp =  to;
 
-	var specials = ["SPK","PUL","JEW"];
+	var specials = ["SPK","PUL","JEW","MBC"];
 	if (specials.indexOf(from) > -1) {
 		switch (from) {
 			case "SPK":
@@ -26,6 +26,10 @@ exports.currencyexchange = function(msg, cx) {
 			case "JEW":
 				fromdsp = "Jewel(s)";
 				mult *= 9800.0/8400;
+				break;
+			case "MBC":
+				fromdsp = "MobaCoins(s)";
+				mult *= 103.0/100;
 				break;
 		}
 		from = "JPY";
@@ -44,6 +48,10 @@ exports.currencyexchange = function(msg, cx) {
 				todsp = "Jewel(s)";
 				mult *= 1/(9800.0/8400);
 				break;
+			case "MBC":
+				todsp = "MobaCoins(s)";
+				mult *= 1/(103.0/100);
+				break;
 		}
 		to = "JPY";
 	}
@@ -57,6 +65,7 @@ exports.currencyexchange = function(msg, cx) {
 		if (!error && response.statusCode == 200) {
 			var cxrate = JSON.parse(response.body);
 			// console.dir(response);
+			console.log([mult, cxrate.rates[from], cxrate.rates[to]].join(" : "));
 			if (cxrate.rates == null) {
 				msg.channel.send("couldnt get exchange rate data, something broke. Ping/Dab chronomeister");
 			} else if (!cxrate.rates[from] || !cxrate.rates[to]) {
