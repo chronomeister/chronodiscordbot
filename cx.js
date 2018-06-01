@@ -28,7 +28,7 @@ exports.currencyexchange = function(msg, cx) {
 				mult *= 9800.0/8400;
 				break;
 			case "MBC":
-				fromdsp = "MobaCoins(s)";
+				fromdsp = "MobaCoin(s)";
 				mult *= 103.0/100;
 				break;
 		}
@@ -49,7 +49,7 @@ exports.currencyexchange = function(msg, cx) {
 				mult *= 1/(9800.0/8400);
 				break;
 			case "MBC":
-				todsp = "MobaCoins(s)";
+				todsp = "MobaCoin(s)";
 				mult *= 1/(103.0/100);
 				break;
 		}
@@ -65,13 +65,12 @@ exports.currencyexchange = function(msg, cx) {
 		if (!error && response.statusCode == 200) {
 			var cxrate = JSON.parse(response.body);
 			// console.dir(response);
-			console.log([mult, cxrate.rates[from], cxrate.rates[to]].join(" : "));
 			if (cxrate.rates == null) {
 				msg.channel.send("couldnt get exchange rate data, something broke. Ping/Dab chronomeister");
 			} else if (!cxrate.rates[from] || !cxrate.rates[to]) {
 				msg.channel.send("Invalid country code(s)");
 			} else if (cx[1]) {
-				msg.channel.send(cx[1] + " " + fromdsp + " in " + todsp + " is: " + mult / cxrate.rates[from] * cxrate.rates[to]);
+				msg.channel.send(cx[1] + " " + fromdsp + " in " + todsp + " is: " + (cx[1] * mult / cxrate.rates[from] * cxrate.rates[to]));
 			} else {
 				msg.channel.send("Current " + fromdsp + " to " + todsp + " rate is: " + mult / cxrate.rates[from] * cxrate.rates[to]);
 			}
