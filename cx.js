@@ -12,11 +12,16 @@ exports.currencyexchange = function(msg, cx) {
 	var fromdsp = from;
 	var todsp =  to;
 
-	var specials = ["SPK","PUL","JEW","MBC"];
+	if (to === "SPK" || from === "SPK") {
+		msg.channel.send("Spark is discontinued. Please use CER or STR for spark conversion.");
+		return;
+	}
+
+	var specials = ["STR","PUL","JEW","MBC","CER"];
 	if (specials.indexOf(from) > -1) {
 		switch (from) {
-			case "SPK":
-				fromdsp = "Spark";
+			case "STR":
+				fromdsp = "Deresute Spark";
 				mult *= 87500;
 				break;
 			case "PUL":
@@ -31,13 +36,17 @@ exports.currencyexchange = function(msg, cx) {
 				fromdsp = "MobaCoin(s)";
 				mult *= 103.0/100;
 				break;
+			case "CER":
+				fromdsp = "GBF Spark";
+				mult *= 92700;
+				break;
 		}
 		from = "JPY";
 	}
 	if (specials.indexOf(to) > -1) {
 		switch (to) {
-			case "SPK":
-				todsp = "Spark";
+			case "STR":
+				todsp = "Deresute Spark";
 				mult *= 1/87500;
 				break;
 			case "PUL":
@@ -51,6 +60,10 @@ exports.currencyexchange = function(msg, cx) {
 			case "MBC":
 				todsp = "MobaCoin(s)";
 				mult *= 1/(103.0/100);
+				break;
+			case "CER":
+				todsp = "GBF Spark";
+				mult *= 1/92700;
 				break;
 		}
 		to = "JPY";
