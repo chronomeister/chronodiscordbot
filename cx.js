@@ -12,11 +12,16 @@ exports.currencyexchange = function(msg, cx) {
 	var fromdsp = from;
 	var todsp =  to;
 
-	var specials = ["SPK","PUL","JEW"];
+	if (to === "SPK" || from === "SPK") {
+		msg.channel.send("Spark is discontinued. Please use CER or STR for spark conversion.");
+		return;
+	}
+
+	var specials = ["STR","PUL","JEW","MBC","CER"];
 	if (specials.indexOf(from) > -1) {
 		switch (from) {
-			case "SPK":
-				fromdsp = "Spark";
+			case "STR":
+				fromdsp = "Deresute Spark";
 				mult *= 87500;
 				break;
 			case "PUL":
@@ -27,13 +32,21 @@ exports.currencyexchange = function(msg, cx) {
 				fromdsp = "Jewel(s)";
 				mult *= 9800.0/8400;
 				break;
+			case "MBC":
+				fromdsp = "MobaCoin(s)";
+				mult *= 103.0/100;
+				break;
+			case "CER":
+				fromdsp = "GBF Spark";
+				mult *= 92700;
+				break;
 		}
 		from = "JPY";
 	}
 	if (specials.indexOf(to) > -1) {
 		switch (to) {
-			case "SPK":
-				todsp = "Spark";
+			case "STR":
+				todsp = "Deresute Spark";
 				mult *= 1/87500;
 				break;
 			case "PUL":
@@ -44,10 +57,17 @@ exports.currencyexchange = function(msg, cx) {
 				todsp = "Jewel(s)";
 				mult *= 1/(9800.0/8400);
 				break;
+			case "MBC":
+				todsp = "MobaCoin(s)";
+				mult *= 1/(103.0/100);
+				break;
+			case "CER":
+				todsp = "GBF Spark";
+				mult *= 1/92700;
+				break;
 		}
 		to = "JPY";
 	}
-	console.log(`${from} TO ${to}`)
 	request.get({
 		url : 'http://data.fixer.io/api/latest',
 		qs : {
@@ -63,7 +83,7 @@ exports.currencyexchange = function(msg, cx) {
 			} else if (!cxrate.rates[from] || !cxrate.rates[to]) {
 				msg.channel.send("Invalid country code(s)");
 			} else if (cx[1]) {
-				msg.channel.send(cx[1] + " " + fromdsp + " in " + todsp + " is: " + mult / cxrate.rates[from] * cxrate.rates[to]);
+				msg.channel.send(cx[1] + " " + fromdsp + " in " + todsp + " is: " + (cx[1] * mult / cxrate.rates[from] * cxrate.rates[to]));
 			} else {
 				msg.channel.send("Current " + fromdsp + " to " + todsp + " rate is: " + mult / cxrate.rates[from] * cxrate.rates[to]);
 			}
