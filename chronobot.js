@@ -86,8 +86,9 @@ bot.on("message", msg => {
 			// console.dir([msg.id, msg.author.id, msg.channel.id, msg.channel.guild.id, ematch[1], msg.createdTimestamp]);
 		}
 	}
-	var twitmatch = /https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)/;
-	if (msg.content.match(twitmatch)) {
+	var twitmatch = /`?https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)`?/;
+	var twm = msg.content.match(twitmatch);
+	if (twm && twm[0] && twm[0][0] !== '`') {
 		var Twitter = require('twitter');
 
 		var twitclient = new Twitter({
@@ -96,7 +97,7 @@ bot.on("message", msg => {
 		  bearer_token: configs.twitterbtoken
 		});
 
-		var twid = msg.content.match(twitmatch)[1];
+		var twid = twm[1];
 		twitclient.get(`statuses/show/${twid}`, {tweet_mode : "extended"}, function(error, tweet, response) {
 			function doserial(ary, fn) {
 				return ary.reduce(function(p, item) {
