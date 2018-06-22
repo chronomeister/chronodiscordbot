@@ -1090,7 +1090,6 @@
 {"name" : "USS <i>Stoddard</i> (DD-566)", "year" : "1943", "month" : "November", "day" : "19"},
 {"name" : "USS <i>Watts</i> (DD-567)", "year" : "1943", "month" : "December", "day" : "31"},
 {"name" : "USS <i>Wren</i> (DD-568)", "year" : "1944", "month" : "January", "day" : "29"},
-Use of uninitialized value $n in concatenation (.) or string at C:\Users\Chrono\Documents\Dropbox\Projects\chronodiscordbot\getlaunchdate.pl line 214.
 {"name" : "USS <i>Aulick</i> (DD-569)", "year" : "1942", "month" : "March", "day" : "2"},
 {"name" : "USS <i>Charles Ausburne</i> (DD-570)", "year" : "1942", "month" : "March", "day" : "16"},
 {"name" : "USS <i>Claxton</i> (DD-571)", "year" : "1942", "month" : "April", "day" : "1"},
@@ -1147,7 +1146,6 @@ Use of uninitialized value $n in concatenation (.) or string at C:\Users\Chrono\
 {"name" : "USS <i>Black</i>", "year" : "1943", "month" : "March", "day" : "28"},
 {"name" : "USS <i>Chauncey</i> (DD-667)", "year" : "1943", "month" : "March", "day" : "28"},
 {"name" : "USS <i>Clarence K. Bronson</i>", "year" : "1943", "month" : "April", "day" : "18"},
-nope
 {"name" : "", "year" : "", "month" : "", "day" : ""},
 {"name" : "Islamic Republic of Iran Navy", "year" : "", "month" : "", "day" : ""},
 {"name" : "Republic of Korea Navy", "year" : "", "month" : "", "day" : ""},
