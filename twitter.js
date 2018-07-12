@@ -281,7 +281,14 @@ function posttweet(tweet) {
 			],
 		},
 		json : true
-	}).then(() => {return Promise.resolve();}).catch(() => {return Promise.resolve();});
+	}).then(() => {
+		if (tweet.screen_name === 'KanColle_STAFF' && tweet.txt.match(/申し訳ありません/)) {
+			const { fork } = require('child_process');
+			fork('./sorrymasen.js');
+		}
+		return Promise.resolve();
+	}).catch(() => {return Promise.resolve();
+	});
 }
 
 function doserial(ary, fn) {
