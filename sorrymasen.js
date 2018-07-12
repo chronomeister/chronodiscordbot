@@ -5,10 +5,7 @@ var configs = require('./webhookconfig.json');
 var bot = new Discord.Client();
 bot.login(configs.selftoken);
 
-const postobj = [
-	{"guild":"457750528345243649","channel":"457751483346190339","note":"GCT"},
-	{"guild":"242663092171964417","channel":"319221390450360330","note":"TBP"}
-]
+const postobj = require('./sorrymasen.json');
 
 function post(obj) {
 	return bot.guilds.get(obj.guild).channels.get(obj.channel).send(`"申し訳ありません"`)
