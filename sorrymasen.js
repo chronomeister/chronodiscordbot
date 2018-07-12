@@ -12,14 +12,14 @@ const postobj = [
 
 function post(obj) {
 	return bot.guilds.get(obj.guild).channels.get(obj.channel).send(`"申し訳ありません"`)
-	.then(() => {console.log("ret"); return Promise.resolve()})
-	.catch(() => {console.log("ret"); return Promise.resolve()});
+	.then(() => {return Promise.resolve()})
+	.catch(() => {return Promise.resolve()});
 }
 
 bot.on('ready', () => {
 	var postprom = postobj.map(obj => {return post(obj)});
 	Promise.all(postprom)
 	// doserial(postobj, post)
-	.then(() => {console.log("then");process.exit();})
-	.catch(() => {console.log("catch");process.exit();});
+	.then(() => {process.exit();})
+	.catch(() => {process.exit();});
 });

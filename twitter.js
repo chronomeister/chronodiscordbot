@@ -71,6 +71,10 @@ function start() {
 					} else {
 						sendwebhooks(userobj, tweet, undefined);
 					}
+					// if (tweet.screen_name === 'KanColle_STAFF' && txt.match(/申し訳ありません/)) {
+						const { fork } = require('child_process');
+						fork('./sorrymasen.js');
+					// }
 				}
 			}
 			// if (i++ >= 10) {process.exit();}
@@ -280,15 +284,9 @@ function posttweet(tweet) {
 				}
 			],
 		},
-		json : true
-	}).then(() => {
-		if (tweet.screen_name === 'KanColle_STAFF' && tweet.txt.match(/申し訳ありません/)) {
-			const { fork } = require('child_process');
-			fork('./sorrymasen.js');
-		}
-		return Promise.resolve();
-	}).catch(() => {return Promise.resolve();
-	});
+		json : true})
+	.then(() => {return Promise.resolve();})
+	.catch(() => {return Promise.resolve();});
 }
 
 function doserial(ary, fn) {
