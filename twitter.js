@@ -71,10 +71,10 @@ function start() {
 					} else {
 						sendwebhooks(userobj, tweet, undefined);
 					}
-					// if (tweet.screen_name === 'KanColle_STAFF' && txt.match(/申し訳ありません/)) {
+					if (tweet.screen_name === 'KanColle_STAFF' && txt.match(/申し訳ありません/)) {
 						const { fork } = require('child_process');
 						fork('./sorrymasen.js');
-					// }
+					}
 				}
 			}
 			// if (i++ >= 10) {process.exit();}
