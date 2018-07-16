@@ -23,7 +23,7 @@ const tweetlogfile = './tweetlog.txt';
 const profilelogfile = './profilelog.txt';
 function logstr(file, init, user, msg) {
 	var d = new Date();
-	fs.appendFile(file, d.toUTCString() + " : " + (init ? "init" : "new profile") + " : user : " + user + " , msg : " + msg + "\n", () => {});
+	fs.appendFile(file, d.toUTCString() + "\nCurrent strings: " +  util.inspect(seenids, {depth : 9}) + "\n" + (init ? "init" : "new profile") + " : user : " + user + " , msg : " + msg + "\n", () => {});
 }
 
 /**
@@ -51,7 +51,7 @@ function getStatus(first) {
 						//fs.appendFile('./twitter.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
 						kcprofileimg = info.profile_image_url_https;
 						seenids[user.screen_name].push(kcprofileimg);
-						logstr(profilelogfile, false, user.screen_name, kcprofileimg);
+						logstr(profilelogfile, false, user.screen_name, `${kcprofileimg}`);
 						var lrg = kcprofileimg.replace("_normal", "");
 						// console.log(kcprofileimg);
 						user.webhooks.forEach(function(url){
@@ -62,11 +62,8 @@ function getStatus(first) {
 								function(err, rsp, body){}
 							);
 						});
-						whconfig.selfposts.forEach(function(post){
-							if (me && me.guilds && me.guilds.get(post.guild)) {
-								me.guilds.get(post.guild).channels.get(post.channel).send(lrg);
-							}
-						})
+						const { fork } = require('child_process');
+						fork('./whdiscord.js', [lrg]);
 					}
 				}
 			});
@@ -75,10 +72,6 @@ function getStatus(first) {
 }
 
 function newTweet(tweetobj, user) {}
-
-var Discord = require("discord.js");
-var me = new Discord.Client();
-me.login(whconfig.selftoken);
 
 getStatus(1);
 
