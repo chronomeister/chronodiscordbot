@@ -50,7 +50,7 @@ function getStatus(first) {
 					if (! seenids[user.screen_name].includes(info.profile_image_url_https)) {
 						//fs.appendFile('./twitter.txt', util.inspect(info, {depth : 9}) + "\n", () => {});
 						kcprofileimg = info.profile_image_url_https;
-						seenids[user.screen_name].push(kcprofileimg);
+						seenids[user.screen_name].push(info.profile_image_url_https);
 						logstr(profilelogfile, false, user.screen_name, `${kcprofileimg}`);
 						var lrg = kcprofileimg.replace("_normal", "");
 						// console.log(kcprofileimg);
@@ -70,8 +70,6 @@ function getStatus(first) {
 		}
 	});
 }
-
-function newTweet(tweetobj, user) {}
 
 getStatus(1);
 
