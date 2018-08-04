@@ -216,9 +216,10 @@ function getUpcoming(msg) {
 			animes.splice(10, animes.length - 10);
 			animes.map((anime) => {
 				embed.addField((anime.title.romaji || anime.title.native || "unknown") + ` episode ${anime.nextAiringEpisode.episode}`,
-					`Airs In ` + IntToInterval(anime.nextAiringEpisode.timeUntilAiring),
+					`Airs in ` + IntToInterval(anime.nextAiringEpisode.timeUntilAiring),
 					false);
 			});
+			embed.setTimestamp();
 			msg.channel.send(embed);
 		}
 		else {
