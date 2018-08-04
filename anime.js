@@ -9,7 +9,9 @@ var SEASONENUM = Object.freeze({"WINTER":"Winter", "SPRING":"Spring", "SUMMER" :
 
 // TO DO: Add timeout to
 exports.search = function(msg, params) {
-	if (params.length < 1) {msg.channel.send("Nothing to search for. Maybe sometime in the future I might turn this into a soon to air list"); return;}
+	if (params.length < 1) {
+		getUpcoming(msg); return;
+	}
 	var aliases = require('./anime.json');
 	if (params[0] === 'alias') {
 		if (params.length < 3) {msg.channel.send("Invalid alias format. Format is as follows: alias <single word> <word(s) to alias>"); return;}
@@ -122,7 +124,110 @@ function IntToInterval(time) {
 	var seconds = Math.floor(time) % 60;
 	var timestr = ((days > 0) ? days + " day" + (days == 1 ? "" : "s") + " " : "") +
 	((hours > 0) ? hours + " hour" + (hours == 1 ? "" : "s") + " " : "") +
-	((minutes > 0) ? minutes + " minute" + (minutes == 1 ? "" : "s") + " " : "") +
-	((seconds > 0) ? seconds + " second" + (seconds == 1 ? "" : "s") + " " : "")
+	((minutes > 0) ? minutes + " minute" + (minutes == 1 ? "" : "s") + " " : "")
+	// + ((seconds > 0) ? seconds + " second" + (seconds == 1 ? "" : "s") + " " : "")
 	return timestr;
+}
+
+function getUpcoming(msg) {
+	var dayqry = `
+	query ($airing_to: Int, $airing_from: Int) {
+		Page {
+			airingSchedules (airingAt_lesser: $airing_to, airingAt_greater: $airing_from, sort : TIME) {
+				mediaId
+				airingAt
+				episode
+			}
+		}
+	}
+	`;
+
+	var listqry = `
+	query ($mediaids: [Int]) {
+		Page {
+			media (id_in: $mediaids) {
+				title {
+					romaji
+					native
+				}
+				nextAiringEpisode {
+					airingAt
+					timeUntilAiring
+					episode
+				}
+				siteUrl
+			}
+		}
+	}
+	`;
+
+	var dto = Math.floor((Date.now() - (9*60*60)) / 1000) + 24 * 60 * 60;
+	var dfrom = Math.floor((Date.now() - (9*60*60)) / 1000);
+
+	var dayvar = {
+		airing_to: dto,
+		airing_from: dfrom,
+	};
+
+	var soonoptions = {
+		url: 'https://graphql.anilist.co',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+		body: JSON.stringify({
+			query: dayqry,
+			variables: dayvar
+		})
+	};
+
+	request(soonoptions)
+		.then(getCurrent)
+		.catch(hndError);
+
+	function getCurrent(data) {
+		var schd = JSON.parse(data).data.Page.airingSchedules;
+		var mediavar = {
+			mediaids : schd.map((x) => {
+				return x.mediaId;
+			})
+		};
+		
+		soonoptions.body = JSON.stringify({
+			query: listqry,
+			variables: mediavar
+		});
+		request(soonoptions)
+			.then(getlist)
+			.catch(hndError);
+	}
+
+	function getlist(data) {
+		var animes = JSON.parse(data).data.Page.media;
+		if (animes[0]) {
+			var embed = new Discord.RichEmbed();
+			embed.setAuthor("Next 10 anime in next 24hrs", "https://anilist.co/img/logo_al.png", "https://anilist.co/");
+			animes = animes.sort((a,b) => {
+				return a.nextAiringEpisode.timeUntilAiring < b.nextAiringEpisode.timeUntilAiring ? -1 : (
+					a.nextAiringEpisode.timeUntilAiring > b.nextAiringEpisode.timeUntilAiring ? 1 : 0
+				)
+			});
+			animes.splice(10, animes.length - 10);
+			animes.map((anime) => {
+				embed.addField((anime.title.romaji || anime.title.native || "unknown") + ` episode ${anime.nextAiringEpisode.episode}`,
+					`Airs In ` + IntToInterval(anime.nextAiringEpisode.timeUntilAiring),
+					false);
+			});
+			msg.channel.send(embed);
+		}
+		else {
+			msg.channel.send(`No anime airing in the next 24hours. (or something broke, actually something probably broke)`);
+		}
+
+	}
+
+	function hndError(data) {
+		msg.channel.send(`Something went wrong. API changed or site is down`);
+	}
 }
