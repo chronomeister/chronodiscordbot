@@ -73,7 +73,7 @@ function start() {
 					}
 					if (tweet.user.screen_name === 'KanColle_STAFF' && txt.match(/申し訳ありません/)) {
 						const { fork } = require('child_process');
-						fork('./sorrymasen.js');
+						fork('./sorrymasen.js', txt.match(/【[0-9:：０１２３４５６７８９]+】/));
 					}
 				}
 			}

@@ -7,7 +7,7 @@ bot.login(configs.selftoken);
 const postobj = require('./sorrymasen.json');
 
 function post(obj) {
-	return bot.guilds.get(obj.guild).channels.get(obj.channel).send(`>申し訳ありません`)
+	return bot.guilds.get(obj.guild).channels.get(obj.channel).send((process.argv[2] ? `>${process.argv[2]}\n` : "") + `>申し訳ありません`)
 	.then(() => {return Promise.resolve()})
 	.catch(() => {return Promise.resolve()});
 }
