@@ -208,7 +208,7 @@ bot.on("message", msg => {
 	else if (command == "salt" || command == "salty") {
 		msg.channel.send("https://www.youtube.com/watch?v=gfc1MRVmJYs");
 	}
-	else if (command == "axela" || command == "sad") {
+	else if (command == "alexa" || command == "sad") {
 		msg.channel.send("I heard you were sad. Here is a song for you.\nhttps://www.youtube.com/watch?v=kJQP7kiw5Fk");
 	}
 	else if (command == "gitgud") {
