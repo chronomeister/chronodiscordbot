@@ -209,7 +209,7 @@ bot.on("message", msg => {
 		msg.channel.send("https://www.youtube.com/watch?v=gfc1MRVmJYs");
 	}
 	else if (command == "axela" || command == "sad") {
-		msg.channel.send("I heard you were sad, here is a song for you. https://www.youtube.com/watch?v=kJQP7kiw5Fk");
+		msg.channel.send("I heard you were sad. Here is a song for you.\nhttps://www.youtube.com/watch?v=kJQP7kiw5Fk");
 	}
 	else if (command == "gitgud") {
 		msg.channel.send({file:"./gitgud.jpg"});
