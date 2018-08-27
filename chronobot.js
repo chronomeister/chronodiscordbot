@@ -51,7 +51,8 @@ var commands = new Map([
 	["hb OR hummingbird", "Because chrono is obsessed but too lazy to go look up a countdown for a song."],
 	["regional", "Send a message with additional cancer of regional indicators."],
 	["anime", "Search Anilist for an anime.\nCan set up an alias to an query by: `" + prefix + "anime alias <single word> <word(s) to alias>`\nTo delete an alias: `" + prefix + "anime alias delete <word>`"],
-	["salt OR salty", "MAKE ME SALTY, ALL OVER AGAIN"]
+	["salt OR salty", "MAKE ME SALTY, ALL OVER AGAIN"],
+	["alexa OR sad", "This is so sad."]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -206,6 +207,9 @@ bot.on("message", msg => {
 	}
 	else if (command == "salt" || command == "salty") {
 		msg.channel.send("https://www.youtube.com/watch?v=gfc1MRVmJYs");
+	}
+	else if (command == "axela" || command == "sad") {
+		msg.channel.send("I heard you were sad, here is a song for you. https://www.youtube.com/watch?v=kJQP7kiw5Fk");
 	}
 	else if (command == "gitgud") {
 		msg.channel.send({file:"./gitgud.jpg"});
