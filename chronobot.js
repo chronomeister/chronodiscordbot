@@ -54,7 +54,8 @@ var commands = new Map([
 	["anime", "Search Anilist for an anime.\nCan set up an alias to an query by: `" + prefix + "anime alias <single word> <word(s) to alias>`\nTo delete an alias: `" + prefix + "anime alias delete <word>`"],
 	["salt OR salty", "MAKE ME SALTY, ALL OVER AGAIN"],
 	["alexa OR sad", "This is so sad."],
-	["d OR dice", "dice roll. Format: {num dice}d{max num}"]
+	["d OR dice", "dice roll. Format: {num dice}d{max num}"],
+	["jimmies or upset", "There is no need to be upset"]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -209,6 +210,9 @@ bot.on("message", msg => {
 	}
 	else if (command == "salt" || command == "salty") {
 		msg.channel.send("https://www.youtube.com/watch?v=gfc1MRVmJYs");
+	}
+	else if (command == "jimmies" || command == "upset") {
+		msg.channel.send("https://www.youtube.com/watch?v=ygr5AHufBN4");
 	}
 	else if (command == "alexa" || command == "sad") {
 		msg.channel.send("I heard you were sad. Here is a song for you.\nhttps://www.youtube.com/watch?v=kJQP7kiw5Fk");
