@@ -20,6 +20,7 @@ var elog =  require("./emojirec.js");
 var ibday = require("./ibdaywhen.js");
 var hummingbird = require("./hummingbird.js");
 var anime = require("./anime.js");
+var dice = require("./dice.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -52,7 +53,8 @@ var commands = new Map([
 	["regional", "Send a message with additional cancer of regional indicators."],
 	["anime", "Search Anilist for an anime.\nCan set up an alias to an query by: `" + prefix + "anime alias <single word> <word(s) to alias>`\nTo delete an alias: `" + prefix + "anime alias delete <word>`"],
 	["salt OR salty", "MAKE ME SALTY, ALL OVER AGAIN"],
-	["alexa OR sad", "This is so sad."]
+	["alexa OR sad", "This is so sad."],
+	["d OR dice", "dice roll. Format: {num dice}d{max num}"]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -222,6 +224,9 @@ bot.on("message", msg => {
 	}
 	else if (command == "ibday" || command == "idolbday") {
 		ibday.when(msg, params);
+	}
+	else if (command == "d" || command == "dice") {
+		dice.roll(msg, params);
 	}
 	else if (command == "fff" || command == "funfunfun" || command == "funfare") {
 		hummingbird.when(msg);

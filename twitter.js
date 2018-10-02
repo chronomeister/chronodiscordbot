@@ -64,7 +64,7 @@ function start() {
 						}, function (error, rsp, html) {
 							var body = JSON.parse(rsp.body);
 							if (body.data) {
-								var tl = body.data.translations[0].translatedText.replace(/"?ship"? (it|this)/ig, "KanColle");
+								var tl = body.data.translations[0].translatedText.replace(/"?ship"? "?(it|this)"?/ig, "KanColle");
 								sendwebhooks(userobj, tweet, tl);
 							}
 						});
