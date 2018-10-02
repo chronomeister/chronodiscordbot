@@ -212,7 +212,7 @@ bot.on("message", msg => {
 		msg.channel.send("https://www.youtube.com/watch?v=gfc1MRVmJYs");
 	}
 	else if (command == "jimmies" || command == "upset") {
-		msg.channel.send("https://www.youtube.com/watch?v=ygr5AHufBN4");
+		msg.channel.send("Unrustle your jimmies https://www.youtube.com/watch?v=ygr5AHufBN4");
 	}
 	else if (command == "alexa" || command == "sad") {
 		msg.channel.send("I heard you were sad. Here is a song for you.\nhttps://www.youtube.com/watch?v=kJQP7kiw5Fk");
