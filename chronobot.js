@@ -55,7 +55,8 @@ var commands = new Map([
 	["salt OR salty", "MAKE ME SALTY, ALL OVER AGAIN"],
 	["alexa OR sad", "This is so sad."],
 	["d OR dice", "dice roll. Format: {num dice}d{max num}"],
-	["jimmies or upset", "There is no need to be upset"]
+	["jimmies OR upset", "There is no need to be upset"],
+	["kcmeme OR tolerance OR tlba", "Just a KC Wikia meme."]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -216,6 +217,9 @@ bot.on("message", msg => {
 	}
 	else if (command == "alexa" || command == "sad") {
 		msg.channel.send("I heard you were sad. Here is a song for you.\nhttps://www.youtube.com/watch?v=kJQP7kiw5Fk");
+	}
+	else if (command == "tlba" || command == "kcmeme" || command == "tolerance") {
+		msg.channel.send("ＴＯＬＥＲＡＮＣＥ　ＬＥＶＥＬ　ＢＲＥＡＫＤＯＷＮ　ＡＣＴＩＯＮ");
 	}
 	else if (command == "gitgud") {
 		msg.channel.send({file:"./gitgud.jpg"});
