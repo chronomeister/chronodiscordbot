@@ -15,7 +15,7 @@ var twitclient = new Twitter({
 bot.on("message", msg => {
 	var twitmatch = /`?https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)/;
 	var m = msg.content.match(twitmatch);
-	if (m && m[0] && m[0][0] !== '`') {
+	if (m && m[0] && (m[0][0] !== '`' || m[0][0] !== '<')) {
 		var twid = m[1];
 		twitclient.get(`statuses/show/${twid}`, {tweet_mode : "extended"}, function(error, tweet, response) {
 			if(tweet.extended_entities) {
