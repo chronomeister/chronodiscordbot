@@ -239,6 +239,9 @@ bot.on("message", msg => {
 	else if (command == "fff" || command == "funfunfun" || command == "funfare") {
 		hummingbird.when(msg);
 	}
+	else if (command == "dance") {
+		msg.channel.send({file:"./deadgaem.webm"});
+	}
 	else if ((command == "dab" || command == "slap") && msg.mentions.users.size > 0) {
 		msg.channel.send(`<@${msg.author.id}> dabs at <@${msg.mentions.users.first().id}>`);
 	}
@@ -257,9 +260,6 @@ bot.on("message", msg => {
 		}
 		else if (command == "zukin") {
 			msg.channel.send({file:"./zukin.png"});
-		}
-		else if (command == "dance") {
-			msg.channel.send({file:"./deadgaem.webm"});
 		}
 		else if (command == "test") {
 			msg.channel.send("hi");
