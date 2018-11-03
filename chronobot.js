@@ -93,7 +93,7 @@ bot.on("message", msg => {
 	}
 	var twitmatch = /`?https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)`?/;
 	var twm = msg.content.match(twitmatch);
-	if (twm && twm[0] && (twm[0][0] !== '`' || twm[0][0] !== '<') {
+	if (twm && twm[0] && (twm[0][0] !== '`' || twm[0][0] !== '<')) {
 		var Twitter = require('twitter');
 
 		var twitclient = new Twitter({
