@@ -271,10 +271,10 @@ function posttweet(tweet) {
 		body : {
 			username: tweet.screen_name,
 			avatar_url: tweet.profile_image_url_https,
+			content : `<https://twitter.com/${tweet.screen_name}/status/${tweet.id_str}>`,
 			embeds : [
 				{
 					author: {name: `${tweet.name} (@${tweet.screen_name})`, url: `https://twitter.com/${tweet.screen_name}`},
-					title: `https://twitter.com/${tweet.screen_name}/status/${tweet.id_str}`,
 					avatar_url: tweet.profile_image_url_https,
 					color: 3513327,
 					description : tweet.txt,
