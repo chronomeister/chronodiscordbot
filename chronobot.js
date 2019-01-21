@@ -233,7 +233,7 @@ bot.on("message", msg => {
 	else if (command == "ibday" || command == "idolbday") {
 		ibday.when(msg, params);
 	}
-	else if (command == "d" || command == "dice") {
+	else if (command == "d" || command == "dice" || command == "roll") {
 		dice.roll(msg, params);
 	}
 	else if (command == "fff" || command == "funfunfun" || command == "funfare") {
