@@ -56,7 +56,7 @@ var webhooks = [
 ];
 if (todaynames.length > 0) {
 	var last = todaynames.pop();
-	line = line + " (It's " + todaynames.join("'s, ") + last + "'s birthday" + (todaynames.length > 0 ? "s" : "") + " today)";
+	line = line + " (It's " + todaynames.join("'s, ") + (todaynames.length > 0 ? "'s and " : "") + last + "'s birthday" + (todaynames.length > 0 ? "s" : "") + " today)";
 }
 webhooks.forEach(function(uri){
 	request.post({url:uri,
