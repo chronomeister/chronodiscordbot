@@ -257,7 +257,7 @@ bot.on("message", msg => {
 		anime.search(msg, params);
 	}
 	else if (command == "outside" || command == "outdoors") {
-		outside.sat(msg);
+		outside.sat(msg, params);
 	}
 	else if (msg.author.id == 93389633261416448) {
 		if (command == "isp") {

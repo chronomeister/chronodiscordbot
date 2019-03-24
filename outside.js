@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 var request = require('request-promise-native');
 
-exports.sat = function(msg) {
+exports.sat = function(msg, params) {
     var options = {
         // url : "https://www.star.nesdis.noaa.gov/GOES/conus.php?sat=G16"
         url : "https://www.star.nesdis.noaa.gov/GOES/fulldisk.php?sat=G16"
