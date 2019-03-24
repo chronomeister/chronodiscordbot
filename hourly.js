@@ -55,7 +55,8 @@ var webhooks = [
 	configs.webhooks.ctbpg.wht
 ];
 if (todaynames.length > 0) {
-	line = line + " (It's " + todaynames.join("'s and ") + "'s birthday" + (todaynames.length == 1 ? "" : "s") + " today)";
+	var last = todaynames.pop();
+	line = line + " (It's " + todaynames.join("'s and ") + last + "'s birthday" + (todaynames.length > 0 ? "s" : "") + " today)";
 }
 webhooks.forEach(function(uri){
 	request.post({url:uri,
