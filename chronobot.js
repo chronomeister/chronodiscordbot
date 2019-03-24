@@ -21,6 +21,7 @@ var ibday = require("./ibdaywhen.js");
 var hummingbird = require("./hummingbird.js");
 var anime = require("./anime.js");
 var dice = require("./dice.js");
+var outside = require("./outside.js");
 // var embed = require("./embed.js");
 var bot = new Discord.Client();
 const fs = require('fs');
@@ -56,7 +57,8 @@ var commands = new Map([
 	["alexa OR sad", "This is so sad."],
 	["d OR dice", "dice roll. Format: {num dice}d{max num}"],
 	["jimmies OR upset", "There is no need to be upset"],
-	["kcmeme OR tolerance OR tlba", "Just a KC Wikia meme."]
+	["kcmeme OR tolerance OR tlba", "Just a KC Wikia meme."],
+	["outside OR outdoors", "Because chrono is too lazy to open the window."]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -253,6 +255,9 @@ bot.on("message", msg => {
 	}
 	else if (command == "anime") {
 		anime.search(msg, params);
+	}
+	else if (command == "outside" || command == "outdoors") {
+		outside.sat(msg);
 	}
 	else if (msg.author.id == 93389633261416448) {
 		if (command == "isp") {
