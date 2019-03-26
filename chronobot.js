@@ -58,7 +58,8 @@ var commands = new Map([
 	["d OR dice", "dice roll. Format: {num dice}d{max num}"],
 	["jimmies OR upset", "There is no need to be upset"],
 	["kcmeme OR tolerance OR tlba", "Just a KC Wikia meme."],
-	["outside OR outdoors", "Because chrono is too lazy to open the window."]
+	["outside OR outdoors", "Because chrono is too lazy to open the window."],
+	["birthday", "Because chrono is paranoid and doesn't want to say what his real birthday is."]
 ]);
 
 var emjregex = /<:[^\r\n:]+:([^\r\n>]+)>/g;
@@ -247,9 +248,9 @@ bot.on("message", msg => {
 	else if ((command == "dab" || command == "slap") && msg.mentions.users.size > 0) {
 		msg.channel.send(`<@${msg.author.id}> dabs at <@${msg.mentions.users.first().id}>`);
 	}
-	// else if (command == "test") {
-	//     fs.appendFile('./dad.txt', Date() + ': Dad says "Hi, '  +"\"\n", function(){})
-	// }
+	else if (command == "birthday" ) {
+		msg.channel.send("Your birthday is: " + (new Date(Math.random() * Date.UTC(1974,0,1))).toUTCString().substring(5,11).split(' ').reverse().join(' '));
+	}
 	else if (command == "regional") {
 		blue.region(msg, params);
 	}
