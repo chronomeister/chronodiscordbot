@@ -8,6 +8,7 @@ var client = new Twitter({
 	access_token_key: auth.twitteratoken,
 	access_token_secret: auth.twitterasecret,
 });
+var timeoutid; 
 var twconfig = require('./followtwitter.json');
 var reqprom = require('request-promise-native');
 
@@ -34,12 +35,21 @@ users.forEach(function(e,idx){
 	});
 });
 
+function reboot() {
+	fs.appendFile(`./twitterdumps/error_${Date.now()}.txt`, "", () => {	
+		const { exec } = require('child_process');
+    	exec('pm2 restart twitter.js');
+	});
+}
+timeoutid = setTimeout(reboot, 1000*60*62);
 function start() {
 	console.log(Date() + " : started");
 	console.log("following: " + follows.join(','));
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
+				clearTimeout(timeoutid);
+				timeoutid = setTimeout(reboot, 1000*60*62);
 				// console.log("new tweet");
 				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
@@ -81,6 +91,7 @@ function start() {
 		});
 
 		stream.on('error', function(error) {
+			fs.appendFile(`./twitterdumps/error_${Date.now()}.txt`, "", () => {});
 			// console.log(error);
 		});
 	});
