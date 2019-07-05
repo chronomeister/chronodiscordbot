@@ -223,7 +223,11 @@
 "峯雲" : "Minegumo",
 "早波" : "Hayanami",
 "コロラド" : "Colorado",
+<<<<<<< HEAD
 "ガリバルディ" : "G. Garibaldi",
+=======
+"ガルバルディ" : "G. Garibaldi",
+>>>>>>> 1d1a569834e70c1fdadd4a191ee967c9ad848e1d
 "フレッチャー" : "Fletcher",
 "石垣" : "Ishigaki",
 "八丈" : "Hachijou",
@@ -303,7 +307,11 @@
 "護衛独還姫" : "Abyssal Taiyou",
 "船渠棲姫" : "Dock Princess",
 "深海雨雲姫" : "Abyssal Nimbus Princess",
+<<<<<<< HEAD
 "深海雨雲姫" : "Entombed Anti-Air Guardian Princess",
+=======
+"防空埋護姫" : "Entombed Anti-Air Guardian Princess",
+>>>>>>> 1d1a569834e70c1fdadd4a191ee967c9ad848e1d
 "太平洋深海棲姫" : "Abyssal Pacific Princess",
 "北方棲妹" : "Northern Little Sister",
 "戦艦仏棲姫" : "French Battleship Princess"
