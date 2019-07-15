@@ -20,6 +20,7 @@ var util = require('util');
 var i = 0;
 var users = twconfig.list;
 var follows = [];
+var followjoin = [];
 var info = [];
 users.forEach(function(e,idx){
 	i++;
@@ -28,6 +29,7 @@ users.forEach(function(e,idx){
 		// console.log(info.id_str);
 		users[idx].id_str = info.id_str;
 		follows.push(info.id_str);
+		followjoin.push(`${e.user}:${info.id_str}`);
 		if (--i == 0) {
 			// console.dir(follows);
 			setTimeout(start, 10000);
@@ -44,13 +46,13 @@ function reboot() {
 timeoutid = setTimeout(reboot, 1000*60*62);
 function start() {
 	console.log(Date() + " : started");
-	console.log("following: " + follows.join(','));
+	console.log("following: " + followjoin.join(','));
 	client.stream('statuses/filter', {tweet_mode : "extended", 'follow': follows.join(',')},  function(stream) {
 		stream.on('data', function(tweet) {
 			if (tweet.user && follows.indexOf(tweet.user.id_str) >= 0) {
 				clearTimeout(timeoutid);
 				timeoutid = setTimeout(reboot, 1000*60*62);
-				// console.log("new tweet");
+				// console.log("new tweet: " + tweet.id_str);
 				fs.appendFile(`./twitterdumps/${tweet.id_str}.txt`, util.inspect(tweet, {depth : 9}) + "\n", () => {});
 				var d = new Date(); fs.appendFile('./twitter.txt',  d.toUTCString() + ` New tweet : ${tweet.user.screen_name} : ${tweet.id_str}` + "\n", () => {});
 				// fs.appendFile('./twitter.txt', util.inspect(tweet, {depth : 9}) + "\n", () => {});
