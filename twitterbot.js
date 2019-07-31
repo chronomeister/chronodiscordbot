@@ -12,10 +12,15 @@ var twitclient = new Twitter({
   bearer_token: configs.twitterbtoken
 });
 
+var twitterhistory = {};
+
 bot.on("message", msg => {
+	if(msg.author.bot){return;}
 	var twitmatch = /(`|<)?https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)(`|>)?/;
 	var m = msg.content.match(twitmatch);
 	if (m && m[2] && !(m[1] && m[3])) {
+		if (!twitterhistory[msg.member.id]) {twitterhistory[msg.member.id] = {}}
+		twitterhistory[msg.member.id][msg.channel.id] = [];
 		var twid = m[2];
 		twitclient.get(`statuses/show/${twid}`, {tweet_mode : "extended"}, function(error, tweet, response) {
 			if(tweet.extended_entities) {
@@ -26,12 +31,22 @@ bot.on("message", msg => {
 						});
 					}, Promise.resolve())
 				}
-				doserial(tweet.extended_entities.media.splice(1, tweet.extended_entities.media.length - 1), writeurl).then();
+				doserial(tweet.extended_entities.media.splice(1, tweet.extended_entities.media.length - 1), writeurl);
 			}
 		});
-
 		function writeurl(tweetimage) {
-			return msg.channel.send(tweetimage.media_url_https);
+			return msg.channel.send(tweetimage.media_url_https)
+			.then((retmsg) => {
+				twitterhistory[msg.member.id][msg.channel.id].push(retmsg.id);
+			})
+		}
+	}
+	else if (/^bad bot$/.test(msg.content)) {
+		if (twitterhistory[msg.member.id] && twitterhistory[msg.member.id][msg.channel.id] && twitterhistory[msg.member.id][msg.channel.id].length > 0) {
+			twitterhistory[msg.member.id][msg.channel.id].forEach((delid)=>{
+				msg.channel.messages.get(delid).delete();
+			});
+			twitterhistory[msg.member.id][msg.channel.id] = [];
 		}
 	}
 });
