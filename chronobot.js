@@ -29,6 +29,7 @@ const util = require('util');
 const TIMEOUT = 2 * 1000;
 
 var timeouts = {};
+var twitterhistory = {};
 
 var started = false;
 var cdid;
@@ -105,6 +106,8 @@ bot.on("message", msg => {
 		  bearer_token: configs.twitterbtoken
 		});
 
+		if (!twitterhistory[msg.member.id]) {twitterhistory[msg.member.id] = {}}
+		twitterhistory[msg.member.id][msg.channel.id] = [];
 		var twid = twm[2];
 		twitclient.get(`statuses/show/${twid}`, {tweet_mode : "extended"}, function(error, tweet, response) {
 			function doserial(ary, fn) {
@@ -118,9 +121,21 @@ bot.on("message", msg => {
 		});
 
 		function writeurl(tweetimage) {
-			return msg.channel.send(tweetimage.media_url_https);
+			return msg.channel.send(tweetimage.media_url_https)
+			.then((retmsg) => {
+				twitterhistory[msg.member.id][msg.channel.id].push(retmsg.id);
+			})
 		}
 	}
+	else if (/^bad bot$/.test(msg.content)) {
+		if (twitterhistory[msg.member.id] && twitterhistory[msg.member.id][msg.channel.id] && twitterhistory[msg.member.id][msg.channel.id].length > 0) {
+			twitterhistory[msg.member.id][msg.channel.id].forEach((delid)=>{
+				msg.channel.messages.get(delid).delete();
+			});
+			twitterhistory[msg.member.id][msg.channel.id] = [];
+		}
+	}
+
 	// msg.channel.send('<@242659286830940160>');
 	// idlemaster.addUser(msg.author);
 	// var dad = /^i( a|')?m +(([^ ]+ +)?[^ ]+)(\.|!|\?)??$/;
