@@ -275,6 +275,9 @@ bot.on("message", msg => {
 	else if (command == "outside" || command == "outdoors") {
 		outside.sat(msg, params);
 	}
+	else if (command == "scream" || /^aaaa*/i.test(command)) {
+		msg.channel.send({file:"./media/aaaaaaaaa.jpg"});
+	}
 	else if (msg.author.id == 93389633261416448) {
 		if (command == "isp") {
 			msg.channel.send("https://my.mixtape.moe/gerost.mp3");
