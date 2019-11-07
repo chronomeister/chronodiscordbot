@@ -269,6 +269,10 @@ bot.on("message", msg => {
 	else if (command == "devs" || command == "devsplz" || command == "smol" || command == "tech" || command == "technology") {
 		msg.channel.send("Technology just ins't there yet. Smol indie devs. Plz understand.");
 	}
+	else if (command == "2" || command == "two" || command == "sequel") {
+		var gaem = params.join(" ");
+		msg.channel.send(`If ${gaem} is so good, why isn't there a ${gaem} 2?`);
+	}
 	else if (command == "regional") {
 		blue.region(msg, params);
 	}
