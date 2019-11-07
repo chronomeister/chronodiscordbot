@@ -266,6 +266,9 @@ bot.on("message", msg => {
 	else if (command == "birthday" ) {
 		msg.channel.send("Your birthday is: " + (new Date(Math.random() * Date.UTC(1974,0,1))).toUTCString().substring(5,11).split(' ').reverse().join(' '));
 	}
+	else if (command == "devs" || command == "devsplz" || command == "smol" || command == "tech" || command == "technology") {
+		msg.channel.send("Technology just ins't there yet. Smol indie devs. Plz understand.");
+	}
 	else if (command == "regional") {
 		blue.region(msg, params);
 	}
