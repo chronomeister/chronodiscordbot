@@ -97,7 +97,8 @@ bot.on("message", msg => {
 	}
 	var twitmatch = /(`|<)?https?:\/\/twitter.com\/[^/]+\/status\/([\d]+)(`|>)?/;
 	var twm = msg.content.match(twitmatch);
-	if (twm && twm[2] && !(twm[1] && twm[3])) {
+	// if (twm && twm[2] && !(twm[1] && twm[3])) {
+	if (false) {
 		var Twitter = require('twitter');
 
 		var twitclient = new Twitter({
@@ -127,7 +128,8 @@ bot.on("message", msg => {
 			})
 		}
 	}
-	else if (/^bad bot$/.test(msg.content)) {
+	// else if (/^bad bot$/.test(msg.content)) {
+	else if (false) {
 		if (twitterhistory[msg.member.id] && twitterhistory[msg.member.id][msg.channel.id] && twitterhistory[msg.member.id][msg.channel.id].length > 0) {
 			twitterhistory[msg.member.id][msg.channel.id].forEach((delid)=>{
 				msg.channel.messages.get(delid).delete();
