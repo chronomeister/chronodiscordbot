@@ -106,6 +106,7 @@
 		{"name" : "Hagikaze", "year" : "1940", "month" : "6", "day" : "18"},
 		{"name" : "Takanis Bay", "year" : "1944", "month" : "3", "day" : "10"},
 		{"name" : "Oyashio", "year" : "1938", "month" : "11", "day" : "29"},
+		{"name" : "Jervis", "year" : "1938", "month" : "9", "day" : "9"},
 		{"name" : "Commandant Teste", "year" : "1929", "month" : "4", "day" : "12"},
 		{"name" : "Lexington", "year" : "1942", "month" : "9", "day" : "23"},
 		{"name" : "Z13 Erich Koellner", "year" : "1937", "month" : "3", "day" : "18"},
@@ -637,6 +638,7 @@
 		{"name" : "Pola", "year" : "1931", "month" : "12", "day" : "5"},
 		{"name" : "Samuel B. Roberts", "year" : "1944", "month" : "1", "day" : "20"},
 		{"name" : "Warspite", "year" : "1913", "month" : "11", "day" : "26"},
+		{"name" : "Nisshin", "year" : "1939", "month" : "11", "day" : "30"},
 		{"name" : "Foote", "year" : "1942", "month" : "10", "day" : "11"}
 	]
 }
