@@ -108,7 +108,7 @@ function sendwebhooks (userobj, tweet, tl) {
 			// console.log("after");
 			// console.dir(tl);
 			// if (tweettl) {console.log("is TL");} else {console.log("not TL.");}
-			if (tweet.user.screen_name == "kancolle_1draw") {
+			if (tweet.user.screen_name == "kancolle_1draw2") {
 				var namemap = require('./1HDnames.json');
 				var txt = tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text;
 				var match = (txt.match(/お題は ([^\r\n]+) .なります/));
