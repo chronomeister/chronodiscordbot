@@ -6,7 +6,7 @@ cbotconfig.json
 twitterbot.json
 
 # dont commit testing files
-test.*
+**/test.*
 chronodb
 test2.js
 testinc.js

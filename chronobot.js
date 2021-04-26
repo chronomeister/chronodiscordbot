@@ -107,34 +107,41 @@ bot.on("message", msg => {
 		  bearer_token: configs.twitterbtoken
 		});
 
-		if (!twitterhistory[msg.member.id]) {twitterhistory[msg.member.id] = {}}
-		twitterhistory[msg.member.id][msg.channel.id] = [];
+		if (!twitterhistory[msg.author.id]) {twitterhistory[msg.author.id] = {}}
+		twitterhistory[msg.author.id][msg.channel.id] = [];
 		var twid = twm[2];
 		twitclient.get(`statuses/show/${twid}`, {tweet_mode : "extended"}, function(error, tweet, response) {
-			function doserial(ary, fn) {
-				return ary.reduce(function(p, item) {
-					return p.then(function(){
-						return fn(item);
-					});
-				}, Promise.resolve())
+			// function doserial(ary, fn) {
+			// 	return ary.reduce(function(p, item) {
+			// 		return p.then(function(){
+			// 			return fn(item);
+			// 		});
+			// 	}, Promise.resolve())
+			// }
+			// doserial(tweet.extended_entities.media.splice(1, tweet.extended_entities.media.length - 1), writeurl).then();
+			if (tweet.extended_entities && tweet.extended_entities.media && tweet.extended_entities.media[0].video_info) {
+				let variants = tweet.extended_entities.media[0].video_info.variants;
+				variants.sort((a,b) => (b.bitrate ?? 0) - (a.bitrate ?? 0));
+				
+				msg.channel.send(variants[0].url);
+
 			}
-			doserial(tweet.extended_entities.media.splice(1, tweet.extended_entities.media.length - 1), writeurl).then();
 		});
 
 		function writeurl(tweetimage) {
 			return msg.channel.send(tweetimage.media_url_https)
 			.then((retmsg) => {
-				twitterhistory[msg.member.id][msg.channel.id].push(retmsg.id);
+				twitterhistory[msg.author.id][msg.channel.id].push(retmsg.id);
 			})
 		}
 	}
 	else if (/^bad bot$/.test(msg.content)) {
 	// else if (false) {
-		if (twitterhistory[msg.member.id] && twitterhistory[msg.member.id][msg.channel.id] && twitterhistory[msg.member.id][msg.channel.id].length > 0) {
-			twitterhistory[msg.member.id][msg.channel.id].forEach((delid)=>{
+		if (twitterhistory[msg.author.id] && twitterhistory[msg.author.id][msg.channel.id] && twitterhistory[msg.author.id][msg.channel.id].length > 0) {
+			twitterhistory[msg.author.id][msg.channel.id].forEach((delid)=>{
 				msg.channel.messages.get(delid).delete();
 			});
-			twitterhistory[msg.member.id][msg.channel.id] = [];
+			twitterhistory[msg.author.id][msg.channel.id] = [];
 		}
 	}
 
