@@ -87,6 +87,7 @@ function callWeather(msg, wobj) {
     var wuurl = "http://api.wunderground.com/api/" + configs.wukey + "/conditions/forecast/q/" + wobj.location + ".json";
     // console.log(wuurl);
     request(wuurl, function (error, response, html) {
+        // console.dir(response);
         if (!error && response.statusCode == 200) {
             var curweath = JSON.parse(response.body);
             // console.dir(curweath.forecast);
