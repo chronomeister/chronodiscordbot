@@ -121,8 +121,8 @@ bot.on("message", msg => {
 			// doserial(tweet.extended_entities.media.splice(1, tweet.extended_entities.media.length - 1), writeurl).then();
 			if (tweet.extended_entities && tweet.extended_entities.media && tweet.extended_entities.media[0].video_info) {
 				let variants = tweet.extended_entities.media[0].video_info.variants;
-				variants.sort((a,b) => (b.bitrate ?? 0) - (a.bitrate ?? 0));
-				
+				variants.sort((a,b) => (b.bitrate || 0) - (a.bitrate || 0));
+
 				msg.channel.send(variants[0].url);
 
 			}
